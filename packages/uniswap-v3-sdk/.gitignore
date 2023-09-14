@@ -8,7 +8,7 @@
 *.tsbuildinfo
 
 # @wagmi/cli
-test/generated.ts
+src/generated.ts
 
 # build
 dist/
