@@ -5,6 +5,6 @@ pnpm lint
 
 pnpm typecheck
 
-pnpm test
+pnpm test:ci
 
 pnpm build
