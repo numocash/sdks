@@ -1,20 +1,24 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.1.2/schema.json",
-	"files": {
-		"ignore": [
-			"node_modules",
-			"CHANGELOG.md",
-			"tsconfig.json",
-			"pnpm-lock.yaml"
-		]
-	},
-	"organizeImports": {
-		"enabled": true
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true
-		}
-	}
+  "$schema": "https://biomejs.dev/schemas/1.1.2/schema.json",
+  "files": {
+    "ignore": ["node_modules", "CHANGELOG.md", "pnpm-lock.yaml"]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "indentSize": 2
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": {
+        "noNonNullAssertion": "off"
+      }
+    }
+  }
 }
