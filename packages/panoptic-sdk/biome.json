@@ -1,12 +1,7 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.1.2/schema.json",
 	"files": {
-		"ignore": [
-			"node_modules",
-			"CHANGELOG.md",
-			"tsconfig.json",
-			"pnpm-lock.yaml"
-		]
+		"ignore": ["node_modules", "dist", "tsconfig.json"]
 	},
 	"organizeImports": {
 		"enabled": true
