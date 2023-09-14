@@ -1,0 +1,3 @@
+[submodule "lib/panoptic-v1-core"]
+	path = lib/panoptic-v1-core
+	url = https://github.com/panoptic-labs/panoptic-v1-core
