@@ -1,0 +1,19 @@
+{
+	"name": "placeholder-monorepo",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"build": "pnpm --parallel build",
+		"lint": "pnpm --parallel lint",
+		"format": "pnpm --parallel format",
+		"typecheck": "pnpm --parallel typecheck",
+		"test": "pnpm --parallel test"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"devDependencies": {
+		"@biomejs/biome": "^1.1.2",
+		"husky": "^8.0.3"
+	}
+}
