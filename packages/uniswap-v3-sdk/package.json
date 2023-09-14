@@ -12,6 +12,7 @@
     "format": "biome format .",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
+    "test:cov": "vitest --coverage",
     "test:ci": "CI=true vitest"
   },
   "peerDependencies": {

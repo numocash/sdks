@@ -12,3 +12,4 @@ src/generated.ts
 
 # build
 dist/
+coverage/

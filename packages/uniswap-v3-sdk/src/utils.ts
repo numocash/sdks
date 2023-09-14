@@ -1,12 +1,7 @@
 import { type BaseERC20, type Fraction, createFraction } from "reverse-mirage";
 import invariant from "tiny-invariant";
 import type { Address } from "viem/accounts";
-import {
-  encodeAbiParameters,
-  getAddress,
-  getContractAddress,
-  keccak256,
-} from "viem/utils";
+import { encodeAbiParameters, getContractAddress, keccak256 } from "viem/utils";
 import { UniswapV3PoolBytecode } from "./bytecode.js";
 import { MAX_TICK, MIN_TICK, Q128 } from "./constants.js";
 import type {
@@ -59,7 +54,7 @@ export const createUniswapV3Pool = (
           { name: "token1", type: "address" },
           { name: "feeTier", type: "uint24" },
         ],
-        [getAddress(token0.address), getAddress(token1.address), feeTier],
+        [token0.address, token1.address, feeTier],
       ),
     ),
   });
