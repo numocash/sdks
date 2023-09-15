@@ -20,16 +20,15 @@ export type PanopticPool = {
 
 export type Tick = { type: "tick"; tick: number };
 
-export type Position = {
+export type PanopticPosition = {
     type: "position";
     pool: PanopticPool;
     owner: Address;
     tickLimitLow: Tick; // price slippage limit
     tickLimitHigh: Tick;
-    tokenID: Address;
 };
 
-export type TickData = {
+export type PanopticTickData = {
     type: "tickData";
     tick: Tick;
     tickUtilizations: Fraction;
@@ -38,15 +37,15 @@ export type TickData = {
     feeGrowthOutside1: Fraction;
   };
 
-  export type PositionData = {
+  export type PanopticPositionData = {
     type: "positionData";
-    position: Position;
+    position: PanopticPosition;
     liquidity: bigint;
     tokenType: boolean; //0: short, 1: long
-    grossPremia0: ERC20Amount<Position["pool"]["token0"]>;
-    grossPremia1: ERC20Amount<Position["pool"]["token0"]>;
-    owedPremia0: ERC20Amount<Position["pool"]["token0"]>;
-    owedPremia1: ERC20Amount<Position["pool"]["token1"]>;
+    grossPremia0: ERC20Amount<PanopticPosition["pool"]["token0"]>;
+    grossPremia1: ERC20Amount<PanopticPosition["pool"]["token0"]>;
+    owedPremia0: ERC20Amount<PanopticPosition["pool"]["token0"]>;
+    owedPremia1: ERC20Amount<PanopticPosition["pool"]["token1"]>;
   };
 
   export type PanopticPoolData = {
@@ -60,5 +59,35 @@ export type TickData = {
     liquidity: bigint;
     tokenID: Address;
     numberOfContracts: bigint;
-    ticks: { [tick: Tick["tick"]]: TickData };
+    ticks: { [tick: Tick["tick"]]: PanopticTickData };
+  };
+
+  // TODO: change and add params for CollateralTracker
+
+  export type Collateral = {
+    type: "collateral";
+    collateral: Collateral;
+    price: Price<PanopticPool["token0"], PanopticPool["token1"]>;
+    tick: number;
+    poolUtilizations: bigint;
+    feeGlobalGrowth0: Fraction;
+    feeGlobalGrowth1: Fraction;
+    liquidity: bigint;
+    tokenID: Address;
+    numberOfContracts: bigint;
+    ticks: { [tick: Tick["tick"]]: PanopticTickData };
+  };
+
+  export type CollateralData = {
+    type: "collateralData";
+    collateral: Collateral;
+    price: Price<PanopticPool["token0"], PanopticPool["token1"]>;
+    tick: number;
+    poolUtilizations: bigint;
+    feeGlobalGrowth0: Fraction;
+    feeGlobalGrowth1: Fraction;
+    liquidity: bigint;
+    tokenID: Address;
+    numberOfContracts: bigint;
+    ticks: { [tick: Tick["tick"]]: PanopticTickData };
   };
