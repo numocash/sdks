@@ -12,10 +12,10 @@ export {
 export type {
   FeeTier,
   TickSpacing,
-  Tick,
-  TickData,
-  Position,
-  PositionData,
+  UniswapV3Tick,
+  UniswapV3TickData,
+  UniswapV3Position,
+  UniswapV3PositionData,
   UniswapV3Pool,
   UniswapV3PoolData,
 } from "./types.js";
