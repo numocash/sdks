@@ -32,7 +32,7 @@ test("create uniswap v3 pool", () => {
   expect(pool.token1).toStrictEqual(tokenB);
   expect(pool.feeTier).toBe(500);
   expect(pool.tickSpacing).toBe(10);
-  expect(pool.address).toBeTruthy(); // "0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640"
+  expect(pool.address).toBe("0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640");
   expect(pool.blockCreated).toBe(0n);
 });
 
@@ -65,6 +65,6 @@ test("create uniswap v3 pool flipped order", () => {
   expect(pool.token1).toStrictEqual(tokenA);
   expect(pool.feeTier).toBe(500);
   expect(pool.tickSpacing).toBe(10);
-  expect(pool.address).toBeTruthy(); // "0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640"
+  expect(pool.address).toBe("0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640");
   expect(pool.blockCreated).toBe(0n);
 });

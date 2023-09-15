@@ -6,6 +6,7 @@ export {
   MAX_TICK,
   MIN_SQRT_PRICE,
   MAX_SQRT_PRICE,
+  feeAmountTickSpacing,
 } from "./constants.js";
 
 export type {
@@ -22,7 +23,6 @@ export type {
 export {
   fractionToQ128,
   q128ToFraction,
-  feeAmountTickSpacing,
   createTick,
   createPosition,
   createUniswapV3Pool,

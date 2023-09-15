@@ -1,4 +1,5 @@
 import { createFraction } from "reverse-mirage";
+import type { FeeTier, TickSpacing } from "./types.js";
 
 export const Q128 = 2n ** 128n;
 
@@ -10,6 +11,13 @@ export const MAX_SQRT_PRICE = createFraction(
   1461446703485210103287273052203988822378723970342n,
   Q128,
 );
+
+export const feeAmountTickSpacing = {
+  100: 1,
+  500: 10,
+  3_000: 60,
+  10_000: 200,
+} as const satisfies { [feeTier in FeeTier]: TickSpacing };
 
 export const mainnetUniswapV3 = {
   factory: {
