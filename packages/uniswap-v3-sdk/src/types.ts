@@ -50,7 +50,7 @@ export type UniswapV3PositionData = {
 export type UniswapV3PoolData = {
   type: "uniswapV3PoolData";
   uniswapV3Pool: UniswapV3Pool;
-  price: Price<UniswapV3Pool["token1"], UniswapV3Pool["token0"]>;
+  sqrtPrice: Price<UniswapV3Pool["token1"], UniswapV3Pool["token0"]>;
   tick: UniswapV3Tick;
   feeProtocol: Fraction;
   feeGrowth0: Fraction;
@@ -60,4 +60,5 @@ export type UniswapV3PoolData = {
   liquidity: bigint;
   ticks: { [tick: UniswapV3Tick["tick"]]: UniswapV3TickData };
   positions: { [positionID: Hex]: UniswapV3PositionData };
+  tickBitmap: { [tickIndex: number]: bigint };
 };

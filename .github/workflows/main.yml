@@ -17,9 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
+        with:
+          version: latest
       - uses: actions/setup-node@v3
         with:
           cache: pnpm
+          node-version: latest
       - run: pnpm install
       - name: Lint
         run: pnpm lint
@@ -30,9 +33,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
+        with:
+          version: latest
       - uses: actions/setup-node@v3
         with:
           cache: pnpm
+          node-version: latest
       - run: pnpm install
       - name: Typecheck
         run: pnpm typecheck
@@ -43,9 +49,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
+        with:
+          version: latest
       - uses: actions/setup-node@v3
         with:
           cache: pnpm
+          node-version: latest
       - run: pnpm install
       - name: Build
         run: pnpm build
@@ -56,9 +65,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
+        with:
+          version: latest
       - uses: actions/setup-node@v3
         with:
           cache: pnpm
+          node-version: latest
       - run: pnpm install
       - name: Run tests
         run: pnpm test:ci

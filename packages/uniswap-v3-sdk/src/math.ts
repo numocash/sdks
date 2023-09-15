@@ -14,9 +14,9 @@ import type {
 import { fractionToQ96, q96ToFraction } from "./utils.js";
 
 export const getFeeGrowthInside = (
+  poolData: Pick<UniswapV3PoolData, "feeGrowth0" | "feeGrowth1" | "tick">,
   tickLower: UniswapV3TickData,
   tickUpper: UniswapV3TickData,
-  poolData: Pick<UniswapV3PoolData, "feeGrowth0" | "feeGrowth1" | "tick">,
 ) => {
   const [feeGrowthBelow0, feeGrowthBelow1] =
     poolData.tick.tick >= tickUpper.tick.tick
@@ -34,19 +34,19 @@ export const getFeeGrowthInside = (
           fractionSubtract(poolData.feeGrowth1, tickUpper.feeGrowthOutside1),
         ];
 
-  return {
-    feeGrowthInside0: fractionSubtract(
+  return [
+    fractionSubtract(
       fractionSubtract(poolData.feeGrowth0, feeGrowthBelow0),
       feeGrowthAbove0,
     ),
-    feeGrowthAbove1: fractionSubtract(
+    fractionSubtract(
       fractionSubtract(poolData.feeGrowth1, feeGrowthBelow1),
       feeGrowthAbove1,
     ),
-  };
+  ] as const;
 };
 
-export const getRatioAtStrike = (tick: UniswapV3Tick): Fraction => {
+export const getSqrtRatioAtTick = (tick: UniswapV3Tick): Fraction => {
   const x = tick.tick < 0 ? -tick.tick : tick.tick;
   let ratioX128: bigint = Q128;
 
@@ -276,3 +276,93 @@ export const getAmount1Delta = (
   liquidity < 0n
     ? -getAmount1DeltaRound(sqrtPriceA, sqrtPriceB, -liquidity, false)
     : getAmount1DeltaRound(sqrtPriceA, sqrtPriceB, liquidity, true);
+
+export const computeSwapStep = (
+  sqrtRatio: Fraction,
+  sqrtRatioTarget: Fraction,
+  zeroForOne: boolean,
+  liquidity: bigint,
+  amountRemaining: bigint,
+  fee: number,
+): {
+  sqrtRatioNext: Fraction;
+  amountIn: bigint;
+  amountOut: bigint;
+  feeAmount: bigint;
+} => {
+  const exactIn = amountRemaining > 0n;
+
+  if (exactIn) {
+    const amountRemainingLessFee =
+      (amountRemaining * (1_000_000n - BigInt(fee))) / 1_000_000n;
+    let amountIn = zeroForOne
+      ? getAmount0DeltaRound(sqrtRatioTarget, sqrtRatio, liquidity, true)
+      : getAmount1DeltaRound(sqrtRatio, sqrtRatioTarget, liquidity, true);
+    const sqrtRatioNext =
+      amountRemainingLessFee >= amountIn
+        ? sqrtRatioTarget
+        : getNextSqrtPriceFromInput(
+            sqrtRatio,
+            liquidity,
+            amountRemainingLessFee,
+            zeroForOne,
+          );
+
+    const max = sqrtRatioTarget === sqrtRatioNext;
+
+    amountIn = max
+      ? amountIn
+      : zeroForOne
+      ? getAmount0DeltaRound(sqrtRatioNext, sqrtRatio, liquidity, true)
+      : getAmount1DeltaRound(sqrtRatio, sqrtRatioNext, liquidity, true);
+
+    const amountOut = zeroForOne
+      ? getAmount1DeltaRound(sqrtRatioNext, sqrtRatio, liquidity, false)
+      : getAmount0DeltaRound(sqrtRatio, sqrtRatioNext, liquidity, false);
+
+    const feeAmount =
+      sqrtRatioNext !== sqrtRatioTarget
+        ? amountRemaining - amountIn
+        : (amountIn * BigInt(fee)) % 1_000_000n !== 0n
+        ? (amountIn * BigInt(fee)) / 1_000_000n + 1n
+        : (amountIn * BigInt(fee)) / 1_000_000n;
+
+    return { sqrtRatioNext, amountIn, amountOut, feeAmount };
+  } else {
+    let amountOut = zeroForOne
+      ? getAmount1DeltaRound(sqrtRatioTarget, sqrtRatio, liquidity, false)
+      : getAmount0DeltaRound(sqrtRatio, sqrtRatioTarget, liquidity, false);
+    const sqrtRatioNext =
+      -amountRemaining >= amountOut
+        ? sqrtRatioTarget
+        : getNextSqrtPriceFromOutput(
+            sqrtRatio,
+            liquidity,
+            -amountRemaining,
+            zeroForOne,
+          );
+
+    const max = sqrtRatioTarget === sqrtRatioNext;
+
+    const amountIn = zeroForOne
+      ? getAmount0DeltaRound(sqrtRatioNext, sqrtRatio, liquidity, true)
+      : getAmount1DeltaRound(sqrtRatio, sqrtRatioNext, liquidity, true);
+
+    amountOut = max
+      ? amountOut
+      : zeroForOne
+      ? getAmount1DeltaRound(sqrtRatioNext, sqrtRatio, liquidity, false)
+      : getAmount0DeltaRound(sqrtRatio, sqrtRatioNext, liquidity, false);
+
+    if (amountOut > -amountRemaining) {
+      amountOut = -amountRemaining;
+    }
+
+    const feeAmount =
+      (amountIn * BigInt(fee)) % 1_000_000n !== 0n
+        ? (amountIn * BigInt(fee)) / 1_000_000n + 1n
+        : (amountIn * BigInt(fee)) / 1_000_000n;
+
+    return { sqrtRatioNext, amountIn, amountOut, feeAmount };
+  }
+};

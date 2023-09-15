@@ -4,7 +4,7 @@ import {
   createFraction,
   createPrice,
 } from "reverse-mirage";
-import { type PublicClient, encodePacked } from "viem";
+import { type PublicClient } from "viem";
 import { uniswapV3PoolABI } from "./abi.js";
 import { Q96 } from "./constants.js";
 import type {
@@ -15,7 +15,7 @@ import type {
   UniswapV3Tick,
   UniswapV3TickData,
 } from "./types.js";
-import { createTick, q128ToFraction } from "./utils.js";
+import { createTick, getPositionID, q128ToFraction } from "./utils.js";
 
 export const uniswapV3PoolData = (args: {
   pool: UniswapV3Pool;
@@ -23,11 +23,27 @@ export const uniswapV3PoolData = (args: {
   ({
     read: (publicClient: PublicClient) =>
       Promise.all([
-        publicClient.readContract({
-          abi: uniswapV3PoolABI,
-          functionName: "slot0",
-          address: args.pool.address,
-        }),
+        publicClient
+          .readContract({
+            abi: uniswapV3PoolABI,
+            functionName: "slot0",
+            address: args.pool.address,
+          })
+          .then(async (data) => ({
+            poolData: data,
+            tickData: await Promise.all([
+              uniswapV3PoolTickData({
+                pool: args.pool,
+                tick: createTick(data[1]),
+              }).read(publicClient),
+              publicClient.readContract({
+                abi: uniswapV3PoolABI,
+                functionName: "tickBitmap",
+                address: args.pool.address,
+                args: [(data[1] / args.pool.tickSpacing) >> 8],
+              }),
+            ]),
+          })),
         publicClient.readContract({
           abi: uniswapV3PoolABI,
           functionName: "feeGrowthGlobal0X128",
@@ -52,25 +68,57 @@ export const uniswapV3PoolData = (args: {
     parse: (data): UniswapV3PoolData => ({
       type: "uniswapV3PoolData",
       uniswapV3Pool: args.pool,
-      price: createPrice(
+      sqrtPrice: createPrice(
         args.pool.token1,
         args.pool.token0,
-        data[0][0] * data[0][0],
-        Q96 * Q96,
+        data[0].poolData[0],
+        Q96,
       ),
-      tick: createTick(data[0][1]),
-      feeProtocol: createFraction(data[0][5], 10_000),
+      tick: createTick(data[0].poolData[1]),
+      feeProtocol: createFraction(data[0].poolData[5], 10_000),
       feeGrowth0: q128ToFraction(data[1]),
       feeGrowth1: q128ToFraction(data[2]),
       protocolFees0: createAmountFromRaw(args.pool.token0, data[4][0]),
       protocolFees1: createAmountFromRaw(args.pool.token1, data[4][1]),
       liquidity: data[3],
-      ticks: {},
+      ticks: {
+        [data[0].poolData[1]]: uniswapV3PoolTickData({
+          pool: args.pool,
+          tick: createTick(data[0].poolData[1]),
+        }).parse(data[0].tickData[0]),
+      },
       positions: {},
+      tickBitmap: {
+        [(data[0].poolData[1] / args.pool.tickSpacing) >> 8]:
+          data[0].tickData[1],
+      },
     }),
   }) as const satisfies ReverseMirageRead<
     readonly [
-      readonly [bigint, number, number, number, number, number, boolean],
+      {
+        poolData: readonly [
+          bigint,
+          number,
+          number,
+          number,
+          number,
+          number,
+          boolean,
+        ];
+        tickData: readonly [
+          readonly [
+            bigint,
+            bigint,
+            bigint,
+            bigint,
+            bigint,
+            bigint,
+            number,
+            boolean,
+          ],
+          bigint,
+        ];
+      },
       bigint,
       bigint,
       bigint,
@@ -111,16 +159,7 @@ export const uniswapV3PoolPositionData = (args: {
         abi: uniswapV3PoolABI,
         functionName: "positions",
         address: args.position.pool.address,
-        args: [
-          encodePacked(
-            ["address", "int24", "int24"],
-            [
-              args.position.owner,
-              args.position.tickLower.tick,
-              args.position.tickUpper.tick,
-            ],
-          ),
-        ],
+        args: [getPositionID(args.position)],
       }),
     parse: (data): UniswapV3PositionData => ({
       type: "uniswapV3PositionData",
