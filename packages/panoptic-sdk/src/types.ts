@@ -65,29 +65,18 @@ export type PanopticTickData = {
   // TODO: change and add params for CollateralTracker
 
   export type Collateral = {
-    type: "collateral";
+    type: "collateralData";
     collateral: Collateral;
-    price: Price<PanopticPool["token0"], PanopticPool["token1"]>;
-    tick: number;
-    poolUtilizations: bigint;
-    feeGlobalGrowth0: Fraction;
-    feeGlobalGrowth1: Fraction;
-    liquidity: bigint;
-    tokenID: Address;
-    numberOfContracts: bigint;
-    ticks: { [tick: Tick["tick"]]: PanopticTickData };
+    account: Address;
+    positionIdList: bigint;
   };
 
   export type CollateralData = {
     type: "collateralData";
     collateral: Collateral;
+    positionIdList: bigint;
+    otherTokenData: bigint;
+    premium: Fraction;
     price: Price<PanopticPool["token0"], PanopticPool["token1"]>;
     tick: number;
-    poolUtilizations: bigint;
-    feeGlobalGrowth0: Fraction;
-    feeGlobalGrowth1: Fraction;
-    liquidity: bigint;
-    tokenID: Address;
-    numberOfContracts: bigint;
-    ticks: { [tick: Tick["tick"]]: PanopticTickData };
   };
