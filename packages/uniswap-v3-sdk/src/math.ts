@@ -1,6 +1,7 @@
 import {
   type Fraction,
   createFraction,
+  fractionEqualTo,
   fractionGreaterThan,
   fractionSubtract,
 } from "reverse-mirage";
@@ -97,7 +98,7 @@ export const getSqrtRatioAtTick = (tick: UniswapV3Tick): Fraction => {
 
   // down cast to Q96 and round up
   return createFraction(
-    ratioX128 >> (32n + (ratioX128 % (1n << 32n) === 0n ? 0n : 1n)),
+    (ratioX128 >> 32n) + (ratioX128 % (1n << 32n) === 0n ? 0n : 1n),
     Q96,
   );
 };
@@ -332,6 +333,7 @@ export const computeSwapStep = (
     let amountOut = zeroForOne
       ? getAmount1DeltaRound(sqrtRatioTarget, sqrtRatio, liquidity, false)
       : getAmount0DeltaRound(sqrtRatio, sqrtRatioTarget, liquidity, false);
+
     const sqrtRatioNext =
       -amountRemaining >= amountOut
         ? sqrtRatioTarget
@@ -342,7 +344,7 @@ export const computeSwapStep = (
             zeroForOne,
           );
 
-    const max = sqrtRatioTarget === sqrtRatioNext;
+    const max = fractionEqualTo(sqrtRatioTarget, sqrtRatioNext);
 
     const amountIn = zeroForOne
       ? getAmount0DeltaRound(sqrtRatioNext, sqrtRatio, liquidity, true)
@@ -359,9 +361,9 @@ export const computeSwapStep = (
     }
 
     const feeAmount =
-      (amountIn * BigInt(fee)) % 1_000_000n !== 0n
-        ? (amountIn * BigInt(fee)) / 1_000_000n + 1n
-        : (amountIn * BigInt(fee)) / 1_000_000n;
+      (amountIn * BigInt(fee)) % (1_000_000n - BigInt(fee)) !== 0n
+        ? (amountIn * BigInt(fee)) / (1_000_000n - BigInt(fee)) + 1n
+        : (amountIn * BigInt(fee)) / (1_000_000n - BigInt(fee));
 
     return { sqrtRatioNext, amountIn, amountOut, feeAmount };
   }

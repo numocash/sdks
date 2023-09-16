@@ -26,7 +26,7 @@ import {
 import type { TickSpacing, UniswapV3PoolData, UniswapV3Tick } from "./types.js";
 import { createPosition, createTick, getPositionID } from "./utils.js";
 
-export const mint = (
+export const calculateMint = (
   poolData: UniswapV3PoolData,
   to: Address,
   tickLower: UniswapV3Tick,
@@ -38,7 +38,7 @@ export const mint = (
   return liquidityAmounts(poolData, tickLower, tickUpper, liquidity);
 };
 
-export const burn = (
+export const calculateBurn = (
   poolData: UniswapV3PoolData,
   from: Address,
   tickLower: UniswapV3Tick,
@@ -64,7 +64,7 @@ type SwapState = {
   protocolFee: ERC20Amount<BaseERC20>;
 };
 
-export const swap = (
+export const calculateSwap = (
   poolData: UniswapV3PoolData,
   amountSpecified: ERC20Amount<BaseERC20>,
 ): [ERC20Amount<BaseERC20>, ERC20Amount<BaseERC20>] => {
@@ -360,11 +360,13 @@ const nextInitializedTickWithinOneWord = (
     const mask = (1n << BigInt(bit)) - 1n + (1n << BigInt(bit));
     const masked = tickBitmap[word]! & mask;
 
-    invariant(masked !== 0n);
+    const initialized = masked !== 0n;
 
-    return createTick(
-      compressed - (bit - mostSignificantBit(masked)) * tickSpacing,
-    );
+    return initialized
+      ? createTick(
+          (compressed - (bit - mostSignificantBit(masked))) * tickSpacing,
+        )
+      : createTick((compressed - bit) * tickSpacing);
   } else {
     const word = (compressed + 1) >> 8;
     const bit = (compressed + 1) % 256;
@@ -373,11 +375,13 @@ const nextInitializedTickWithinOneWord = (
     const mask = ~((1n << BigInt(bit)) - 1n);
     const masked = tickBitmap[word]! & mask;
 
-    invariant(masked !== 0n);
+    const initialized = masked !== 0n;
 
-    return createTick(
-      (compressed + 1 + leastSignificantBit(masked) - bit) * tickSpacing,
-    );
+    return initialized
+      ? createTick(
+          (compressed + 1 + leastSignificantBit(masked) - bit) * tickSpacing,
+        )
+      : createTick((compressed + 1 + 255 - bit) * tickSpacing);
   }
 };
 
