@@ -8,6 +8,7 @@ import {
   createFraction,
   createPriceFromFraction,
   fractionAdd,
+  fractionEqualTo,
   fractionMultiply,
   fractionQuotient,
   fractionSubtract,
@@ -22,6 +23,7 @@ import {
   getAmount1Delta,
   getFeeGrowthInside,
   getSqrtRatioAtTick,
+  getTickAtSqrtRatio,
 } from "./math.js";
 import type { TickSpacing, UniswapV3PoolData, UniswapV3Tick } from "./types.js";
 import { createPosition, createTick, getPositionID } from "./utils.js";
@@ -83,7 +85,7 @@ export const calculateSwap = (
   };
 
   while (state.amountSpecifiedRemaining !== 0n) {
-    const tickNext = nextInitializedTickWithinOneWord(
+    const [tickNext, initialized] = nextInitializedTickWithinOneWord(
       poolData.tickBitmap,
       state.tick,
       poolData.uniswapV3Pool.tickSpacing,
@@ -117,6 +119,8 @@ export const calculateSwap = (
       state.amountCalculated += amountIn + feeAmount;
     }
 
+    // update protocol fee
+
     // update global fee tracker
     if (poolData.liquidity > 0n)
       state.feeGrowthGlobal = fractionAdd(
@@ -125,6 +129,19 @@ export const calculateSwap = (
       );
 
     // update liquidity by going to next tick
+    if (fractionEqualTo(state.sqrtRatio, sqrtRatioNextTick)) {
+      if (initialized) {
+        // subtract liquidity net
+        const liquidityNet = poolData.ticks[tickNext.tick]!.liquidityNet;
+        // todo: cross ticks
+
+        poolData.liquidity += zeroForOne ? -liquidityNet : liquidityNet;
+      }
+
+      state.tick = zeroForOne ? createTick(tickNext.tick - 1) : tickNext;
+    } else {
+      state.tick = getTickAtSqrtRatio(state.sqrtRatio);
+    }
   }
 
   // update price
@@ -362,11 +379,14 @@ const nextInitializedTickWithinOneWord = (
 
     const initialized = masked !== 0n;
 
-    return initialized
-      ? createTick(
-          (compressed - (bit - mostSignificantBit(masked))) * tickSpacing,
-        )
-      : createTick((compressed - bit) * tickSpacing);
+    return [
+      initialized
+        ? createTick(
+            (compressed - (bit - mostSignificantBit(masked))) * tickSpacing,
+          )
+        : createTick((compressed - bit) * tickSpacing),
+      initialized,
+    ] as const;
   } else {
     const word = (compressed + 1) >> 8;
     const bit = (compressed + 1) % 256;
@@ -377,11 +397,14 @@ const nextInitializedTickWithinOneWord = (
 
     const initialized = masked !== 0n;
 
-    return initialized
-      ? createTick(
-          (compressed + 1 + leastSignificantBit(masked) - bit) * tickSpacing,
-        )
-      : createTick((compressed + 1 + 255 - bit) * tickSpacing);
+    return [
+      initialized
+        ? createTick(
+            (compressed + 1 + leastSignificantBit(masked) - bit) * tickSpacing,
+          )
+        : createTick((compressed + 1 + 255 - bit) * tickSpacing),
+      initialized,
+    ] as const;
   }
 };
 

@@ -1,15 +1,14 @@
-import { CurrencyAmount, Token } from "@uniswap/sdk-core";
+import { CurrencyAmount } from "@uniswap/sdk-core";
 import { FeeAmount, Pool, Tick } from "@uniswap/v3-sdk";
 import {
   createAmountFromRaw,
   createAmountFromString,
-  createERC20,
   createFraction,
   createPriceFromFraction,
 } from "reverse-mirage";
 import { zeroAddress } from "viem";
-import { foundry } from "viem/chains";
 import { expect, test } from "vitest";
+import { token0, token1, uniToken0, uniToken1 } from "./_test/constants.js";
 import { calculateBurn, calculateMint, calculateSwap } from "./amounts.js";
 import { Q96 } from "./constants.js";
 import type { UniswapV3PoolData } from "./types.js";
@@ -20,37 +19,6 @@ import {
   getPositionID,
   q96ToFraction,
 } from "./utils.js";
-
-const token0 = createERC20(
-  "0x0000000000000000000000000000000000000001",
-  "name",
-  "symbol",
-  18,
-  foundry.id,
-);
-
-const token1 = createERC20(
-  "0x0000000000000000000000000000000000000002",
-  "name",
-  "symbol",
-  18,
-  foundry.id,
-);
-
-const uniToken0 = new Token(
-  foundry.id,
-  "0x0000000000000000000000000000000000000001",
-  18,
-  "symbol",
-  "name",
-);
-const uniToken1 = new Token(
-  foundry.id,
-  "0x0000000000000000000000000000000000000002",
-  18,
-  "symbol",
-  "name",
-);
 
 const uniswapV3Pool = createUniswapV3Pool(token0, token1, 100, zeroAddress);
 
@@ -251,6 +219,157 @@ test("single tick swap", async () => {
   expect(amount1.amount).toBe(BigInt(uniAmount1.asFraction.toFixed(0)));
 });
 
-test.todo("multi tick swap");
+test("multi tick swap", async () => {
+  const poolData: UniswapV3PoolData = {
+    type: "uniswapV3PoolData",
+    uniswapV3Pool,
+    liquidity: 0n,
+    feeGrowth0: createFraction(0),
+    feeGrowth1: createFraction(0),
+    sqrtPrice: createPriceFromFraction(
+      uniswapV3Pool.token1,
+      uniswapV3Pool.token0,
+      q96ToFraction(Q96),
+    ),
+    tick: createTick(0),
+    feeProtocol: createFraction(0),
+    ticks: {},
+    positions: {},
+    tickBitmap: { [0]: 7n },
+    protocolFees0: createAmountFromRaw(uniswapV3Pool.token0, 0n),
+    protocolFees1: createAmountFromRaw(uniswapV3Pool.token1, 0n),
+  };
 
-test.todo("far tick swap");
+  calculateMint(
+    poolData,
+    zeroAddress,
+    createTick(0),
+    createTick(1),
+    10n ** 18n,
+  );
+  calculateMint(
+    poolData,
+    zeroAddress,
+    createTick(0),
+    createTick(2),
+    10n ** 18n,
+  );
+
+  const uniPool = new Pool(
+    uniToken0,
+    uniToken1,
+    FeeAmount.LOWEST,
+    "0x1000000000000000000000000",
+    "2000000000000000000",
+    0,
+    [
+      new Tick({
+        index: 0,
+        liquidityGross: "2000000000000000000",
+        liquidityNet: "2000000000000000000",
+      }),
+      new Tick({
+        index: 1,
+        liquidityGross: "1000000000000000000",
+        liquidityNet: "-1000000000000000000",
+      }),
+      new Tick({
+        index: 2,
+        liquidityGross: "1000000000000000000",
+        liquidityNet: "-1000000000000000000",
+      }),
+    ],
+  );
+
+  const [amount0, amount1] = calculateSwap(
+    poolData,
+    createAmountFromString(token0, "-0.00014"),
+  );
+
+  const [uniAmount1, _] = await uniPool.getInputAmount(
+    CurrencyAmount.fromFractionalAmount(uniToken0, "140000000000000", "1"),
+  );
+
+  expect(amount0.amount).toBe(-140000000000000n);
+  expect(amount1.amount).toBe(BigInt(uniAmount1.asFraction.toFixed(0)));
+});
+
+test("far tick swap", async () => {
+  const poolData: UniswapV3PoolData = {
+    type: "uniswapV3PoolData",
+    uniswapV3Pool,
+    liquidity: 0n,
+    feeGrowth0: createFraction(0),
+    feeGrowth1: createFraction(0),
+    sqrtPrice: createPriceFromFraction(
+      uniswapV3Pool.token1,
+      uniswapV3Pool.token0,
+      q96ToFraction(Q96),
+    ),
+    tick: createTick(0),
+    feeProtocol: createFraction(0),
+    ticks: {},
+    positions: {},
+    tickBitmap: { [0]: (1n << 0n) | (1n << 1n) | (1n << 200n) | (1n << 201n) },
+    protocolFees0: createAmountFromRaw(uniswapV3Pool.token0, 0n),
+    protocolFees1: createAmountFromRaw(uniswapV3Pool.token1, 0n),
+  };
+
+  calculateMint(
+    poolData,
+    zeroAddress,
+    createTick(0),
+    createTick(1),
+    10n ** 18n,
+  );
+  calculateMint(
+    poolData,
+    zeroAddress,
+    createTick(200),
+    createTick(201),
+    10n ** 18n,
+  );
+
+  const uniPool = new Pool(
+    uniToken0,
+    uniToken1,
+    FeeAmount.LOWEST,
+    "0x1000000000000000000000000",
+    "1000000000000000000",
+    0,
+    [
+      new Tick({
+        index: 0,
+        liquidityGross: "1000000000000000000",
+        liquidityNet: "1000000000000000000",
+      }),
+      new Tick({
+        index: 1,
+        liquidityGross: "1000000000000000000",
+        liquidityNet: "-1000000000000000000",
+      }),
+      new Tick({
+        index: 200,
+        liquidityGross: "1000000000000000000",
+        liquidityNet: "1000000000000000000",
+      }),
+      new Tick({
+        index: 201,
+        liquidityGross: "1000000000000000000",
+        liquidityNet: "-1000000000000000000",
+      }),
+    ],
+  );
+
+  const [amount0, amount1] = calculateSwap(
+    poolData,
+    createAmountFromString(token0, "-0.00008"),
+  );
+
+  const [uniAmount1, _] = await uniPool.getInputAmount(
+    CurrencyAmount.fromFractionalAmount(uniToken0, "80000000000000", "1"),
+  );
+
+  expect(amount0.amount).toBe(-80000000000000n);
+  expect(amount1.amount).toBe(BigInt(uniAmount1.asFraction.toFixed(0)));
+});
