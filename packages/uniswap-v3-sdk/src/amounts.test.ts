@@ -5,6 +5,7 @@ import {
   createAmountFromString,
   createFraction,
   createPriceFromFraction,
+  rawPrice,
 } from "reverse-mirage";
 import { zeroAddress } from "viem";
 import { expect, test } from "vitest";
@@ -16,6 +17,7 @@ import {
   createPosition,
   createTick,
   createUniswapV3Pool,
+  fractionToQ96,
   getPositionID,
   q96ToFraction,
 } from "./utils.js";
@@ -211,12 +213,16 @@ test("single tick swap", async () => {
     createAmountFromString(token0, "-0.000005"),
   );
 
-  const [uniAmount1, _] = await uniPool.getInputAmount(
+  const [uniAmount1, up] = await uniPool.getInputAmount(
     CurrencyAmount.fromFractionalAmount(uniToken0, "5000000000000", "1"),
   );
 
   expect(amount0.amount).toBe(-5n * 10n ** 12n);
   expect(amount1.amount).toBe(BigInt(uniAmount1.asFraction.toFixed(0)));
+  expect(poolData.liquidity).toBe(BigInt(up.liquidity.toString()));
+  expect(fractionToQ96(rawPrice(poolData.sqrtPrice))).toBe(
+    BigInt(up.sqrtRatioX96.toString()),
+  );
 });
 
 test("multi tick swap", async () => {
@@ -286,12 +292,16 @@ test("multi tick swap", async () => {
     createAmountFromString(token0, "-0.00014"),
   );
 
-  const [uniAmount1, _] = await uniPool.getInputAmount(
+  const [uniAmount1, up] = await uniPool.getInputAmount(
     CurrencyAmount.fromFractionalAmount(uniToken0, "140000000000000", "1"),
   );
 
   expect(amount0.amount).toBe(-140000000000000n);
   expect(amount1.amount).toBe(BigInt(uniAmount1.asFraction.toFixed(0)));
+  expect(poolData.liquidity).toBe(BigInt(up.liquidity.toString()));
+  expect(fractionToQ96(rawPrice(poolData.sqrtPrice))).toBe(
+    BigInt(up.sqrtRatioX96.toString()),
+  );
 });
 
 test("far tick swap", async () => {
@@ -366,10 +376,14 @@ test("far tick swap", async () => {
     createAmountFromString(token0, "-0.00008"),
   );
 
-  const [uniAmount1, _] = await uniPool.getInputAmount(
+  const [uniAmount1, up] = await uniPool.getInputAmount(
     CurrencyAmount.fromFractionalAmount(uniToken0, "80000000000000", "1"),
   );
 
   expect(amount0.amount).toBe(-80000000000000n);
   expect(amount1.amount).toBe(BigInt(uniAmount1.asFraction.toFixed(0)));
+  expect(poolData.liquidity).toBe(BigInt(up.liquidity.toString()));
+  expect(fractionToQ96(rawPrice(poolData.sqrtPrice))).toBe(
+    BigInt(up.sqrtRatioX96.toString()),
+  );
 });
