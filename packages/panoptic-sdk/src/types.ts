@@ -1,82 +1,98 @@
-import type { BaseERC20, ERC20Amount, Fraction, Price } from "reverse-mirage";
+import type {
+  BaseERC20,
+  ERC20Amount,
+  ERC1155,
+  ERC1155Data,
+  Fraction,
+  Tuple,
+} from "reverse-mirage";
+import type {
+  UniswapV3Factory,
+  UniswapV3Pool,
+  UniswapV3PoolData,
+  UniswapV3Tick,
+} from "uniswap-v3-sdk";
 import type { Address } from "viem";
 
-/**
- * Fee charged on a swap in pips
- */
-export type FeeTier = 100 | 500 | 3_000 | 10_000;
+export type PanopticCollateral = BaseERC20<"poERC20"> & {
+  underlyingToken: BaseERC20;
+};
 
-export type TickSpacing = 1 | 10 | 60 | 200;
+export type PanopticFactory = {
+  type: "panopticFactory";
+  address: Address;
+  owner: Address;
+  uniswapFactory: UniswapV3Factory;
+  blockCreated: bigint;
+};
 
 export type PanopticPool = {
   type: "panopticPool";
-  token0: BaseERC20;
-  token1: BaseERC20;
-  feeTier: FeeTier;
-  tickSpacing: TickSpacing;
+  uniswapPool: UniswapV3Pool;
+  factory: PanopticFactory;
+  collateralTracker0: PanopticCollateral;
+  collateralTracker1: PanopticCollateral;
   address: Address;
   blockCreated: bigint;
 };
 
-export type Tick = { type: "tick"; tick: number };
+export type PanopticCollateralParamters = {
+  type: "panopticCollateralParameters";
+  maintenanceMarginRatio: Fraction;
+  commissionFee: Fraction;
+  ITMSpreadFee: Fraction;
+  sellCollateralRatio: Fraction;
+  buyCollateralRatio: Fraction;
+  targetPoolUtilization: Fraction;
+  saturatedPoolUtilization: Fraction;
+  exerciseCost: Fraction;
+};
 
-export type PanopticPosition = {
-  type: "position";
+export type PanopticCollateralPositionData = ERC20Amount<PanopticCollateral> & {
+  // position array
+};
+
+export type PanopticCollateralData = {
+  type: "panopticCollateralData";
+  collateral: PanopticCollateral;
+  parameters: PanopticCollateralParamters;
+  poolAssets: ERC20Amount<BaseERC20>;
+  inAmm: ERC20Amount<BaseERC20>;
+  totalSupply: ERC20Amount<BaseERC20>;
+};
+
+export type PanoptionLeg = {
+  asset: "token0" | "token1";
+  optionRatio: number;
+  position: "long" | "short";
+  riskPartnerIndex: 0 | 1 | 2 | 3;
+  tickLower: UniswapV3Tick;
+  tickUpper: UniswapV3Tick;
+};
+
+export type PanopticPosition = ERC1155 & {
+  type: "panopticPosition";
   pool: PanopticPool;
   owner: Address;
-  tickLimitLow: Tick; // price slippage limit
-  tickLimitHigh: Tick;
+  legs: Tuple<PanoptionLeg, 4>;
 };
 
-export type PanopticTickData = {
-  type: "tickData";
-  tick: Tick;
-  tickUtilizations: Fraction;
-  liquidityNet: bigint;
-  feeGrowthOutside0: Fraction;
-  feeGrowthOutside1: Fraction;
-};
-
-export type PanopticPositionData = {
-  type: "positionData";
-  position: PanopticPosition;
-  liquidity: bigint;
-  tokenType: boolean; //0: short, 1: long
-  grossPremia0: ERC20Amount<PanopticPosition["pool"]["token0"]>;
-  grossPremia1: ERC20Amount<PanopticPosition["pool"]["token0"]>;
-  owedPremia0: ERC20Amount<PanopticPosition["pool"]["token0"]>;
-  owedPremia1: ERC20Amount<PanopticPosition["pool"]["token1"]>;
+export type PanopticPositionData = ERC1155Data<PanopticPosition> & {
+  liquidityAdded: bigint;
+  liquidityRemoved: bigint;
+  accountPremiumOwed0: bigint;
+  accountPremiumOwed1: bigint;
+  accountPremiumGross0: bigint;
+  accountPremiumGross1: bigint;
+  baseFee0: bigint;
+  baseFee1: bigint;
+  token0Utilization: Fraction;
+  token1Utilization: Fraction;
 };
 
 export type PanopticPoolData = {
   type: "panopticPoolData";
   panopticPool: PanopticPool;
-  price: Price<PanopticPool["token0"], PanopticPool["token1"]>;
-  tick: number;
-  poolUtilizations: bigint;
-  feeGlobalGrowth0: Fraction;
-  feeGlobalGrowth1: Fraction;
-  liquidity: bigint;
-  tokenID: Address;
-  numberOfContracts: bigint;
-  ticks: { [tick: Tick["tick"]]: PanopticTickData };
-};
-
-// TODO: change and add params for CollateralTracker
-
-export type Collateral = {
-  type: "collateralData";
-  collateral: Collateral;
-  account: Address;
-  positionIdList: bigint;
-};
-
-export type CollateralData = {
-  type: "collateralData";
-  collateral: Collateral;
-  positionIdList: bigint;
-  otherTokenData: bigint;
-  premium: Fraction;
-  price: Price<PanopticPool["token0"], PanopticPool["token1"]>;
-  tick: number;
+  uniswapPoolData: UniswapV3PoolData;
+  collateralTracker0Data: PanopticCollateralData;
 };

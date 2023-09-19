@@ -1,20 +1,20 @@
 {
-	"name": "placeholder-monorepo",
-	"version": "1.0.0",
-	"private": true,
-	"description": "",
-	"scripts": {
-		"build": "pnpm --parallel build",
-		"lint": "pnpm --parallel lint",
-		"format": "pnpm --parallel format",
-		"typecheck": "pnpm --parallel typecheck",
-		"test:ci": "pnpm --parallel test:ci"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "MIT",
-	"devDependencies": {
-		"@biomejs/biome": "^1.1.2",
-		"husky": "^8.0.3"
-	}
+  "name": "placeholder-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "build": "pnpm --filter 'uniswap-v3-sdk' build && pnpm --filter !'uniswap-v3-sdk' build",
+    "lint": "pnpm --parallel lint",
+    "format": "pnpm --parallel format",
+    "typecheck": "pnpm --parallel typecheck",
+    "test:ci": "pnpm --parallel test:ci"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "^1.1.2",
+    "husky": "^8.0.3"
+  }
 }

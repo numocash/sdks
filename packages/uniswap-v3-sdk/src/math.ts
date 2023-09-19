@@ -299,6 +299,7 @@ export const getNextSqrtPriceFromAmount0RoundingUp = (
       : q96ToFraction((numerator * fractionToQ96(sqrtPrice)) / denominator);
   }
 };
+
 export const getNextSqrtPriceFromAmount1RoundingDown = (
   sqrtPrice: Fraction,
   liquidity: bigint,
