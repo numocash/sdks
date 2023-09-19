@@ -20,6 +20,12 @@ export type UniswapV3Pool = {
 
 export type UniswapV3Tick = { type: "uniswapV3Tick"; tick: number };
 
+export type UniswapV3Factory = {
+  address: Address;
+  owner: Address;
+  blockCreated: bigint;
+};
+
 export type UniswapV3Position = {
   type: "uniswapV3Position";
   pool: UniswapV3Pool;

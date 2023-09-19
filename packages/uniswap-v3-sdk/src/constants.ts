@@ -1,5 +1,5 @@
 import { createFraction } from "reverse-mirage";
-import type { FeeTier, TickSpacing } from "./types.js";
+import type { FeeTier, TickSpacing, UniswapV3Factory } from "./types.js";
 
 export const Q32 = 2n ** 32n;
 export const Q96 = 2n ** 96n;
@@ -24,6 +24,7 @@ export const feeAmountTickSpacing = {
 export const mainnetUniswapV3 = {
   factory: {
     address: "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+    owner: "0x1a9C8182C09F50C8318d769245beA52c32BE35BC",
     blockCreated: 12369621n,
   },
-} as const;
+} as const satisfies { factory: UniswapV3Factory };

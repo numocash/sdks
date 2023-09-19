@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.1.2
-        version: 1.1.2
+        version: 1.2.2
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -19,14 +19,17 @@ importers:
     dependencies:
       reverse-mirage:
         specifier: ^0.1.11
-        version: 0.1.11(viem@1.10.13)
+        version: 0.1.11(viem@1.10.14)
       tiny-invariant:
         specifier: ^1.3.1
         version: 1.3.1
+      uniswap-v3-sdk:
+        specifier: workspace:*
+        version: link:../uniswap-v3-sdk
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.1.2
-        version: 1.1.2
+        version: 1.2.2
       tsup:
         specifier: ^7.2.0
         version: 7.2.0(typescript@5.2.2)
@@ -35,20 +38,20 @@ importers:
         version: 5.2.2
       viem:
         specifier: ^1.10.13
-        version: 1.10.13(typescript@5.2.2)
+        version: 1.10.14(typescript@5.2.2)
 
   packages/uniswap-v3-sdk:
     dependencies:
       reverse-mirage:
         specifier: ^0.1.11
-        version: 0.1.11(viem@1.10.13)
+        version: 0.1.11(viem@1.10.14)
       tiny-invariant:
         specifier: ^1.3.1
         version: 1.3.1
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.1.2
-        version: 1.1.2
+        version: 1.2.2
       '@uniswap/sdk-core':
         specifier: ^4.0.7
         version: 4.0.7
@@ -66,7 +69,7 @@ importers:
         version: 5.2.2
       viem:
         specifier: ^1.10.13
-        version: 1.10.13(typescript@5.2.2)
+        version: 1.10.14(typescript@5.2.2)
       vitest:
         specifier: ^0.34.4
         version: 0.34.4
@@ -88,22 +91,22 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@biomejs/biome@1.1.2:
-    resolution: {integrity: sha512-JEVWchqo0Xhl86IJgOh0xESWnNRUXBUDByCBR8TA4lIPzm/6U6Tv77+MblNkZ8MvwCtP6PlBNGdQcGKKabtuHA==}
+  /@biomejs/biome@1.2.2:
+    resolution: {integrity: sha512-fXwXi56ZdaKO/N3rTmhWw41UxstoviODk+wia4WWNSlm23r8xJ/NxjaZ88scV2IsmsFHqc8rmwb2dkrStAdIEw==}
     engines: {node: '>=14.*'}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@biomejs/cli-darwin-arm64': 1.1.2
-      '@biomejs/cli-darwin-x64': 1.1.2
-      '@biomejs/cli-linux-arm64': 1.1.2
-      '@biomejs/cli-linux-x64': 1.1.2
-      '@biomejs/cli-win32-arm64': 1.1.2
-      '@biomejs/cli-win32-x64': 1.1.2
+      '@biomejs/cli-darwin-arm64': 1.2.2
+      '@biomejs/cli-darwin-x64': 1.2.2
+      '@biomejs/cli-linux-arm64': 1.2.2
+      '@biomejs/cli-linux-x64': 1.2.2
+      '@biomejs/cli-win32-arm64': 1.2.2
+      '@biomejs/cli-win32-x64': 1.2.2
     dev: true
 
-  /@biomejs/cli-darwin-arm64@1.1.2:
-    resolution: {integrity: sha512-YyqWeNZchPxlvxtdo2vMBkzrwllaNS3+DZ6j01mUCVIZE9kAzF/edMV2O38L2AEtnRLU1TI1f71Jai3ThILClg==}
+  /@biomejs/cli-darwin-arm64@1.2.2:
+    resolution: {integrity: sha512-Fx1IURKhoqH6wPawtKLT6wcfMSjRRcNK8+VWau0iDOjXvNtjJpSmICbU89B7Vt/gZRwPqkfDMBkFwm6V5vFTSQ==}
     engines: {node: '>=14.*'}
     cpu: [arm64]
     os: [darwin]
@@ -111,8 +114,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-darwin-x64@1.1.2:
-    resolution: {integrity: sha512-Sofxcu50AHJyQS6Xx3OF2egQQ7Un5YFVF5/umNFa+kSNrrCu/ucmzrk8FcGS2dOSs4L2LqD6ZDWjvbcikjzLYQ==}
+  /@biomejs/cli-darwin-x64@1.2.2:
+    resolution: {integrity: sha512-JNaAFOI/ZisnmzvcFNd73geJxaFaN2L4YsWM6cgBeKyLY/ycl9C/PBTFfEmeB1c7f5XIIal8P2cj47kLJpN5Ig==}
     engines: {node: '>=14.*'}
     cpu: [x64]
     os: [darwin]
@@ -120,8 +123,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-linux-arm64@1.1.2:
-    resolution: {integrity: sha512-wtaQgpoVMZEKf1GlDlFGAJP1j6gnh4L4kJN8PQPOBAdKIUZ/YSjqVp0z28vli5xCQ57xCn1gH4Xoqw2gVYu1tQ==}
+  /@biomejs/cli-linux-arm64@1.2.2:
+    resolution: {integrity: sha512-JHXRnfhOLx8UO/Fcyn2c5pFRri0XKqRZm2wf5oH5GSfLVpckDw2X15dYGbu3nmfM/3pcAaTV46pUpjrCnaAieg==}
     engines: {node: '>=14.*'}
     cpu: [arm64]
     os: [linux]
@@ -129,8 +132,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-linux-x64@1.1.2:
-    resolution: {integrity: sha512-TYIUjCXbY+kxnJgv8GESplMagB1GdOcMV21JGRATqnhUI4BvG6sjs3gfi+sdjLBQdbHhsISXW3yfUlv07HKqhg==}
+  /@biomejs/cli-linux-x64@1.2.2:
+    resolution: {integrity: sha512-5Zr+iM7lUKsw81p9PkXRESuH2/AhRZ6RCWkgE+FSLcxMhXy/4RDR+o2YQDsJM6cWKIzOJM05vDHTGrDq7vXE4A==}
     engines: {node: '>=14.*'}
     cpu: [x64]
     os: [linux]
@@ -138,8 +141,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-win32-arm64@1.1.2:
-    resolution: {integrity: sha512-yApn85KuJ+Ty5zxbqWnaifX4ONtZG+snu12RNKi8fxSVVCXzQ/k2PfsWQbsyvCG05qshSvNKtM54cuf+vhUIsw==}
+  /@biomejs/cli-win32-arm64@1.2.2:
+    resolution: {integrity: sha512-HvUcG2p++RvYP0zfOqh+DgiUUH+JI/uETr0kzWlOJ9F3lsG525pkywg4RSd4OvJd7Wpd3wt3UpN/A4IEJaVmbA==}
     engines: {node: '>=14.*'}
     cpu: [arm64]
     os: [win32]
@@ -147,8 +150,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-win32-x64@1.1.2:
-    resolution: {integrity: sha512-qebNvIrFj2TJ+K0JVGo1HkgV2y5jis6aOZDC1SWuk53GnqjSLdR+p1v86ZByOjYr1v+tjc67EXmEepk06VVvpA==}
+  /@biomejs/cli-win32-x64@1.2.2:
+    resolution: {integrity: sha512-bfaFJwqJ9ApFga2o88OaROSd3pasYRzRGXHJWAE9VUUKdSNSTYxHOqVrNvV54yYPtL6Kt9xkuZa4HNu9it3TaA==}
     engines: {node: '>=14.*'}
     cpu: [x64]
     os: [win32]
@@ -1171,13 +1174,13 @@ packages:
   /@types/bn.js@4.11.6:
     resolution: {integrity: sha512-pqr857jrp2kPuO9uRjZ3PwnJTjoQy+fcdxvBTvHm6dkmEL9q+hDD/2j/0ELOBPtPnS8LjCX0gI9nbl8lVkadpg==}
     dependencies:
-      '@types/node': 20.6.0
+      '@types/node': 20.6.2
     dev: true
 
   /@types/bn.js@5.1.2:
     resolution: {integrity: sha512-dkpZu0szUtn9UXTmw+e0AJFd4D2XAxDnsCLdc05SfqpqzPEBft8eQr8uaFitfo/dUUOZERaLec2hHMG87A4Dxg==}
     dependencies:
-      '@types/node': 20.6.0
+      '@types/node': 20.6.2
     dev: true
 
   /@types/chai-subset@1.3.3:
@@ -1198,32 +1201,32 @@ packages:
     resolution: {integrity: sha512-ssE3Vlrys7sdIzs5LOxCzTVMsU7i9oa/IaW92wF32JFb3CVczqOkru2xspuKczHEbG3nvmPY7IFqVmGGHdNbYw==}
     dev: true
 
-  /@types/node@20.6.0:
-    resolution: {integrity: sha512-najjVq5KN2vsH2U/xyh2opaSEz6cZMR2SetLIlxlj08nOcmPOemJmUK2o4kUzfLqfrWE0PIrNeE16XhYDd3nqg==}
+  /@types/node@20.6.2:
+    resolution: {integrity: sha512-Y+/1vGBHV/cYk6OI1Na/LHzwnlNCAfU3ZNGrc1LdRe/LAIbdDPTTv/HU3M7yXN448aTVDq3eKRm2cg7iKLb8gw==}
 
   /@types/pbkdf2@3.1.0:
     resolution: {integrity: sha512-Cf63Rv7jCQ0LaL8tNXmEyqTHuIJxRdlS5vMh1mj5voN4+QFhVZnlZruezqpWYDiJ8UTzhP0VmeLXCmBk66YrMQ==}
     dependencies:
-      '@types/node': 20.6.0
+      '@types/node': 20.6.2
     dev: true
 
   /@types/readable-stream@2.3.15:
     resolution: {integrity: sha512-oM5JSKQCcICF1wvGgmecmHldZ48OZamtMxcGGVICOJA8o8cahXC1zEVAif8iwoc5j8etxFaRFnf095+CDsuoFQ==}
     dependencies:
-      '@types/node': 20.6.0
+      '@types/node': 20.6.2
       safe-buffer: 5.1.2
     dev: true
 
   /@types/secp256k1@4.0.3:
     resolution: {integrity: sha512-Da66lEIFeIz9ltsdMZcpQvmrmmoqrfju8pm1BH8WbYjZSwUgCwXLb9C+9XYogwBITnbsSaMdVPb2ekf7TV+03w==}
     dependencies:
-      '@types/node': 20.6.0
+      '@types/node': 20.6.2
     dev: true
 
   /@types/ws@8.5.5:
     resolution: {integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==}
     dependencies:
-      '@types/node': 20.6.0
+      '@types/node': 20.6.2
 
   /@uniswap/lib@4.0.1-alpha:
     resolution: {integrity: sha512-f6UIliwBbRsgVLxIaBANF6w09tYqc6Y/qXdsrbEmXHyFA7ILiKrIwRFXe1yOg8M3cksgVsO9N7yuL2DdCGQKBA==}
@@ -2224,6 +2227,17 @@ packages:
       path-is-absolute: 1.0.1
     dev: true
 
+  /glob@7.2.3:
+    resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    dependencies:
+      fs.realpath: 1.0.0
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 3.1.2
+      once: 1.4.0
+      path-is-absolute: 1.0.1
+    dev: true
+
   /globby@11.1.0:
     resolution: {integrity: sha512-jhIXaOzy1sb8IyocaruWSn1TjmnBVs8Ayhcy83rmxNJ8q2uWKCAj3CnJY+KpGSXCueAPc0i05kVvVKtP1t9S3g==}
     engines: {node: '>=10'}
@@ -3026,8 +3040,8 @@ packages:
       yaml: 2.3.2
     dev: true
 
-  /postcss@8.4.29:
-    resolution: {integrity: sha512-cbI+jaqIeu/VGqXEarWkRCCffhjgXc0qjBtXpqJhTBohMUjUQnbBr0xqX3vEKudc4iviTewcJo5ajcec5+wdJw==}
+  /postcss@8.4.30:
+    resolution: {integrity: sha512-7ZEao1g4kd68l97aWG/etQKPKq07us0ieSZ2TnFDk11i0ZfDW2AwKHYU8qv4MZKqN2fdBfg+7q0ES06UA73C1g==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.6
@@ -3115,20 +3129,20 @@ packages:
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
     dev: true
 
-  /reverse-mirage@0.1.11(viem@1.10.13):
+  /reverse-mirage@0.1.11(viem@1.10.14):
     resolution: {integrity: sha512-aH8fMtam00WglqoBV3SjbKWdK4Tn2YE2UzCi6bVthC/U7vzhq0YrE53+ee4EbBLjIcb84m0TpEL4MiwEdmK9gw==}
     peerDependencies:
       viem: '>=1'
     dependencies:
       tiny-invariant: 1.3.1
-      viem: 1.10.13(typescript@5.2.2)
+      viem: 1.10.14(typescript@5.2.2)
     dev: false
 
   /rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
     hasBin: true
     dependencies:
-      glob: 7.2.0
+      glob: 7.2.3
     dev: true
 
   /ripemd160@2.0.2:
@@ -3145,8 +3159,8 @@ packages:
       bn.js: 5.2.1
     dev: true
 
-  /rollup@3.29.1:
-    resolution: {integrity: sha512-c+ebvQz0VIH4KhhCpDsI+Bik0eT8ZFEVZEYw0cGMVqIP8zc+gnwl7iXCamTw7vzv2MeuZFZfdx5JJIq+ehzDlg==}
+  /rollup@3.29.2:
+    resolution: {integrity: sha512-CJouHoZ27v6siztc21eEQGo0kIcE5D1gVPA571ez0mMYb25LGYGKnVNXpEj5MGlepmDWGXNjDB5q7uNiPHC11A==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -3412,7 +3426,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@istanbuljs/schema': 0.1.3
-      glob: 7.2.0
+      glob: 7.2.3
       minimatch: 3.1.2
     dev: true
 
@@ -3522,7 +3536,7 @@ packages:
       joycon: 3.1.1
       postcss-load-config: 4.0.1
       resolve-from: 5.0.0
-      rollup: 3.29.1
+      rollup: 3.29.2
       source-map: 0.8.0-beta.0
       sucrase: 3.34.0
       tree-kill: 1.2.2
@@ -3599,8 +3613,8 @@ packages:
       convert-source-map: 1.9.0
     dev: true
 
-  /viem@1.10.13(typescript@5.2.2):
-    resolution: {integrity: sha512-gu2V7ObWTfbiZBwHERPbTgYgWXnraNOSAP2a//rdjZV55seie/5oMAlIa1OHUn7iGZNlDFTbqzOq4MY3RHWWYA==}
+  /viem@1.10.14(typescript@5.2.2):
+    resolution: {integrity: sha512-GRwFXLFr+/7+7nYYkABgHom3zMIE3DdxZ/DP78QlYWUanpjUV5IebxMOm6pfKD+ZAj3vf9YPAmz+WogjiUgDWw==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -3622,7 +3636,7 @@ packages:
       - utf-8-validate
       - zod
 
-  /vite-node@0.34.4(@types/node@20.6.0):
+  /vite-node@0.34.4(@types/node@20.6.2):
     resolution: {integrity: sha512-ho8HtiLc+nsmbwZMw8SlghESEE3KxJNp04F/jPUCLVvaURwt0d+r9LxEqCX5hvrrOQ0GSyxbYr5ZfRYhQ0yVKQ==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -3632,7 +3646,7 @@ packages:
       mlly: 1.4.2
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.4.9(@types/node@20.6.0)
+      vite: 4.4.9(@types/node@20.6.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3644,7 +3658,7 @@ packages:
       - terser
     dev: true
 
-  /vite@4.4.9(@types/node@20.6.0):
+  /vite@4.4.9(@types/node@20.6.2):
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -3672,10 +3686,10 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.6.0
+      '@types/node': 20.6.2
       esbuild: 0.18.20
-      postcss: 8.4.29
-      rollup: 3.29.1
+      postcss: 8.4.30
+      rollup: 3.29.2
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -3713,7 +3727,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.6
       '@types/chai-subset': 1.3.3
-      '@types/node': 20.6.0
+      '@types/node': 20.6.2
       '@vitest/expect': 0.34.4
       '@vitest/runner': 0.34.4
       '@vitest/snapshot': 0.34.4
@@ -3732,8 +3746,8 @@ packages:
       strip-literal: 1.3.0
       tinybench: 2.5.1
       tinypool: 0.7.0
-      vite: 4.4.9(@types/node@20.6.0)
-      vite-node: 0.34.4(@types/node@20.6.0)
+      vite: 4.4.9(@types/node@20.6.2)
+      vite-node: 0.34.4(@types/node@20.6.2)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
