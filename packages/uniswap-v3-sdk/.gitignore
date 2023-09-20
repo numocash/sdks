@@ -13,3 +13,4 @@ src/generated.ts
 # build
 dist/
 coverage/
+.DS_Store
