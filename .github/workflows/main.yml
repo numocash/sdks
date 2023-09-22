@@ -24,6 +24,7 @@ jobs:
           cache: pnpm
           node-version: latest
       - run: pnpm install
+      - run: pnpm wagmi generate
       - run: pnpm build
       - name: Lint
         run: pnpm lint
@@ -41,6 +42,7 @@ jobs:
           cache: pnpm
           node-version: latest
       - run: pnpm install
+      - run: pnpm wagmi generate
       - run: pnpm build
       - name: Typecheck
         run: pnpm typecheck
@@ -58,6 +60,7 @@ jobs:
           cache: pnpm
           node-version: latest
       - run: pnpm install
+      - run: pnpm wagmi generate
       - name: Build
         run: pnpm build
       
@@ -74,5 +77,6 @@ jobs:
           cache: pnpm
           node-version: latest
       - run: pnpm install
+      - run: pnpm wagmi generate
       - name: Run tests
         run: pnpm test:ci
