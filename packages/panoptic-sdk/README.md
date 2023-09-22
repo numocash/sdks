@@ -21,8 +21,7 @@ Typescript SDK for Panoptic
 
   - [x] `createPanopticPool`
   - [x] `createPanopticCollateral`
-  - [ ] `createPanopticPosition`
-  - [x] `createPanopticCollateralPosition`
+  - [x] `createPanopticPosition`
   - [x] `calculatePanopticTokenID`
   - [x] `calculatePanopticPositionKey`
   - [ ] `calculatePanopticMintOptions`
@@ -45,6 +44,7 @@ Typescript SDK for Panoptic
   - [ ] `getPanopticPositionData`
 
 - Wallet Actions
+
   - [ ] `simulatePanopticMintOptions`
   - [ ] `simulatePanopticRollOptions`
   - [ ] `simulatePanopticBurnOptions`
