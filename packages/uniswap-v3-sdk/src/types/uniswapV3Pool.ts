@@ -1,5 +1,8 @@
 import type { BaseERC20, ERC20Amount, Fraction, Price } from "reverse-mirage";
-import type { Address, Hex } from "viem";
+import type { Hex } from "viem";
+import type { Address } from "viem/accounts";
+import type { UniswapV3PositionData } from "./uniswapV3Position.js";
+import type { UniswapV3Tick, UniswapV3TickData } from "./uniswapV3Tick.js";
 
 /**
  * Fee charged on a swap in pips
@@ -16,41 +19,6 @@ export type UniswapV3Pool = {
   tickSpacing: TickSpacing;
   address: Address;
   blockCreated: bigint;
-};
-
-export type UniswapV3Tick = { type: "uniswapV3Tick"; tick: number };
-
-export type UniswapV3Factory = {
-  address: Address;
-  owner: Address;
-  blockCreated: bigint;
-};
-
-export type UniswapV3Position = {
-  type: "uniswapV3Position";
-  pool: UniswapV3Pool;
-  owner: Address;
-  tickLower: UniswapV3Tick;
-  tickUpper: UniswapV3Tick;
-};
-
-export type UniswapV3TickData = {
-  type: "uniswapV3TickData";
-  tick: UniswapV3Tick;
-  liquidityGross: bigint;
-  liquidityNet: bigint;
-  feeGrowthOutside0: Fraction;
-  feeGrowthOutside1: Fraction;
-};
-
-export type UniswapV3PositionData = {
-  type: "uniswapV3PositionData";
-  position: UniswapV3Position;
-  liquidity: bigint;
-  feeGrowthInside0: Fraction;
-  feeGrowthInside1: Fraction;
-  tokensOwed0: ERC20Amount<UniswapV3Position["pool"]["token0"]>;
-  tokensOwed1: ERC20Amount<UniswapV3Position["pool"]["token1"]>;
 };
 
 export type UniswapV3PoolData = {

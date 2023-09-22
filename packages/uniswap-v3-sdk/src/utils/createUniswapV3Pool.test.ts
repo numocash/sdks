@@ -1,7 +1,7 @@
 import { createERC20 } from "reverse-mirage";
 import { expect, test } from "vitest";
-import { mainnetUniswapV3 } from "./constants.js";
-import { createUniswapV3Pool } from "./utils.js";
+import { mainnetUniswapV3 } from "../chains/mainnet.js";
+import { createUniswapV3Pool } from "./createUniswapV3Pool.js";
 
 test("create uniswap v3 pool", () => {
   const tokenA = createERC20(

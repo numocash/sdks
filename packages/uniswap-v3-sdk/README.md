@@ -2,16 +2,46 @@
 
 Typescript SDK for Uniswap V3
 
-## Features
+## API
 
-- [ ] **`UniswapV3Pool.sol`**
+- Entities
 
-  - [ ] Read and parse from contracts
-  - [ ] Replicate math
-  - [ ] Simulate transactions
-  - [ ] Send state modifying transactions
+  - [x] `UniswapV3Factory`: The factory contract in the Uniswap protocol
+  - [x] `UniswapV3Pool`: A pool created by `UniswapV3Factory`
+  - [x] `UniswapV3PoolData`: The state of a `UniswapV3Pool`
+  - [x] `UniswapV3Tick`: A tick in a `UniswapV3Pool`
+  - [x] `UniswapV3TickData`: The state of a `UniswapV3Tick`
+  - [x] `UniswapV3Position`: A user position in a `UniswapV3Pool`
+  - [x] `UniswapV3PositionData`: The state of a `UniswapV3Position`
 
-- [ ] **`NonFungiblePositionManager.sol`**
+- Utilities
+
+  - [x] `createUniswapV3Pool`
+  - [x] `createUniswapV3Tick`
+  - [x] `createUniswapV3Position`
+  - [x] `calculateUniswapV3PositionID`
+  - [x] `calculateUniswapV3PoolMint`
+  - [x] `calculateUniswapV3PoolBurn`
+  - [x] `calculateUniswapV3PoolSwap`
+  - [x] `q128ToFraction`
+  - [x] `fractionToQ128`
+  - [x] `q96ToFraction`
+  - [x] `fractionToQ96`
+
+- Public Actions
+
+  - [x] `getUniswapV3PoolData`
+  - [x] `getUniswapV3TickData`
+  - [x] `getUniswapV3PositionData`
+
+- Chains
+
+  - [x] `mainnetUniswapV3`
+
+- ABIs
+
+  - [x] `uniswapV3FactoryABI`
+  - [x] `uniswapV3PoolABI`
 
 ## Comparisons
 
