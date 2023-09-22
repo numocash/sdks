@@ -3,20 +3,21 @@ import type { UniswapV3Tick } from "uniswap-v3-sdk";
 import type { Address } from "viem/accounts";
 import type { PanopticPool } from "./PanopticPool.js";
 
-type PanoptionLeg = {
+export type PanoptionLeg = {
   asset: "token0" | "token1";
   optionRatio: number;
   position: "long" | "short";
+  tokenType: "token0" | "token1";
   riskPartnerIndex: 0 | 1 | 2 | 3;
   tickLower: UniswapV3Tick;
   tickUpper: UniswapV3Tick;
 };
 
 export type PanopticPosition = ERC1155 & {
-  type: "panopticPosition";
-  pool: PanopticPool;
+  // type: "panopticPosition";
   owner: Address;
-  legs: Tuple<PanoptionLeg, 4>;
+  pool: PanopticPool;
+  legs: Tuple<PanoptionLeg | undefined, 4>;
 };
 
 export type PanopticPositionData = ERC1155Data<PanopticPosition> & {

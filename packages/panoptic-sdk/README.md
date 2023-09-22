@@ -19,10 +19,12 @@ Typescript SDK for Panoptic
 
 - Utilities
 
-  - [ ] `createPanopticPool`
-  - [ ] `createPanopticCollateral`
+  - [x] `createPanopticPool`
+  - [x] `createPanopticCollateral`
   - [ ] `createPanopticPosition`
-  - [ ] `createPanopticCollateralPosition`
+  - [x] `createPanopticCollateralPosition`
+  - [x] `calculatePanopticTokenID`
+  - [x] `calculatePanopticPositionKey`
   - [ ] `calculatePanopticMintOptions`
   - [ ] `calculatePanopticRollOptions`
   - [ ] `calculatePanopticBurnOptions`

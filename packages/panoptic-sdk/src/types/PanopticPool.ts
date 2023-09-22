@@ -8,11 +8,11 @@ import type { PanopticFactory } from "./PanopticFactory.js";
 
 export type PanopticPool = {
   type: "panopticPool";
+  address: Address;
   uniswapPool: UniswapV3Pool;
   factory: PanopticFactory;
   collateralTracker0: PanopticCollateral;
   collateralTracker1: PanopticCollateral;
-  address: Address;
   blockCreated: bigint;
 };
 
