@@ -16,7 +16,7 @@ export const createPanopticPosition = (
   blockCreated = 0n,
 ): PanopticPosition => {
   return {
-    type: "erc1155",
+    type: "panopticPosition",
     address,
     owner,
     pool,

@@ -1,4 +1,4 @@
-import type { ERC1155, ERC1155Data, Fraction, Tuple } from "reverse-mirage";
+import type { BaseERC1155, ERC1155Data, Fraction, Tuple } from "reverse-mirage";
 import type { UniswapV3Tick } from "uniswap-v3-sdk";
 import type { Address } from "viem/accounts";
 import type { PanopticPool } from "./PanopticPool.js";
@@ -13,8 +13,7 @@ export type PanoptionLeg = {
   tickUpper: UniswapV3Tick;
 };
 
-export type PanopticPosition = ERC1155 & {
-  // type: "panopticPosition";
+export type PanopticPosition = BaseERC1155<"panopticPosition"> & {
   owner: Address;
   pool: PanopticPool;
   legs: Tuple<PanoptionLeg | undefined, 4>;

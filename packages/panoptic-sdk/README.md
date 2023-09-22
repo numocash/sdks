@@ -38,7 +38,7 @@ Typescript SDK for Panoptic
 
   - [ ] `getPanopticPool`
   - [ ] `getPanopticPoolData`
-  - [ ] `getPanopticCollateral`
+  - [x] `getPanopticCollateral`
   - [ ] `getPanopticCollateralData`
   - [ ] `getPanopticCollateralPositionData`
   - [ ] `getPanopticPositionData`
