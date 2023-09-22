@@ -9,155 +9,17 @@ import {
 } from "reverse-mirage";
 import { zeroAddress } from "viem";
 import { expect, test } from "vitest";
-import { token0, token1, uniToken0, uniToken1 } from "./_test/constants.js";
-import { calculateBurn, calculateMint, calculateSwap } from "./amounts.js";
+import { token0, token1, uniToken0, uniToken1 } from "../_test/constants.js";
+import type { UniswapV3PoolData } from "../types/uniswapV3Pool.js";
+import { calculateUniswapV3PoolMint } from "./calculateUniswapV3PoolMint.js";
+import { calculateUniswapV3PoolSwap } from "./calculateUniswapV3PoolSwap.js";
 import { Q96 } from "./constants.js";
-import type { UniswapV3PoolData } from "./types.js";
-import {
-  createPosition,
-  createTick,
-  createUniswapV3Pool,
-  fractionToQ96,
-  getPositionID,
-  q96ToFraction,
-} from "./utils.js";
+import { createUniswapV3Pool } from "./createUniswapV3Pool.js";
+import { createUniswapV3Tick } from "./createUniswapV3Tick.js";
+import { fractionToQ96 } from "./fractionToQ96.js";
+import { q96ToFraction } from "./q96ToFraction.js";
 
 const uniswapV3Pool = createUniswapV3Pool(token0, token1, 100, zeroAddress);
-
-test("mint", () => {
-  const poolData: UniswapV3PoolData = {
-    type: "uniswapV3PoolData",
-    uniswapV3Pool,
-    liquidity: 0n,
-    feeGrowth0: createFraction(0),
-    feeGrowth1: createFraction(0),
-    sqrtPrice: createPriceFromFraction(
-      uniswapV3Pool.token1,
-      uniswapV3Pool.token0,
-      q96ToFraction(Q96),
-    ),
-    tick: createTick(0),
-    feeProtocol: createFraction(0),
-    ticks: {},
-    positions: {},
-    tickBitmap: {},
-    protocolFees0: createAmountFromRaw(uniswapV3Pool.token0, 0n),
-    protocolFees1: createAmountFromRaw(uniswapV3Pool.token1, 0n),
-  };
-
-  const [_, amount1] = calculateMint(
-    poolData,
-    zeroAddress,
-    createTick(0),
-    createTick(1),
-    10n ** 18n,
-  );
-
-  expect(amount1.amount).toBe(0n);
-  expect(poolData.liquidity).toBe(10n ** 18n);
-  expect(poolData.ticks[0]).toBeTruthy();
-  expect(poolData.ticks[1]).toBeTruthy();
-  expect(poolData.ticks[0]!.liquidityGross).toBe(10n ** 18n);
-  expect(poolData.ticks[1]!.liquidityGross).toBe(10n ** 18n);
-  expect(poolData.ticks[0]!.liquidityNet).toBe(10n ** 18n);
-  expect(poolData.ticks[1]!.liquidityNet).toBe(-1n * 10n ** 18n);
-  expect(
-    poolData.positions[
-      getPositionID(
-        createPosition(
-          uniswapV3Pool,
-          zeroAddress,
-          createTick(0),
-          createTick(1),
-        ),
-      )
-    ],
-  ).toBeTruthy();
-  expect(
-    poolData.positions[
-      getPositionID(
-        createPosition(
-          uniswapV3Pool,
-          zeroAddress,
-          createTick(0),
-          createTick(1),
-        ),
-      )
-    ]!.liquidity,
-  ).toBe(10n ** 18n);
-});
-
-test("burn", () => {
-  const poolData: UniswapV3PoolData = {
-    type: "uniswapV3PoolData",
-    uniswapV3Pool,
-    liquidity: 0n,
-    feeGrowth0: createFraction(0),
-    feeGrowth1: createFraction(0),
-    sqrtPrice: createPriceFromFraction(
-      uniswapV3Pool.token1,
-      uniswapV3Pool.token0,
-      q96ToFraction(Q96),
-    ),
-    tick: createTick(0),
-    feeProtocol: createFraction(0),
-    ticks: {},
-    positions: {},
-    tickBitmap: {},
-    protocolFees0: createAmountFromRaw(uniswapV3Pool.token0, 0n),
-    protocolFees1: createAmountFromRaw(uniswapV3Pool.token1, 0n),
-  };
-
-  calculateMint(
-    poolData,
-    zeroAddress,
-    createTick(0),
-    createTick(1),
-    10n ** 18n,
-  );
-
-  const [_, amount1] = calculateBurn(
-    poolData,
-    zeroAddress,
-    createTick(0),
-    createTick(1),
-    10n ** 18n,
-  );
-
-  // expect(amount0.amount).toBe(999900007499375055n - 1n);
-  expect(amount1.amount).toBe(0n);
-  expect(poolData.liquidity).toBe(0n);
-  expect(poolData.ticks[0]).toBeTruthy();
-  expect(poolData.ticks[1]).toBeTruthy();
-  expect(poolData.ticks[0]!.liquidityGross).toBe(0n);
-  expect(poolData.ticks[1]!.liquidityGross).toBe(0n);
-  expect(poolData.ticks[0]!.liquidityNet).toBe(0n);
-  expect(poolData.ticks[1]!.liquidityNet).toBe(0n);
-  expect(
-    poolData.positions[
-      getPositionID(
-        createPosition(
-          uniswapV3Pool,
-          zeroAddress,
-          createTick(0),
-          createTick(1),
-        ),
-      )
-    ],
-  ).toBeTruthy();
-  expect(
-    poolData.positions[
-      getPositionID(
-        createPosition(
-          uniswapV3Pool,
-          zeroAddress,
-          createTick(0),
-          createTick(1),
-        ),
-      )
-    ]!.liquidity,
-  ).toBe(0n);
-});
 
 test("single tick swap", async () => {
   const poolData: UniswapV3PoolData = {
@@ -171,7 +33,7 @@ test("single tick swap", async () => {
       uniswapV3Pool.token0,
       q96ToFraction(Q96),
     ),
-    tick: createTick(0),
+    tick: createUniswapV3Tick(0),
     feeProtocol: createFraction(0),
     ticks: {},
     positions: {},
@@ -200,15 +62,15 @@ test("single tick swap", async () => {
     ],
   );
 
-  calculateMint(
+  calculateUniswapV3PoolMint(
     poolData,
     zeroAddress,
-    createTick(0),
-    createTick(1),
+    createUniswapV3Tick(0),
+    createUniswapV3Tick(1),
     10n ** 18n,
   );
 
-  const [amount0, amount1] = calculateSwap(
+  const [amount0, amount1] = calculateUniswapV3PoolSwap(
     poolData,
     createAmountFromString(token0, "-0.000005"),
   );
@@ -237,7 +99,7 @@ test("multi tick swap", async () => {
       uniswapV3Pool.token0,
       q96ToFraction(Q96),
     ),
-    tick: createTick(0),
+    tick: createUniswapV3Tick(0),
     feeProtocol: createFraction(0),
     ticks: {},
     positions: {},
@@ -246,18 +108,18 @@ test("multi tick swap", async () => {
     protocolFees1: createAmountFromRaw(uniswapV3Pool.token1, 0n),
   };
 
-  calculateMint(
+  calculateUniswapV3PoolMint(
     poolData,
     zeroAddress,
-    createTick(0),
-    createTick(1),
+    createUniswapV3Tick(0),
+    createUniswapV3Tick(1),
     10n ** 18n,
   );
-  calculateMint(
+  calculateUniswapV3PoolMint(
     poolData,
     zeroAddress,
-    createTick(0),
-    createTick(2),
+    createUniswapV3Tick(0),
+    createUniswapV3Tick(2),
     10n ** 18n,
   );
 
@@ -287,7 +149,7 @@ test("multi tick swap", async () => {
     ],
   );
 
-  const [amount0, amount1] = calculateSwap(
+  const [amount0, amount1] = calculateUniswapV3PoolSwap(
     poolData,
     createAmountFromString(token0, "-0.00014"),
   );
@@ -316,7 +178,7 @@ test("far tick swap", async () => {
       uniswapV3Pool.token0,
       q96ToFraction(Q96),
     ),
-    tick: createTick(0),
+    tick: createUniswapV3Tick(0),
     feeProtocol: createFraction(0),
     ticks: {},
     positions: {},
@@ -325,18 +187,18 @@ test("far tick swap", async () => {
     protocolFees1: createAmountFromRaw(uniswapV3Pool.token1, 0n),
   };
 
-  calculateMint(
+  calculateUniswapV3PoolMint(
     poolData,
     zeroAddress,
-    createTick(0),
-    createTick(1),
+    createUniswapV3Tick(0),
+    createUniswapV3Tick(1),
     10n ** 18n,
   );
-  calculateMint(
+  calculateUniswapV3PoolMint(
     poolData,
     zeroAddress,
-    createTick(200),
-    createTick(201),
+    createUniswapV3Tick(200),
+    createUniswapV3Tick(201),
     10n ** 18n,
   );
 
@@ -371,7 +233,7 @@ test("far tick swap", async () => {
     ],
   );
 
-  const [amount0, amount1] = calculateSwap(
+  const [amount0, amount1] = calculateUniswapV3PoolSwap(
     poolData,
     createAmountFromString(token0, "-0.00008"),
   );

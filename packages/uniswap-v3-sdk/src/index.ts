@@ -1,6 +1,14 @@
-export { uniswapV3PoolABI, uniswapV3FactoryABI } from "./abi.js";
-
-export { calculateMint, calculateSwap, calculateBurn } from "./amounts.js";
+export type {
+  FeeTier,
+  TickSpacing,
+  UniswapV3Pool,
+  UniswapV3PoolData,
+  UniswapV3Position,
+  UniswapV3PositionData,
+  UniswapV3Tick,
+  UniswapV3TickData,
+  UniswapV3Factory,
+} from "./types/index.js";
 
 export {
   Q32,
@@ -11,42 +19,26 @@ export {
   MIN_SQRT_PRICE,
   MAX_SQRT_PRICE,
   feeAmountTickSpacing,
-  mainnetUniswapV3,
-} from "./constants.js";
-
-export type {
-  FeeTier,
-  TickSpacing,
-  UniswapV3Tick,
-  UniswapV3TickData,
-  UniswapV3Position,
-  UniswapV3PositionData,
-  UniswapV3Pool,
-  UniswapV3PoolData,
-  UniswapV3Factory,
-} from "./types.js";
-
-export {
-  uniswapV3PoolData,
-  uniswapV3PoolPositionData,
-  uniswapV3PoolTickData,
-} from "./reads.js";
-
-export {
-  getFeeGrowthInside,
-  getSqrtRatioAtTick,
-  getTickAtSqrtRatio,
-  getAmount0Delta,
-  getAmount1Delta,
-} from "./math.js";
-
-export {
-  fractionToQ128,
-  q128ToFraction,
-  fractionToQ96,
-  q96ToFraction,
-  getPositionID,
-  createTick,
-  createPosition,
+  calculateUniswapV3PoolBurn,
+  calculateUniswapV3PoolMint,
+  calculateUniswapV3PoolSwap,
+  calculateUniswapV3PositionID,
   createUniswapV3Pool,
-} from "./utils.js";
+  createUniswapV3Position,
+  createUniswapV3Tick,
+  q128ToFraction,
+  fractionToQ128,
+  q96ToFraction,
+  fractionToQ96,
+} from "./utils/index.js";
+
+export {
+  getUniswapV3PoolData,
+  getUniswapV3TickData,
+  getUniswapV3PositionData,
+} from "./publicActions/index.js";
+
+export { mainnetUniswapV3 } from "./chains/mainnet.js";
+
+export { uniswapV3FactoryABI } from "./abi/uniswapV3FactoryABI.js";
+export { uniswapV3PoolABI } from "./abi/uniswapV3PoolABI.js";
