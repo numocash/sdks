@@ -1,12 +1,9 @@
-import type { WETH } from "reverse-mirage";
 import type { UniswapV3Factory } from "uniswap-v3-sdk";
 import type { Address } from "viem/accounts";
 
-export type PanopticFactory = {
-  type: "panopticFactory";
+export type PanopticSemiFungiblePositionManager = {
+  type: "panopticSemiFungiblePositionManager";
   address: Address;
-  owner: Address;
   uniswapFactory: UniswapV3Factory;
-  weth: WETH;
   blockCreated: bigint;
 };

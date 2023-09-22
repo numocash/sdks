@@ -10,3 +10,4 @@ export type {
   PanopticPosition,
   PanopticPositionData,
 } from "./PanopticPosition.js";
+export type { PanopticSemiFungiblePositionManager } from "./PanopticSemiFungiblePositionManager.js";
