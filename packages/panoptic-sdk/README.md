@@ -36,9 +36,7 @@ Typescript SDK for Panoptic
 
 - Public Actions
 
-  - [ ] `getPanopticPool`
-  - [ ] `getPanopticPoolData`
-  - [x] `getPanopticCollateral`
+  - [x] `getPanopticPoolData`
   - [x] `getPanopticCollateralData`
   - [x] `getPanopticCollateralPositionData`
   - [ ] `getPanopticPositionData`

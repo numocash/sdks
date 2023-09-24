@@ -8,7 +8,7 @@ import type {
 } from "../types/PanopticCollateral.js";
 
 export type GetPanopticCollateralDataParameters = Omit<
-  ReadContractParameters<typeof collateralTrackerABI, "asset">,
+  ReadContractParameters<typeof collateralTrackerABI, "totalSupply">,
   "address" | "abi" | "functionName" | "args"
 > & {
   panopticCollateral: PanopticCollateral;

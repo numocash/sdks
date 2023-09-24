@@ -21,4 +21,5 @@ export type PanopticPoolData = {
   panopticPool: PanopticPool;
   uniswapPoolData: UniswapV3PoolData;
   collateralTracker0Data: PanopticCollateralData;
+  collateralTracker1Data: PanopticCollateralData;
 };

@@ -13,7 +13,7 @@ import type {
 } from "../types/PanopticCollateral.js";
 
 export type GetPanopticCollateralPositionDataParameters = Omit<
-  ReadContractParameters<typeof collateralTrackerABI, "asset">,
+  ReadContractParameters<typeof collateralTrackerABI, "balanceOf">,
   "address" | "abi" | "functionName" | "args"
 > & {
   panopticCollateral: PanopticCollateral;
