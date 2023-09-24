@@ -10,7 +10,10 @@ export type GetPanopticCollateralParameters = Omit<
   ReadContractParameters<typeof collateralTrackerABI, "asset">,
   "address" | "abi" | "functionName" | "args"
 > & {
-  panopticCollateral: Pick<PanopticCollateral, "address" | "chainID"> &
+  panopticCollateral: Pick<
+    PanopticCollateral,
+    "address" | "chainID" | "parameters"
+  > &
     Partial<Pick<PanopticCollateral, "blockCreated">>;
 };
 
@@ -52,6 +55,7 @@ export const getPanopticCollateral = <
           data[1].decimals,
           panopticCollateral.chainID,
           data[0],
+          panopticCollateral.parameters,
           panopticCollateral.blockCreated,
         ),
       )
@@ -106,6 +110,7 @@ export const getPanopticCollateral = <
               panopticCollateral.chainID,
               panopticCollateral.blockCreated,
             ),
+            panopticCollateral.parameters,
             panopticCollateral.blockCreated,
           ),
       }) as ReverseMirage<

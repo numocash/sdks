@@ -1,6 +1,9 @@
 import type { BaseERC20 } from "reverse-mirage";
 import type { Address } from "viem/accounts";
-import type { PanopticCollateral } from "../types/PanopticCollateral.js";
+import type {
+  PanopticCollateral,
+  PanopticCollateralParamters,
+} from "../types/PanopticCollateral.js";
 
 export const createPanopticCollateral = (
   address: Address,
@@ -9,6 +12,7 @@ export const createPanopticCollateral = (
   decimals: number,
   chainID: number,
   underlyingToken: BaseERC20,
+  parameters: PanopticCollateralParamters,
   blockCreated = 0n,
 ): PanopticCollateral => ({
   type: "poERC20",
@@ -17,6 +21,7 @@ export const createPanopticCollateral = (
   symbol,
   decimals,
   underlyingToken,
+  parameters,
   chainID,
   blockCreated,
 });
