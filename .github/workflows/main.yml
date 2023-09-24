@@ -23,6 +23,10 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
+      - name: Install foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
       - run: pnpm install
       - run: pnpm wagmi generate
       - run: pnpm build
@@ -41,6 +45,10 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
+      - name: Install foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
       - run: pnpm install
       - run: pnpm wagmi generate
       - run: pnpm build
@@ -59,6 +67,10 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
+      - name: Install foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
       - run: pnpm install
       - run: pnpm wagmi generate
       - name: Build
@@ -76,6 +88,10 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
+      - name: Install foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
       - run: pnpm install
       - run: pnpm wagmi generate
       - name: Run tests
