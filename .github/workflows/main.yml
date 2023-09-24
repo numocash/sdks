@@ -27,6 +27,7 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
+      - run: forge install
       - run: pnpm install
       - run: pnpm wagmi generate
       - run: pnpm build
@@ -49,6 +50,7 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
+      - run: forge install
       - run: pnpm install
       - run: pnpm wagmi generate
       - run: pnpm build
@@ -71,6 +73,7 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
+      - run: forge install
       - run: pnpm install
       - run: pnpm wagmi generate
       - name: Build
@@ -92,6 +95,7 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
+      - run: forge install
       - run: pnpm install
       - run: pnpm wagmi generate
       - name: Run tests
