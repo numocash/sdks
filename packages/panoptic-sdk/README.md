@@ -43,15 +43,15 @@ Typescript SDK for Panoptic
 
 - Wallet Actions
 
-  - [ ] `simulatePanopticMintOptions`
-  - [ ] `simulatePanopticRollOptions`
-  - [ ] `simulatePanopticBurnOptions`
-  - [ ] `simulatePanopticForceExercise`
-  - [ ] `simulatePanopticLiquidateAccount`
-  - [ ] `simulatePanopticCollateralMint`
-  - [ ] `simulatePanopticCollateralDeposit`
-  - [ ] `simulatePanopticCollateralRedeem`
-  - [ ] `simulatePanopticCollateralWithdraw`
+  - [ ] `writePanopticMintOptions`
+  - [ ] `writePanopticRollOptions`
+  - [ ] `writePanopticBurnOptions`
+  - [ ] `writePanopticForceExercise`
+  - [ ] `writePanopticLiquidateAccount`
+  - [ ] `writePanopticCollateralMint`
+  - [ ] `writePanopticCollateralDeposit`
+  - [ ] `writePanopticCollateralRedeem`
+  - [ ] `writePanopticCollateralWithdraw`
 
 - Chains
 
