@@ -39,7 +39,7 @@ Typescript SDK for Panoptic
   - [x] `getPanopticPoolData`
   - [x] `getPanopticCollateralData`
   - [x] `getPanopticCollateralPositionData`
-  - [ ] `getPanopticPositionData`
+  - [x] `getPanopticPositionData`
 
 - Wallet Actions
 

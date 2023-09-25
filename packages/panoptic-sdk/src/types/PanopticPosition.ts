@@ -19,15 +19,17 @@ export type PanopticPosition = BaseERC1155<"panopticPosition"> & {
   legs: Tuple<PanoptionLeg | undefined, 4>;
 };
 
-export type PanopticPositionData = ERC1155Data<PanopticPosition> & {
+export type PanoptionLegData = {
   liquidityAdded: bigint;
   liquidityRemoved: bigint;
-  accountPremiumOwed0: bigint;
-  accountPremiumOwed1: bigint;
-  accountPremiumGross0: bigint;
-  accountPremiumGross1: bigint;
+  accountPremium0: bigint;
+  accountPremium1: bigint;
   baseFee0: bigint;
   baseFee1: bigint;
+};
+
+export type PanopticPositionData = ERC1155Data<PanopticPosition> & {
   token0Utilization: Fraction;
   token1Utilization: Fraction;
+  legData: Tuple<PanoptionLegData | undefined, 4>;
 };

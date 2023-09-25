@@ -9,10 +9,10 @@ export default defineConfig([
       foundry({
         project: "lib/panoptic-v1-core/",
         include: [
-          "SemiFuniblePositionManager.sol/**",
+          "SemiFungiblePositionManager.sol/**",
           "PanopticFactory.sol/**",
           "PanopticPool.sol/**",
-          "CollateralTracker.sol/**"
+          "CollateralTracker.sol/**",
         ],
       }),
     ],
