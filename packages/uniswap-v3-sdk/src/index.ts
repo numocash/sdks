@@ -42,3 +42,5 @@ export { mainnetUniswapV3 } from "./chains/mainnet.js";
 
 export { uniswapV3FactoryABI } from "./abi/uniswapV3FactoryABI.js";
 export { uniswapV3PoolABI } from "./abi/uniswapV3PoolABI.js";
+
+export { publicActionUniswapV3 } from "./decorator/publicActions.js";
