@@ -1,14 +1,21 @@
-import { createERC20 } from "reverse-mirage";
+import { createAmountFromString, createERC20 } from "reverse-mirage";
 import invariant from "tiny-invariant";
-import { type Hex } from "viem";
+import { type Hex, parseEther } from "viem";
 import { foundry } from "viem/chains";
 import { beforeEach, test } from "vitest";
-import CollateralTrackerBytecode from "../../../../../lib/panoptic-v1-core/artifacts/contracts/CollateralTracker.sol/CollateralTracker.json";
-import ERC20Bytecode from "../../../../../lib/panoptic-v1-core/artifacts/contracts/MockERC20.sol/MockERC20.json";
+import { collateralTrackerBytecode } from "../../_test/bytecode/collateralTracker.js";
+import { mockERC20Bytecode } from "../../_test/bytecode/mockERC20.js";
 import { ALICE } from "../../_test/constants.js";
-import { publicClient, testClient, walletClient } from "../../_test/utils.js";
-import { collateralTrackerABI, mockErc20ABI } from "../../generated.js";
+import {
+  baseParameters,
+  publicClient,
+  testClient,
+  walletClient,
+} from "../../_test/utils.js";
+import { mockERC20ABI } from "../../abi/mockERC20.js";
 import type { PanopticCollateral } from "../../index.js";
+import { createPanopticCollateral } from "../../utils/createPanopticCollateral.js";
+import { writePanopticCollateralDeposit } from "./writePanopticCollateralDeposit.js";
 
 let id: Hex | undefined = undefined;
 
@@ -16,10 +23,10 @@ let collat: PanopticCollateral;
 
 beforeEach(async () => {
   if (id === undefined) {
-    let deployHash = await walletClient.deployContract({
+    const deployHash = await walletClient.deployContract({
       account: ALICE,
-      abi: mockErc20ABI,
-      bytecode: ERC20Bytecode.bytecode.object as Hex,
+      abi: mockERC20ABI,
+      bytecode: mockERC20Bytecode,
       args: ["name", "symbol", 18],
     });
 
@@ -35,35 +42,28 @@ beforeEach(async () => {
       foundry.id,
     );
 
-    deployHash = await walletClient.deployContract({
-      account: ALICE,
-      abi: collateralTrackerABI,
-      bytecode: CollateralTrackerBytecode.bytecode.object as Hex,
+    testClient.setCode({
+      address: "0xe846c6fcf817734ca4527b28ccb4aea2b6663c79",
+      bytecode: collateralTrackerBytecode,
     });
 
-    // const { contractAddress: collateralAddress } =
-    //   await publicClient.waitForTransactionReceipt({
-    //     hash: deployHash,
-    //   });
-    // invariant(collateralAddress);
+    collat = createPanopticCollateral(
+      "0xe846c6fcf817734ca4527b28ccb4aea2b6663c79",
+      "name",
+      "symbol",
+      18,
+      foundry.id,
+      erc20,
+      baseParameters,
+    );
 
-    // collat = createPanopticCollateral(
-    //   collateralAddress,
-    //   "name",
-    //   "symbol",
-    //   18,
-    //   foundry.id,
-    //   erc20,
-    //   baseParameters,
-    // );
-
-    // const mintHash = await walletClient.writeContract({
-    //   abi: mockErc20ABI,
-    //   functionName: "mint",
-    //   address: contractAddress,
-    //   args: [ALICE, parseEther("1")],
-    // });
-    // await publicClient.waitForTransactionReceipt({ hash: mintHash });
+    const mintHash = await walletClient.writeContract({
+      abi: mockERC20ABI,
+      functionName: "mint",
+      address: contractAddress,
+      args: [ALICE, parseEther("1")],
+    });
+    await publicClient.waitForTransactionReceipt({ hash: mintHash });
   } else {
     await testClient.revert({ id });
   }
@@ -71,6 +71,15 @@ beforeEach(async () => {
 });
 
 test("deposit", async () => {
+  const hash = await writePanopticCollateralDeposit(walletClient, {
+    args: {
+      amount: createAmountFromString(collat.underlyingToken, "0.5"),
+      to: ALICE,
+    },
+  });
+
+  await publicClient.waitForTransactionReceipt({ hash });
+
   // const { request } = await simulateERC20Transfer(publicClient, {
   //   args: { amount: createAmountFromString(erc20, "1"), to: BOB },
   //   account: ALICE,

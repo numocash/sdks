@@ -6,7 +6,7 @@ import type {
   ReadContractParameters,
   Transport,
 } from "viem";
-import type { collateralTrackerABI } from "../generated.js";
+import type { collateralTrackerABI } from "../abi/collateralTracker.js";
 import type {
   PanopticCollateral,
   PanopticCollateralPositionData,
