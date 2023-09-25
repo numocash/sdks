@@ -13,6 +13,7 @@ export default defineConfig([
           "PanopticFactory.sol/**",
           "PanopticPool.sol/**",
           "CollateralTracker.sol/**",
+          "MockERC20.sol/**",
         ],
       }),
     ],
