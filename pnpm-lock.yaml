@@ -21,8 +21,8 @@ importers:
   packages/panoptic-sdk:
     dependencies:
       reverse-mirage:
-        specifier: 1.0.0-next.1
-        version: 1.0.0-next.1(viem@1.12.1)
+        specifier: 1.0.0-next.2
+        version: 1.0.0-next.2(viem@1.12.2)
       tiny-invariant:
         specifier: ^1.3.1
         version: 1.3.1
@@ -40,8 +40,8 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
       viem:
-        specifier: ^1.12.1
-        version: 1.12.1(typescript@5.2.2)
+        specifier: ^1.12.2
+        version: 1.12.2(typescript@5.2.2)(zod@3.22.2)
 
   packages/uniswap-v3-sdk:
     dependencies:
@@ -1402,12 +1402,8 @@ packages:
     resolution: {integrity: sha512-ssE3Vlrys7sdIzs5LOxCzTVMsU7i9oa/IaW92wF32JFb3CVczqOkru2xspuKczHEbG3nvmPY7IFqVmGGHdNbYw==}
     dev: true
 
-  /@types/node@20.6.3:
-    resolution: {integrity: sha512-HksnYH4Ljr4VQgEy2lTStbCKv/P590tmPe5HqOnv9Gprffgv5WXAY+Y5Gqniu0GGqeTCUdBnzC3QSrzPkBkAMA==}
-
   /@types/node@20.6.5:
     resolution: {integrity: sha512-2qGq5LAOTh9izcc0+F+dToFigBWiK1phKPt7rNhOqJSr35y8rlIBjDwGtFSgAI6MGIhjwOVNSQZVdJsZJ2uR1w==}
-    dev: true
 
   /@types/pbkdf2@3.1.0:
     resolution: {integrity: sha512-Cf63Rv7jCQ0LaL8tNXmEyqTHuIJxRdlS5vMh1mj5voN4+QFhVZnlZruezqpWYDiJ8UTzhP0VmeLXCmBk66YrMQ==}
@@ -1431,7 +1427,7 @@ packages:
   /@types/ws@8.5.5:
     resolution: {integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==}
     dependencies:
-      '@types/node': 20.6.3
+      '@types/node': 20.6.5
 
   /@uniswap/lib@4.0.1-alpha:
     resolution: {integrity: sha512-f6UIliwBbRsgVLxIaBANF6w09tYqc6Y/qXdsrbEmXHyFA7ILiKrIwRFXe1yOg8M3cksgVsO9N7yuL2DdCGQKBA==}
@@ -3779,15 +3775,6 @@ packages:
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
     dev: true
 
-  /reverse-mirage@1.0.0-next.1(viem@1.12.1):
-    resolution: {integrity: sha512-c7ykH39irro26dsRXu+p7NVc6ulWW8ilfUUYC/5sC2TWyjlvLYwwgMymAzCRaAIWjjAdTC4jireL5T1FNolQcw==}
-    peerDependencies:
-      viem: '>=1'
-    dependencies:
-      tiny-invariant: 1.3.1
-      viem: 1.12.1(typescript@5.2.2)
-    dev: false
-
   /reverse-mirage@1.0.0-next.2(viem@1.12.2):
     resolution: {integrity: sha512-u/EPlejSgzLM6b5Ugh2RYXco6sKPPrkdDgLHv3mfztYx86qBWe5XkpnIDwI73LyFWXWL80eRafElZpXyRTpVzQ==}
     peerDependencies:
@@ -4331,29 +4318,6 @@ packages:
       '@types/istanbul-lib-coverage': 2.0.4
       convert-source-map: 1.9.0
     dev: true
-
-  /viem@1.12.1(typescript@5.2.2):
-    resolution: {integrity: sha512-DCTLrqrsZIgfk86qU7FJGeunhaDDL/9xR4FfJZDVN/rDZCo6foXXDiofkyaYNyvFigps3hobj591Ah8uwaszEA==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@adraffy/ens-normalize': 1.9.4
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
-      '@scure/bip32': 1.3.2
-      '@scure/bip39': 1.2.1
-      '@types/ws': 8.5.5
-      abitype: 0.9.8(typescript@5.2.2)(zod@3.22.2)
-      isomorphic-ws: 5.0.0(ws@8.13.0)
-      typescript: 5.2.2
-      ws: 8.13.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - zod
 
   /viem@1.12.2(typescript@5.2.2)(zod@3.22.2):
     resolution: {integrity: sha512-aCaUCyg72ES+jK4s6tVYOMnOt4if71RwzgiUAUpAuaCgvHFfh9DCnwuEfwkxEZLE2vafOsirgJ3fcn7nsDVQoQ==}
