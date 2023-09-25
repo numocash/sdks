@@ -16,6 +16,7 @@ import { mockERC20ABI } from "../../abi/mockERC20.js";
 import type { PanopticCollateral } from "../../index.js";
 import { createPanopticCollateral } from "../../utils/createPanopticCollateral.js";
 import { writePanopticCollateralDeposit } from "./writePanopticCollateralDeposit.js";
+import { writePanopticCollateralRedeem } from "./writePanopticCollateralRedeem.js";
 
 let id: Hex | undefined = undefined;
 
@@ -64,16 +65,26 @@ beforeEach(async () => {
       args: [ALICE, parseEther("1")],
     });
     await publicClient.waitForTransactionReceipt({ hash: mintHash });
+
+    const hash = await writePanopticCollateralDeposit(walletClient, {
+      args: {
+        amount: createAmountFromString(collat.underlyingToken, "1"),
+        to: ALICE,
+      },
+    });
+
+    await publicClient.waitForTransactionReceipt({ hash });
   } else {
     await testClient.revert({ id });
   }
   id = await testClient.snapshot();
 });
 
-test("deposit", async () => {
-  const hash = await writePanopticCollateralDeposit(walletClient, {
+test("Redeem", async () => {
+  const hash = await writePanopticCollateralRedeem(walletClient, {
     args: {
-      amount: createAmountFromString(collat.underlyingToken, "0.5"),
+      amount: createAmountFromString(collat, "0.5"),
+      from: ALICE,
       to: ALICE,
     },
   });

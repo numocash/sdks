@@ -16,6 +16,7 @@ export type PanopticCollateralRedeemParameters<
   TPanopticCollateral extends PanopticCollateral,
 > = {
   amount: ERC20Amount<TPanopticCollateral>;
+  from: Address;
   to: Address;
 };
 
@@ -43,7 +44,7 @@ export const writePanopticCollateralRedeem = <
 >(
   client: Client<Transport, TChain, TAccount>,
   {
-    args: { amount, to },
+    args: { amount, to, from },
     ...request
   }: WritePanopticCollateralRedeemParameters<
     TPanopticCollateral,
@@ -56,7 +57,7 @@ export const writePanopticCollateralRedeem = <
     address: amount.token.address,
     abi: collateralTrackerABI,
     functionName: "redeem",
-    args: [amount.amount, to],
+    args: [amount.amount, from, to],
     ...request,
   } as unknown as WriteContractParameters<
     typeof collateralTrackerABI,

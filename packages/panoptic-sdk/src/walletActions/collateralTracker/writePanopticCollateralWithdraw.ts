@@ -16,6 +16,7 @@ export type PanopticCollateralWithdrawParameters<
   TPanopticCollateral extends PanopticCollateral,
 > = {
   amount: ERC20Amount<TPanopticCollateral["underlyingToken"]>;
+  from: Address;
   to: Address;
 };
 
@@ -43,7 +44,7 @@ export const writePanopticCollateralWithdraw = <
 >(
   client: Client<Transport, TChain, TAccount>,
   {
-    args: { amount, to },
+    args: { amount, from, to },
     ...request
   }: WritePanopticCollateralWithdrawParameters<
     TPanopticCollateral,
@@ -56,7 +57,7 @@ export const writePanopticCollateralWithdraw = <
     address: amount.token.address,
     abi: collateralTrackerABI,
     functionName: "withdraw",
-    args: [amount.amount, to],
+    args: [amount.amount, from, to],
     ...request,
   } as unknown as WriteContractParameters<
     typeof collateralTrackerABI,

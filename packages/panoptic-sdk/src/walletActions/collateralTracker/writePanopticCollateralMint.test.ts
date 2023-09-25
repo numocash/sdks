@@ -15,7 +15,7 @@ import {
 import { mockERC20ABI } from "../../abi/mockERC20.js";
 import type { PanopticCollateral } from "../../index.js";
 import { createPanopticCollateral } from "../../utils/createPanopticCollateral.js";
-import { writePanopticCollateralDeposit } from "./writePanopticCollateralDeposit.js";
+import { writePanopticCollateralMint } from "./writePanopticCollateralMint.js";
 
 let id: Hex | undefined = undefined;
 
@@ -70,10 +70,10 @@ beforeEach(async () => {
   id = await testClient.snapshot();
 });
 
-test("deposit", async () => {
-  const hash = await writePanopticCollateralDeposit(walletClient, {
+test("Mint", async () => {
+  const hash = await writePanopticCollateralMint(walletClient, {
     args: {
-      amount: createAmountFromString(collat.underlyingToken, "0.5"),
+      amount: createAmountFromString(collat, "0.5"),
       to: ALICE,
     },
   });

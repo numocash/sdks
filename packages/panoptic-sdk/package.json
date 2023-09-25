@@ -22,7 +22,8 @@
     "build": "tsup",
     "lint": "biome check .",
     "format": "biome format .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest"
   },
   "peerDependencies": {
     "viem": ">=1"
