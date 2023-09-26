@@ -48,10 +48,10 @@ Typescript SDK for Panoptic
   - [ ] `writePanopticBurnOptions`
   - [ ] `writePanopticForceExercise`
   - [ ] `writePanopticLiquidateAccount`
-  - [ ] `writePanopticCollateralMint`
-  - [ ] `writePanopticCollateralDeposit`
-  - [ ] `writePanopticCollateralRedeem`
-  - [ ] `writePanopticCollateralWithdraw`
+  - [x] `writePanopticCollateralMint`
+  - [x] `writePanopticCollateralDeposit`
+  - [x] `writePanopticCollateralRedeem`
+  - [x] `writePanopticCollateralWithdraw`
 
 - Chains
 
