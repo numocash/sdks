@@ -7,10 +7,8 @@ import type {
   Transport,
 } from "viem";
 import { readContract } from "viem/actions";
-import {
-  panopticPoolABI,
-  semiFungiblePositionManagerABI,
-} from "../generated.js";
+import { panopticPoolABI } from "../abi/panopticPool.js";
+import { semiFungiblePositionManagerABI } from "../abi/semiFungiblePositionManager.js";
 import type { PanopticPool } from "../types/PanopticPool.js";
 import type {
   PanoptionLeg,
