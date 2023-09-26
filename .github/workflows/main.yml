@@ -23,13 +23,6 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
-      - name: Install foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-      - run: forge install
-      - run: pnpm install
-      - run: pnpm wagmi generate
       - run: pnpm build
       - name: Lint
         run: pnpm lint
@@ -46,13 +39,6 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
-      - name: Install foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-      - run: forge install
-      - run: pnpm install
-      - run: pnpm wagmi generate
       - run: pnpm build
       - name: Typecheck
         run: pnpm typecheck
@@ -69,13 +55,7 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
-      - name: Install foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-      - run: forge install
       - run: pnpm install
-      - run: pnpm wagmi generate
       - name: Build
         run: pnpm build
       
@@ -91,12 +71,6 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
-      - name: Install foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-      - run: forge install
       - run: pnpm install
-      - run: pnpm wagmi generate
       - name: Run tests
         run: pnpm test:ci
