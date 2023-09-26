@@ -43,11 +43,11 @@ Typescript SDK for Panoptic
 
 - Wallet Actions
 
-  - [ ] `writePanopticMintOptions`
-  - [ ] `writePanopticRollOptions`
-  - [ ] `writePanopticBurnOptions`
-  - [ ] `writePanopticForceExercise`
-  - [ ] `writePanopticLiquidateAccount`
+  - [x] `writePanopticMintOptions`
+  - [x] `writePanopticRollOptions`
+  - [x] `writePanopticBurnOptions`
+  - [x] `writePanopticForceExercise`
+  - [x] `writePanopticLiquidateAccount`
   - [x] `writePanopticCollateralMint`
   - [x] `writePanopticCollateralDeposit`
   - [x] `writePanopticCollateralRedeem`
@@ -55,7 +55,7 @@ Typescript SDK for Panoptic
 
 - Chains
 
-  - [ ] `sepoliaPanoptic`
+  - [x] `sepoliaPanoptic`
 
 - ABIs
 

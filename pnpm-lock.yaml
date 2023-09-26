@@ -21,8 +21,8 @@ importers:
   packages/panoptic-sdk:
     dependencies:
       reverse-mirage:
-        specifier: 1.0.0-next.2
-        version: 1.0.0-next.2(viem@1.12.2)
+        specifier: 1.0.0-next.3
+        version: 1.0.0-next.3(viem@1.12.2)
       tiny-invariant:
         specifier: ^1.3.1
         version: 1.3.1
@@ -55,8 +55,8 @@ importers:
   packages/uniswap-v3-sdk:
     dependencies:
       reverse-mirage:
-        specifier: 1.0.0-next.2
-        version: 1.0.0-next.2(viem@1.12.2)
+        specifier: 1.0.0-next.3
+        version: 1.0.0-next.3(viem@1.12.2)
       tiny-invariant:
         specifier: ^1.3.1
         version: 1.3.1
@@ -3841,8 +3841,8 @@ packages:
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
     dev: true
 
-  /reverse-mirage@1.0.0-next.2(viem@1.12.2):
-    resolution: {integrity: sha512-u/EPlejSgzLM6b5Ugh2RYXco6sKPPrkdDgLHv3mfztYx86qBWe5XkpnIDwI73LyFWXWL80eRafElZpXyRTpVzQ==}
+  /reverse-mirage@1.0.0-next.3(viem@1.12.2):
+    resolution: {integrity: sha512-/DjgvYB+HpI6p57SZCYbD8LCVGNL19kzNaibEbd/rqoBWLyBIB2vHiNabSoRib+6xptpxgxRY7ztma3ifLeh0A==}
     peerDependencies:
       viem: '>=1'
     dependencies:

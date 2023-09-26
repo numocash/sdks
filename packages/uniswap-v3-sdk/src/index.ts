@@ -39,6 +39,7 @@ export {
 } from "./publicActions/index.js";
 
 export { mainnetUniswapV3 } from "./chains/mainnet.js";
+export { sepoliaUniswapV3 } from "./chains/sepolia.js";
 
 export { uniswapV3FactoryABI } from "./abi/uniswapV3FactoryABI.js";
 export { uniswapV3PoolABI } from "./abi/uniswapV3PoolABI.js";

@@ -9,6 +9,8 @@ export type PanopticFactory = {
   owner: Address;
   uniswapFactory: UniswapV3Factory;
   semiFungiblePositionManager: PanopticSemiFungiblePositionManager;
+  collateralTrackerReference: Address;
+  panopticPoolReference: Address;
   weth: WETH;
   blockCreated: bigint;
 };
