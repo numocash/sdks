@@ -23,6 +23,7 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
+      - run: pnpm install
       - run: pnpm build
       - name: Lint
         run: pnpm lint
@@ -39,6 +40,7 @@ jobs:
         with:
           cache: pnpm
           node-version: latest
+      - run: pnpm install
       - run: pnpm build
       - name: Typecheck
         run: pnpm typecheck
