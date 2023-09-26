@@ -9,7 +9,7 @@ import type {
   WriteContractReturnType,
 } from "viem";
 import { writeContract } from "viem/contract";
-import { collateralTrackerABI } from "../../abi/collateralTracker.js";
+import { collateralTrackerABI } from "../../generated.js";
 import type { PanopticCollateral } from "../../types/PanopticCollateral.js";
 
 export type PanopticCollateralRedeemParameters<

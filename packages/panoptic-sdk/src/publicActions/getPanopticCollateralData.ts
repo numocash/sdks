@@ -1,7 +1,7 @@
 import { createAmountFromRaw } from "reverse-mirage";
 import type { Chain, Client, ReadContractParameters, Transport } from "viem";
 import { readContract } from "viem/actions";
-import { collateralTrackerABI } from "../abi/collateralTracker.js";
+import { collateralTrackerABI } from "../generated.js";
 import type {
   PanopticCollateral,
   PanopticCollateralData,

@@ -31,7 +31,9 @@ export { walletActionPanoptic } from "./decorator/walletActions.js";
 
 export { sepoliaPanoptic } from "./chains/sepolia.js";
 
-export { collateralTrackerABI } from "./abi/collateralTracker.js";
-export { semiFungiblePositionManagerABI } from "./abi/semiFungiblePositionManager.js";
-export { panopticFactoryABI } from "./abi/panopticFactory.js";
-export { panopticPoolABI } from "./abi/panopticPool.js";
+export {
+  collateralTrackerABI,
+  semiFungiblePositionManagerABI,
+  panopticFactoryABI,
+  panopticPoolABI,
+} from "./generated.js";

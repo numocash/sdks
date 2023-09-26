@@ -2,7 +2,7 @@ import { createFraction } from "reverse-mirage";
 import type { UniswapV3Tick } from "uniswap-v3-sdk";
 import type { Chain, Client, ReadContractParameters, Transport } from "viem";
 import { readContract } from "viem/actions";
-import { panopticPoolABI } from "../abi/panopticPool.js";
+import { panopticPoolABI } from "../generated.js";
 import type {
   PanopticPosition,
   PanopticPositionData,

@@ -3,8 +3,8 @@ import invariant from "tiny-invariant";
 import { type Hex, parseEther } from "viem";
 import { foundry } from "viem/chains";
 import { beforeEach, test } from "vitest";
+import MockERC20Bytecode from "../../../../../lib/panoptic-v1-core/artifacts/contracts/MockERC20.sol/MockERC20.json";
 import { collateralTrackerBytecode } from "../../_test/bytecode/collateralTracker.js";
-import { mockERC20Bytecode } from "../../_test/bytecode/mockERC20.js";
 import { ALICE } from "../../_test/constants.js";
 import {
   baseParameters,
@@ -12,7 +12,7 @@ import {
   testClient,
   walletClient,
 } from "../../_test/utils.js";
-import { mockERC20ABI } from "../../abi/mockERC20.js";
+import { mockErc20ABI } from "../../generated.js";
 import type { PanopticCollateral } from "../../index.js";
 import { createPanopticCollateral } from "../../utils/createPanopticCollateral.js";
 import { writePanopticCollateralDeposit } from "./writePanopticCollateralDeposit.js";
@@ -26,8 +26,8 @@ beforeEach(async () => {
   if (id === undefined) {
     const deployHash = await walletClient.deployContract({
       account: ALICE,
-      abi: mockERC20ABI,
-      bytecode: mockERC20Bytecode,
+      abi: mockErc20ABI,
+      bytecode: MockERC20Bytecode.bytecode.object as Hex,
       args: ["name", "symbol", 18],
     });
 
@@ -59,7 +59,7 @@ beforeEach(async () => {
     );
 
     const mintHash = await walletClient.writeContract({
-      abi: mockERC20ABI,
+      abi: mockErc20ABI,
       functionName: "mint",
       address: contractAddress,
       args: [ALICE, parseEther("1")],

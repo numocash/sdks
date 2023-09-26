@@ -7,7 +7,7 @@ import type {
   WriteContractReturnType,
 } from "viem";
 import { writeContract } from "viem/contract";
-import { panopticPoolABI } from "../abi/panopticPool.js";
+import { panopticPoolABI } from "../generated.js";
 import type { PanopticPosition } from "../types/PanopticPosition.js";
 
 export type PanopticLiquidateAccountParameters = {
