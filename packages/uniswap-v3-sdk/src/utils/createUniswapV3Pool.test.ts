@@ -1,6 +1,6 @@
 import { createERC20 } from "reverse-mirage";
 import { expect, test } from "vitest";
-import { mainnetUniswapV3 } from "../chains/mainnet.js";
+import { mainnetUniswapV3 } from "../index.js";
 import { createUniswapV3Pool } from "./createUniswapV3Pool.js";
 
 test("create uniswap v3 pool", () => {
@@ -24,7 +24,7 @@ test("create uniswap v3 pool", () => {
     tokenA,
     tokenB,
     500,
-    mainnetUniswapV3.factory.address,
+    mainnetUniswapV3.factory,
   );
 
   expect(pool.type).toBe("uniswapV3Pool");
@@ -57,7 +57,7 @@ test("create uniswap v3 pool flipped order", () => {
     tokenA,
     tokenB,
     500,
-    mainnetUniswapV3.factory.address,
+    mainnetUniswapV3.factory,
   );
 
   expect(pool.type).toBe("uniswapV3Pool");

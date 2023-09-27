@@ -169,7 +169,7 @@ export const deployPool = async (): Promise<PanopticPool> => {
     tokenA,
     tokenB,
     500,
-    sepoliaPanoptic.factory.uniswapFactory.address,
+    sepoliaPanoptic.factory.uniswapFactory,
   );
 
   const { request: initializeRequest } = await publicClient.simulateContract({

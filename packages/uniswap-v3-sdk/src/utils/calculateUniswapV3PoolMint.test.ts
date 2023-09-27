@@ -15,7 +15,12 @@ import { createUniswapV3Position } from "./createUniswapV3Position.js";
 import { createUniswapV3Tick } from "./createUniswapV3Tick.js";
 import { q96ToFraction } from "./q96ToFraction.js";
 
-const uniswapV3Pool = createUniswapV3Pool(token0, token1, 100, zeroAddress);
+const uniswapV3Pool = createUniswapV3Pool(token0, token1, 100, {
+  address: zeroAddress,
+  owner: zeroAddress,
+  blockCreated: 0n,
+  poolInitCodeHash: zeroAddress,
+});
 
 test("mint", () => {
   const poolData: UniswapV3PoolData = {
