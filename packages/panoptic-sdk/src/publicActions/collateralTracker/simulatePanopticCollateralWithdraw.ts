@@ -14,6 +14,7 @@ import type { PanopticCollateral } from "../../types/PanopticCollateral.js";
 export type PanopticCollateralWithdrawParameters<
   TPanopticCollateral extends PanopticCollateral,
 > = {
+  collateral: TPanopticCollateral;
   amount: ERC20Amount<TPanopticCollateral["underlyingToken"]>;
   from: Address;
   to: Address;
@@ -50,7 +51,7 @@ export const simulatePanopticCollateralWithdraw = <
 >(
   client: Client<Transport, TChain>,
   {
-    args: { amount, to, from },
+    args: { collateral, amount, to, from },
     ...request
   }: SimulatePanopticCollateralWithdrawParameters<
     TPanopticCollateral,
@@ -61,7 +62,7 @@ export const simulatePanopticCollateralWithdraw = <
   SimulatePanopticCollateralWithdrawReturnType<TChain, TChainOverride>
 > =>
   simulateContract(client, {
-    address: amount.token.address,
+    address: collateral.address,
     abi: collateralTrackerABI,
     functionName: "withdraw",
     args: [amount.amount, from, to],
