@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.2.2",
+    "@uniswap/v3-core": "^1.0.1",
     "@viem/anvil": "^0.0.6",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2",

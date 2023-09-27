@@ -1,8 +1,14 @@
 import { startProxy } from "@viem/anvil";
+import { testClient } from "./utils.js";
 
 export default async function () {
-  return await startProxy({
-    port: 8545, // By default, the proxy will listen on port 8545.
-    host: "::", // By default, the proxy will listen on all interfaces.
+  const shutdown = await startProxy({
+    options: {
+      forkUrl: "https://ethereum-sepolia.blockpi.network/v1/rpc/public",
+    },
   });
+
+  await testClient.setAutomine(true);
+
+  return shutdown;
 }

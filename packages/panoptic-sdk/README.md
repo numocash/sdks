@@ -24,6 +24,8 @@ Typescript SDK for Panoptic
   - [x] `createPanopticPosition`
   - [x] `calculatePanopticTokenID`
   - [x] `calculatePanopticPositionKey`
+  - [ ] `calculatePanopticPoolAddress`
+  - [ ] `calculateCollateralTrackerAddress`
   - [ ] `calculatePanopticMintOptions`
   - [ ] `calculatePanopticRollOptions`
   - [ ] `calculatePanopticBurnOptions`
@@ -40,18 +42,15 @@ Typescript SDK for Panoptic
   - [x] `getPanopticCollateralData`
   - [x] `getPanopticCollateralPositionData`
   - [x] `getPanopticPositionData`
-
-- Wallet Actions
-
-  - [x] `writePanopticMintOptions`
-  - [x] `writePanopticRollOptions`
-  - [x] `writePanopticBurnOptions`
-  - [x] `writePanopticForceExercise`
-  - [x] `writePanopticLiquidateAccount`
-  - [x] `writePanopticCollateralMint`
-  - [x] `writePanopticCollateralDeposit`
-  - [x] `writePanopticCollateralRedeem`
-  - [x] `writePanopticCollateralWithdraw`
+  - [x] `simulatePanopticMintOptions`
+  - [x] `simulatePanopticRollOptions`
+  - [x] `simulatePanopticBurnOptions`
+  - [x] `simulatePanopticForceExercise`
+  - [x] `simulatePanopticLiquidateAccount`
+  - [x] `simulatePanopticCollateralMint`
+  - [x] `simulatePanopticCollateralDeposit`
+  - [x] `simulatePanopticCollateralRedeem`
+  - [x] `simulatePanopticCollateralWithdraw`
 
 - Chains
 

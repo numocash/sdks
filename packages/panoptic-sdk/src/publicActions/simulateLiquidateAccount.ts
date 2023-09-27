@@ -1,55 +1,62 @@
 import type {
-  Account,
   Chain,
   Client,
+  SimulateContractParameters,
+  SimulateContractReturnType,
   Transport,
-  WriteContractParameters,
-  WriteContractReturnType,
 } from "viem";
-import { writeContract } from "viem/contract";
-import { panopticPoolABI } from "../abi/panopticPool.js";
+import { simulateContract } from "viem/contract";
+import { panopticPoolABI } from "../generated.js";
 import type { PanopticPosition } from "../types/PanopticPosition.js";
 
 export type PanopticLiquidateAccountParameters = {
   position: PanopticPosition;
 };
 
-export type WritePanopticLiquidateAccountParameters<
+export type SimulatePanopticLiquidateAccountParameters<
   TChain extends Chain | undefined = Chain,
-  TAccount extends Account | undefined = Account | undefined,
   TChainOverride extends Chain | undefined = Chain | undefined,
 > = Omit<
-  WriteContractParameters<
+  SimulateContractParameters<
     typeof panopticPoolABI,
     "liquidateAccount",
     TChain,
-    TAccount,
     TChainOverride
   >,
   "args" | "address" | "abi" | "functionName"
 > & { args: PanopticLiquidateAccountParameters };
 
-export const writePanopticLiquidateAccount = <
+export type SimulatePanopticLiquidateAccountReturnType<
   TChain extends Chain | undefined,
-  TAccount extends Account | undefined,
+  TChainOverride extends Chain | undefined = undefined,
+> = SimulateContractReturnType<
+  typeof panopticPoolABI,
+  "liquidateAccount",
+  TChain,
+  TChainOverride
+>;
+
+export const simulatePanopticLiquidateAccount = <
+  TChain extends Chain | undefined,
   TChainOverride extends Chain | undefined,
 >(
-  client: Client<Transport, TChain, TAccount>,
+  client: Client<Transport, TChain>,
   {
     args: { position },
     ...request
-  }: WritePanopticLiquidateAccountParameters<TChain, TAccount, TChainOverride>,
-): Promise<WriteContractReturnType> =>
-  writeContract(client, {
+  }: SimulatePanopticLiquidateAccountParameters<TChain, TChainOverride>,
+): Promise<
+  SimulatePanopticLiquidateAccountReturnType<TChain, TChainOverride>
+> =>
+  simulateContract(client, {
     address: position.pool.address,
     abi: panopticPoolABI,
     functionName: "liquidateAccount",
     args: [position.owner, 0, 0, [position.id]],
     ...request,
-  } as unknown as WriteContractParameters<
+  } as unknown as SimulateContractParameters<
     typeof panopticPoolABI,
     "liquidateAccount",
     TChain,
-    TAccount,
     TChainOverride
   >);

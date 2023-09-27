@@ -1,6 +1,6 @@
 import { getUniswapV3PoolData } from "uniswap-v3-sdk";
 import type { Chain, Client, ReadContractParameters, Transport } from "viem";
-import { collateralTrackerABI } from "../abi/collateralTracker.js";
+import { collateralTrackerABI } from "../generated.js";
 import type { PanopticPool, PanopticPoolData } from "../types/PanopticPool.js";
 import { getPanopticCollateralData } from "./getPanopticCollateralData.js";
 

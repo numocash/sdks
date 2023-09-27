@@ -1,15 +1,14 @@
 import type { ERC20Amount } from "reverse-mirage";
 import type {
-  Account,
   Address,
   Chain,
   Client,
+  SimulateContractParameters,
+  SimulateContractReturnType,
   Transport,
-  WriteContractParameters,
-  WriteContractReturnType,
 } from "viem";
-import { writeContract } from "viem/contract";
-import { collateralTrackerABI } from "../../abi/collateralTracker.js";
+import { simulateContract } from "viem/contract";
+import { collateralTrackerABI } from "../../generated.js";
 import type { PanopticCollateral } from "../../types/PanopticCollateral.js";
 
 export type PanopticCollateralWithdrawParameters<
@@ -20,49 +19,56 @@ export type PanopticCollateralWithdrawParameters<
   to: Address;
 };
 
-export type WritePanopticCollateralWithdrawParameters<
+export type SimulatePanopticCollateralWithdrawParameters<
   TPanopticCollateral extends PanopticCollateral,
   TChain extends Chain | undefined = Chain,
-  TAccount extends Account | undefined = Account | undefined,
   TChainOverride extends Chain | undefined = Chain | undefined,
 > = Omit<
-  WriteContractParameters<
+  SimulateContractParameters<
     typeof collateralTrackerABI,
     "withdraw",
     TChain,
-    TAccount,
     TChainOverride
   >,
   "args" | "address" | "abi" | "functionName"
 > & { args: PanopticCollateralWithdrawParameters<TPanopticCollateral> };
 
-export const writePanopticCollateralWithdraw = <
+export type SimulatePanopticCollateralWithdrawReturnType<
+  TChain extends Chain | undefined,
+  TChainOverride extends Chain | undefined = undefined,
+> = SimulateContractReturnType<
+  typeof collateralTrackerABI,
+  "withdraw",
+  TChain,
+  TChainOverride
+>;
+
+export const simulatePanopticCollateralWithdraw = <
   TPanopticCollateral extends PanopticCollateral,
   TChain extends Chain | undefined,
-  TAccount extends Account | undefined,
   TChainOverride extends Chain | undefined,
 >(
-  client: Client<Transport, TChain, TAccount>,
+  client: Client<Transport, TChain>,
   {
-    args: { amount, from, to },
+    args: { amount, to, from },
     ...request
-  }: WritePanopticCollateralWithdrawParameters<
+  }: SimulatePanopticCollateralWithdrawParameters<
     TPanopticCollateral,
     TChain,
-    TAccount,
     TChainOverride
   >,
-): Promise<WriteContractReturnType> =>
-  writeContract(client, {
+): Promise<
+  SimulatePanopticCollateralWithdrawReturnType<TChain, TChainOverride>
+> =>
+  simulateContract(client, {
     address: amount.token.address,
     abi: collateralTrackerABI,
     functionName: "withdraw",
     args: [amount.amount, from, to],
     ...request,
-  } as unknown as WriteContractParameters<
+  } as unknown as SimulateContractParameters<
     typeof collateralTrackerABI,
     "withdraw",
     TChain,
-    TAccount,
     TChainOverride
   >);
