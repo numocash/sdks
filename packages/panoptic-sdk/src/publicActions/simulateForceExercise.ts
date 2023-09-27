@@ -1,12 +1,11 @@
 import type {
-  Account,
   Chain,
   Client,
+  SimulateContractParameters,
+  SimulateContractReturnType,
   Transport,
-  WriteContractParameters,
-  WriteContractReturnType,
 } from "viem";
-import { writeContract } from "viem/contract";
+import { simulateContract } from "viem/contract";
 import { panopticPoolABI } from "../generated.js";
 import type { PanopticPosition } from "../types/PanopticPosition.js";
 
@@ -14,42 +13,48 @@ export type PanopticForceExerciseParameters = {
   position: PanopticPosition;
 };
 
-export type WritePanopticForceExerciseParameters<
+export type SimulatePanopticForceExerciseParameters<
   TChain extends Chain | undefined = Chain,
-  TAccount extends Account | undefined = Account | undefined,
   TChainOverride extends Chain | undefined = Chain | undefined,
 > = Omit<
-  WriteContractParameters<
+  SimulateContractParameters<
     typeof panopticPoolABI,
     "forceExercise",
     TChain,
-    TAccount,
     TChainOverride
   >,
   "args" | "address" | "abi" | "functionName"
 > & { args: PanopticForceExerciseParameters };
 
-export const writePanopticForceExercise = <
+export type SimulatePanopticForceExerciseReturnType<
   TChain extends Chain | undefined,
-  TAccount extends Account | undefined,
+  TChainOverride extends Chain | undefined = undefined,
+> = SimulateContractReturnType<
+  typeof panopticPoolABI,
+  "forceExercise",
+  TChain,
+  TChainOverride
+>;
+
+export const simulatePanopticForceExercise = <
+  TChain extends Chain | undefined,
   TChainOverride extends Chain | undefined,
 >(
-  client: Client<Transport, TChain, TAccount>,
+  client: Client<Transport, TChain>,
   {
     args: { position },
     ...request
-  }: WritePanopticForceExerciseParameters<TChain, TAccount, TChainOverride>,
-): Promise<WriteContractReturnType> =>
-  writeContract(client, {
+  }: SimulatePanopticForceExerciseParameters<TChain, TChainOverride>,
+): Promise<SimulatePanopticForceExerciseReturnType<TChain, TChainOverride>> =>
+  simulateContract(client, {
     address: position.pool.address,
     abi: panopticPoolABI,
     functionName: "forceExercise",
     args: [position.owner, 0, 0, [position.id], []],
     ...request,
-  } as unknown as WriteContractParameters<
+  } as unknown as SimulateContractParameters<
     typeof panopticPoolABI,
     "forceExercise",
     TChain,
-    TAccount,
     TChainOverride
   >);

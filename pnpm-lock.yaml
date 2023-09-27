@@ -33,6 +33,9 @@ importers:
       '@biomejs/biome':
         specifier: ^1.2.2
         version: 1.2.2
+      '@uniswap/v3-core':
+        specifier: ^1.0.1
+        version: 1.0.1
       '@viem/anvil':
         specifier: ^0.0.6
         version: 0.0.6
@@ -1473,6 +1476,11 @@ packages:
 
   /@uniswap/v3-core@1.0.0:
     resolution: {integrity: sha512-kSC4djMGKMHj7sLMYVnn61k9nu+lHjMIxgg9CDQT+s2QYLoA56GbSK9Oxr+qJXzzygbkrmuY6cwgP6cW2JXPFA==}
+    engines: {node: '>=10'}
+    dev: true
+
+  /@uniswap/v3-core@1.0.1:
+    resolution: {integrity: sha512-7pVk4hEm00j9tc71Y9+ssYpO6ytkeI0y7WE9P6UcmNzhxPePwyAxImuhVsTqWK9YFvzgtvzJHi64pBl4jUzKMQ==}
     engines: {node: '>=10'}
     dev: true
 

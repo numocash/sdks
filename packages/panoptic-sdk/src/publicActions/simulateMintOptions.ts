@@ -1,12 +1,11 @@
 import type {
-  Account,
   Chain,
   Client,
+  SimulateContractParameters,
+  SimulateContractReturnType,
   Transport,
-  WriteContractParameters,
-  WriteContractReturnType,
 } from "viem";
-import { writeContract } from "viem/contract";
+import { simulateContract } from "viem/contract";
 import { panopticPoolABI } from "../generated.js";
 import type { PanopticPosition } from "../types/PanopticPosition.js";
 
@@ -15,42 +14,48 @@ export type PanopticMintOptionsParameters = {
   amount: bigint;
 };
 
-export type WritePanopticMintOptionsParameters<
+export type SimulatePanopticMintOptionsParameters<
   TChain extends Chain | undefined = Chain,
-  TAccount extends Account | undefined = Account | undefined,
   TChainOverride extends Chain | undefined = Chain | undefined,
 > = Omit<
-  WriteContractParameters<
+  SimulateContractParameters<
     typeof panopticPoolABI,
     "mintOptions",
     TChain,
-    TAccount,
     TChainOverride
   >,
   "args" | "address" | "abi" | "functionName"
 > & { args: PanopticMintOptionsParameters };
 
-export const writePanopticMintOptions = <
+export type SimulatePanopticMintOptionsReturnType<
   TChain extends Chain | undefined,
-  TAccount extends Account | undefined,
+  TChainOverride extends Chain | undefined = undefined,
+> = SimulateContractReturnType<
+  typeof panopticPoolABI,
+  "mintOptions",
+  TChain,
+  TChainOverride
+>;
+
+export const simulatePanopticMintOptions = <
+  TChain extends Chain | undefined,
   TChainOverride extends Chain | undefined,
 >(
-  client: Client<Transport, TChain, TAccount>,
+  client: Client<Transport, TChain>,
   {
     args: { position, amount },
     ...request
-  }: WritePanopticMintOptionsParameters<TChain, TAccount, TChainOverride>,
-): Promise<WriteContractReturnType> =>
-  writeContract(client, {
+  }: SimulatePanopticMintOptionsParameters<TChain, TChainOverride>,
+): Promise<SimulatePanopticMintOptionsReturnType<TChain, TChainOverride>> =>
+  simulateContract(client, {
     address: position.pool.address,
     abi: panopticPoolABI,
     functionName: "mintOptions",
     args: [[position.id], amount, 0n, 0, 0],
     ...request,
-  } as unknown as WriteContractParameters<
+  } as unknown as SimulateContractParameters<
     typeof panopticPoolABI,
     "mintOptions",
     TChain,
-    TAccount,
     TChainOverride
   >);

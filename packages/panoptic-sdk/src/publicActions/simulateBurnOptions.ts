@@ -1,12 +1,11 @@
 import type {
-  Account,
   Chain,
   Client,
+  SimulateContractParameters,
+  SimulateContractReturnType,
   Transport,
-  WriteContractParameters,
-  WriteContractReturnType,
 } from "viem";
-import { writeContract } from "viem/contract";
+import { simulateContract } from "viem/contract";
 import { panopticPoolABI } from "../generated.js";
 import type { PanopticPosition } from "../types/PanopticPosition.js";
 
@@ -14,42 +13,48 @@ export type PanopticBurnOptionsParameters = {
   position: PanopticPosition;
 };
 
-export type WritePanopticBurnOptionsParameters<
+export type SimulatePanopticBurnOptionsParameters<
   TChain extends Chain | undefined = Chain,
-  TAccount extends Account | undefined = Account | undefined,
   TChainOverride extends Chain | undefined = Chain | undefined,
 > = Omit<
-  WriteContractParameters<
+  SimulateContractParameters<
     typeof panopticPoolABI,
     "burnOptions",
     TChain,
-    TAccount,
     TChainOverride
   >,
   "args" | "address" | "abi" | "functionName"
 > & { args: PanopticBurnOptionsParameters };
 
-export const writePanopticBurnOptions = <
+export type SimulatePanopticBurnOptionsReturnType<
   TChain extends Chain | undefined,
-  TAccount extends Account | undefined,
+  TChainOverride extends Chain | undefined = undefined,
+> = SimulateContractReturnType<
+  typeof panopticPoolABI,
+  "burnOptions",
+  TChain,
+  TChainOverride
+>;
+
+export const simulatePanopticBurnOptions = <
+  TChain extends Chain | undefined,
   TChainOverride extends Chain | undefined,
 >(
-  client: Client<Transport, TChain, TAccount>,
+  client: Client<Transport, TChain>,
   {
     args: { position },
     ...request
-  }: WritePanopticBurnOptionsParameters<TChain, TAccount, TChainOverride>,
-): Promise<WriteContractReturnType> =>
-  writeContract(client, {
+  }: SimulatePanopticBurnOptionsParameters<TChain, TChainOverride>,
+): Promise<SimulatePanopticBurnOptionsReturnType<TChain, TChainOverride>> =>
+  simulateContract(client, {
     address: position.pool.address,
     abi: panopticPoolABI,
     functionName: "burnOptions",
     args: [position.id, 0, 0],
     ...request,
-  } as unknown as WriteContractParameters<
+  } as unknown as SimulateContractParameters<
     typeof panopticPoolABI,
     "burnOptions",
     TChain,
-    TAccount,
     TChainOverride
   >);

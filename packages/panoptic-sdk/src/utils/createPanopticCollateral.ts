@@ -1,4 +1,5 @@
 import type { BaseERC20 } from "reverse-mirage";
+import type { FeeTier } from "uniswap-v3-sdk";
 import type { Address } from "viem/accounts";
 import type {
   PanopticCollateral,
@@ -7,21 +8,27 @@ import type {
 
 export const createPanopticCollateral = (
   address: Address,
-  name: string,
-  symbol: string,
-  decimals: number,
-  chainID: number,
   underlyingToken: BaseERC20,
+  otherToken: BaseERC20,
+  fee: FeeTier,
   parameters: PanopticCollateralParamters,
   blockCreated = 0n,
 ): PanopticCollateral => ({
   type: "poERC20",
   address,
-  name,
-  symbol,
-  decimals,
+  name: `POPT-V1 ${underlyingToken.symbol} LP on ${
+    underlyingToken.address.toLowerCase() < otherToken.address.toLowerCase()
+      ? underlyingToken.symbol
+      : otherToken.symbol
+  } / ${
+    underlyingToken.address.toLowerCase() < otherToken.address.toLowerCase()
+      ? otherToken.symbol
+      : underlyingToken.symbol
+  } ${fee} bps`,
+  symbol: `po${underlyingToken.symbol}`,
+  decimals: underlyingToken.decimals,
   underlyingToken,
   parameters,
-  chainID,
+  chainID: underlyingToken.chainID,
   blockCreated,
 });
