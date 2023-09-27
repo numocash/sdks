@@ -5,6 +5,7 @@ import type { PanopticPool } from "../types/PanopticPool.js";
 
 let id: Hex | undefined = undefined;
 
+// @ts-ignore
 let pool: PanopticPool;
 
 beforeEach(async () => {
