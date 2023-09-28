@@ -24,15 +24,31 @@
     "format": "biome format .",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
-    "test:ci": "CI=True vitest"
+    "test:ci": "CI=True vitest",
+    "size": "size-limit"
   },
   "peerDependencies": {
     "viem": ">=1"
   },
+  "size-limit": [
+    {
+      "name": "panoptic-sdk (cjs)",
+      "path": "./dist/index.cjs",
+      "limit": "16 kB"
+    },
+    {
+      "name": "panoptic-sdk",
+      "path": "./dist/index.js",
+      "limit": "8 kB",
+      "import": "*"
+    }
+  ],
   "devDependencies": {
     "@biomejs/biome": "^1.2.2",
+    "@size-limit/preset-small-lib": "^9.0.0",
     "@uniswap/v3-core": "^1.0.1",
     "@viem/anvil": "^0.0.6",
+    "size-limit": "^9.0.0",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2",
     "viem": "^1.13.1",
