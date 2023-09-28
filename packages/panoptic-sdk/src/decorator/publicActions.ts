@@ -34,23 +34,23 @@ import {
 import {
   type SimulatePanopticBurnOptionsParameters,
   simulatePanopticBurnOptions,
-} from "../publicActions/simulateBurnOptions.js";
+} from "../publicActions/simulatePanopticBurnOptions.js";
 import {
   type SimulatePanopticForceExerciseParameters,
   simulatePanopticForceExercise,
-} from "../publicActions/simulateForceExercise.js";
+} from "../publicActions/simulatePanopticForceExercise.js";
 import {
   type SimulatePanopticLiquidateAccountParameters,
   simulatePanopticLiquidateAccount,
-} from "../publicActions/simulateLiquidateAccount.js";
+} from "../publicActions/simulatePanopticLiquidateAccount.js";
 import {
   type SimulatePanopticMintOptionsParameters,
   simulatePanopticMintOptions,
-} from "../publicActions/simulateMintOptions.js";
+} from "../publicActions/simulatePanopticMintOptions.js";
 import {
   type SimulatePanopticRollOptionsParameters,
   simulatePanopticRollOptions,
-} from "../publicActions/simulateRollOptions.js";
+} from "../publicActions/simulatePanopticRollOptions.js";
 import type { PanopticCollateral } from "../types/PanopticCollateral.js";
 
 export const publicActionPanoptic = <

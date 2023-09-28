@@ -20,11 +20,11 @@ export { simulatePanopticCollateralDeposit } from "./publicActions/collateralTra
 export { simulatePanopticCollateralWithdraw } from "./publicActions/collateralTracker/simulatePanopticCollateralWithdraw.js";
 export { simulatePanopticCollateralMint } from "./publicActions/collateralTracker/simulatePanopticCollateralMint.js";
 export { simulatePanopticCollateralRedeem } from "./publicActions/collateralTracker/simulatePanopticCollateralRedeem.js";
-export { simulatePanopticMintOptions } from "./publicActions/simulateMintOptions.js";
-export { simulatePanopticRollOptions } from "./publicActions/simulateRollOptions.js";
-export { simulatePanopticBurnOptions } from "./publicActions/simulateBurnOptions.js";
-export { simulatePanopticForceExercise } from "./publicActions/simulateForceExercise.js";
-export { simulatePanopticLiquidateAccount } from "./publicActions/simulateLiquidateAccount.js";
+export { simulatePanopticMintOptions } from "./publicActions/simulatePanopticMintOptions.js";
+export { simulatePanopticRollOptions } from "./publicActions/simulatePanopticRollOptions.js";
+export { simulatePanopticBurnOptions } from "./publicActions/simulatePanopticBurnOptions.js";
+export { simulatePanopticForceExercise } from "./publicActions/simulatePanopticForceExercise.js";
+export { simulatePanopticLiquidateAccount } from "./publicActions/simulatePanopticLiquidateAccount.js";
 
 export { publicActionPanoptic } from "./decorator/publicActions.js";
 
