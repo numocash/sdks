@@ -30,10 +30,10 @@ Typescript SDK for Panoptic
   - [ ] `calculatePanopticBurnOptions`
   - [ ] `calculatePanopticForceExercise`
   - [ ] `calcuatePanopticLiquidateAccount`
-  - [ ] `calculatePanopticCollateralMint`
+  - [x] `calculatePanopticCollateralMint`
   - [x] `calculatePanopticCollateralDeposit`
-  - [ ] `calculatePanopticCollateralRedeem`
-  - [ ] `calculatePanopticCollateralWithdraw`
+  - [x] `calculatePanopticCollateralRedeem`
+  - [x] `calculatePanopticCollateralWithdraw`
   - [ ] `calculateSFPMInitializeAMMPool`
   - [ ] `calculateSFPMMintTokenizedPosition`
   - [ ] `calculateSFPMRollTokenizedPosition`

@@ -1,6 +1,5 @@
 import {
   type ERC20Amount,
-  amountAdd,
   amountEqualTo,
   createAmountFromRaw,
 } from "reverse-mirage";
@@ -32,7 +31,7 @@ export const calculatePanopticCollateralDeposit = <
     : (amountSubFee * collateralData.totalSupply.amount) /
       (collateralData.inAmm.amount + collateralData.poolAssets.amount);
 
-  collateralData.poolAssets = amountAdd(collateralData.poolAssets, amount);
+  collateralData.poolAssets.amount += amount.amount;
   collateralData.totalSupply.amount += shares;
 
   return createAmountFromRaw(collateralData.collateral, shares);
