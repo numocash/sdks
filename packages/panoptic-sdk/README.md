@@ -24,6 +24,7 @@ Typescript SDK for Panoptic
   - [x] `createPanopticPosition`
   - [x] `calculatePanopticTokenID`
   - [x] `calculatePanopticPositionKey`
+  - [ ] `calculatePanopticDeployNewPool`
   - [ ] `calculatePanopticMintOptions`
   - [ ] `calculatePanopticRollOptions`
   - [ ] `calculatePanopticBurnOptions`
@@ -33,6 +34,10 @@ Typescript SDK for Panoptic
   - [ ] `calculatePanopticCollateralDeposit`
   - [ ] `calculatePanopticCollateralRedeem`
   - [ ] `calculatePanopticCollateralWithdraw`
+  - [ ] `calculateSFPMInitializeAMMPool`
+  - [ ] `calculateSFPMMintTokenizedPosition`
+  - [ ] `calculateSFPMRollTokenizedPosition`
+  - [ ] `calculateSFPMBurnTokenizedPosition`
 
 - Public Actions
 
@@ -40,6 +45,7 @@ Typescript SDK for Panoptic
   - [x] `getPanopticCollateralData`
   - [x] `getPanopticCollateralPositionData`
   - [x] `getPanopticPositionData`
+  - [ ] `simulatePanopticDeployNewPool`
   - [x] `simulatePanopticMintOptions`
   - [x] `simulatePanopticRollOptions`
   - [x] `simulatePanopticBurnOptions`
@@ -49,6 +55,10 @@ Typescript SDK for Panoptic
   - [x] `simulatePanopticCollateralDeposit`
   - [x] `simulatePanopticCollateralRedeem`
   - [x] `simulatePanopticCollateralWithdraw`
+  - [ ] `simulateSFPMInitializeAMMPool`
+  - [ ] `simulateSFPMMintTokenizedPosition`
+  - [ ] `simulateSFPMRollTokenizedPosition`
+  - [ ] `simulateSFPMBurnTokenizedPosition`
 
 - Chains
 
