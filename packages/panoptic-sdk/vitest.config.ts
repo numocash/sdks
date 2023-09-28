@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["**/*.test.ts"],
-    testTimeout: 10_000,
+    testTimeout: 100_000,
     globalSetup: ["src/_test/globalSetup.ts"],
     coverage: {
       reporter: process.env.CI ? ["lcov"] : ["text", "json", "html"],

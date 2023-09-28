@@ -24,8 +24,6 @@ Typescript SDK for Panoptic
   - [x] `createPanopticPosition`
   - [x] `calculatePanopticTokenID`
   - [x] `calculatePanopticPositionKey`
-  - [ ] `calculatePanopticPoolAddress`
-  - [ ] `calculateCollateralTrackerAddress`
   - [ ] `calculatePanopticMintOptions`
   - [ ] `calculatePanopticRollOptions`
   - [ ] `calculatePanopticBurnOptions`
