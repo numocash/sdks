@@ -2,15 +2,15 @@ import { createAmountFromString } from "reverse-mirage";
 import { type Hex } from "viem";
 import { simulateContract, writeContract } from "viem/actions";
 import { beforeEach, test } from "vitest";
-import { ALICE } from "../../_test/constants.js";
+import { ALICE } from "../_test/constants.js";
 import {
   deployPool,
   publicClient,
   testClient,
   walletClient,
-} from "../../_test/utils.js";
-import { mockErc20ABI } from "../../generated.js";
-import type { PanopticPool } from "../../types/index.js";
+} from "../_test/utils.js";
+import { mockErc20ABI } from "../generated.js";
+import type { PanopticPool } from "../types/index.js";
 import { simulatePanopticCollateralDeposit } from "./simulatePanopticCollateralDeposit.js";
 
 let id: Hex | undefined = undefined;

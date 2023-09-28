@@ -1,20 +1,18 @@
 import { createAmountFromString } from "reverse-mirage";
 import { type Hex } from "viem";
 import { simulateContract, writeContract } from "viem/actions";
-import { beforeEach, test } from "vitest";
-import { ALICE } from "../../_test/constants.js";
+import { beforeEach, expect, test } from "vitest";
+import { ALICE } from "../_test/constants.js";
 import {
   deployPool,
   publicClient,
   testClient,
   walletClient,
-} from "../../_test/utils.js";
-import { mockErc20ABI } from "../../generated.js";
-import {
-  type PanopticPool,
-  simulatePanopticCollateralDeposit,
-  simulatePanopticCollateralRedeem,
-} from "../../index.js";
+} from "../_test/utils.js";
+import { mockErc20ABI } from "../generated.js";
+import type { PanopticPool } from "../types/index.js";
+import { getPanopticCollateralData } from "./getPanopticCollateralData.js";
+import { simulatePanopticCollateralDeposit } from "./simulatePanopticCollateralDeposit.js";
 
 let id: Hex | undefined = undefined;
 
@@ -49,7 +47,7 @@ beforeEach(async () => {
         account: ALICE,
       },
     );
-    const depositHash = await walletClient.writeContract(depositRequest);
+    const depositHash = await writeContract(walletClient, depositRequest);
     await publicClient.waitForTransactionReceipt({ hash: depositHash });
   } else {
     await testClient.revert({ id });
@@ -57,15 +55,16 @@ beforeEach(async () => {
   id = await testClient.snapshot();
 }, 100_000);
 
-test("simulate collateral redeem", async () => {
-  const { request } = await simulatePanopticCollateralRedeem(publicClient, {
-    args: {
-      amount: createAmountFromString(pool.collateralTracker0, "0.5"),
-      from: ALICE,
-      to: ALICE,
-    },
-    account: ALICE,
+test("get collateral data", async () => {
+  const collateralData = await getPanopticCollateralData(publicClient, {
+    panopticCollateral: pool.collateralTracker0,
   });
-  const hash = await walletClient.writeContract(request);
-  await publicClient.waitForTransactionReceipt({ hash });
+
+  expect(collateralData.collateral).toStrictEqual(pool.collateralTracker0);
+  expect(collateralData.totalSupply).toStrictEqual(
+    createAmountFromString(pool.collateralTracker0, ".999"),
+  );
+  expect(collateralData.poolAssets).toStrictEqual(
+    createAmountFromString(pool.collateralTracker0.underlyingToken, "1"),
+  );
 });

@@ -2,19 +2,19 @@ import { createAmountFromString } from "reverse-mirage";
 import { type Hex } from "viem";
 import { simulateContract, writeContract } from "viem/actions";
 import { beforeEach, test } from "vitest";
-import { ALICE } from "../../_test/constants.js";
+import { ALICE } from "../_test/constants.js";
 import {
   deployPool,
   publicClient,
   testClient,
   walletClient,
-} from "../../_test/utils.js";
-import { mockErc20ABI } from "../../generated.js";
+} from "../_test/utils.js";
+import { mockErc20ABI } from "../generated.js";
 import {
   type PanopticPool,
   simulatePanopticCollateralDeposit,
-  simulatePanopticCollateralWithdraw,
-} from "../../index.js";
+  simulatePanopticCollateralRedeem,
+} from "../index.js";
 
 let id: Hex | undefined = undefined;
 
@@ -42,7 +42,7 @@ beforeEach(async () => {
           collateral: pool.collateralTracker0,
           amount: createAmountFromString(
             pool.collateralTracker0.underlyingToken,
-            "0.5",
+            "1",
           ),
           to: ALICE,
         },
@@ -57,14 +57,10 @@ beforeEach(async () => {
   id = await testClient.snapshot();
 }, 100_000);
 
-test("simulate collateral withdraw", async () => {
-  const { request } = await simulatePanopticCollateralWithdraw(publicClient, {
+test("simulate collateral redeem", async () => {
+  const { request } = await simulatePanopticCollateralRedeem(publicClient, {
     args: {
-      collateral: pool.collateralTracker0,
-      amount: createAmountFromString(
-        pool.collateralTracker0.underlyingToken,
-        "0.5",
-      ),
+      amount: createAmountFromString(pool.collateralTracker0, "0.5"),
       from: ALICE,
       to: ALICE,
     },

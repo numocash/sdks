@@ -16,10 +16,10 @@ export { getPanopticCollateralPositionData } from "./publicActions/getPanopticCo
 export { getPanopticPoolData } from "./publicActions/getPanopticPoolData.js";
 export { getPanopticPositionData } from "./publicActions/getPanopticPositionData.js";
 
-export { simulatePanopticCollateralDeposit } from "./publicActions/collateralTracker/simulatePanopticCollateralDeposit.js";
-export { simulatePanopticCollateralWithdraw } from "./publicActions/collateralTracker/simulatePanopticCollateralWithdraw.js";
-export { simulatePanopticCollateralMint } from "./publicActions/collateralTracker/simulatePanopticCollateralMint.js";
-export { simulatePanopticCollateralRedeem } from "./publicActions/collateralTracker/simulatePanopticCollateralRedeem.js";
+export { simulatePanopticCollateralDeposit } from "./publicActions/simulatePanopticCollateralDeposit.js";
+export { simulatePanopticCollateralWithdraw } from "./publicActions/simulatePanopticCollateralWithdraw.js";
+export { simulatePanopticCollateralMint } from "./publicActions/simulatePanopticCollateralMint.js";
+export { simulatePanopticCollateralRedeem } from "./publicActions/simulatePanopticCollateralRedeem.js";
 export { simulatePanopticMintOptions } from "./publicActions/simulatePanopticMintOptions.js";
 export { simulatePanopticRollOptions } from "./publicActions/simulatePanopticRollOptions.js";
 export { simulatePanopticBurnOptions } from "./publicActions/simulatePanopticBurnOptions.js";

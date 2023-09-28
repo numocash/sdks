@@ -62,7 +62,8 @@ export const publicClient = createPublicClient({
 export const walletClient = createWalletClient({
   chain: anvil,
   transport: http(),
-  account: ALICE,
+  // @ts-ignore: Viem bug?
+  account: { address: ALICE },
 });
 
 export const baseParameters: PanopticCollateralParamters = {
@@ -111,6 +112,7 @@ export const deployPool = async (): Promise<PanopticPool> => {
     functionName: "mint",
     args: [ALICE, 10n ** 36n],
   });
+  console.log(walletClient);
   const mintHashA = await walletClient.writeContract(mintRequestA);
   await publicClient.waitForTransactionReceipt({
     hash: mintHashA,

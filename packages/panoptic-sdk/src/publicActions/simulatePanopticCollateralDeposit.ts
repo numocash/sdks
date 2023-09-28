@@ -8,64 +8,67 @@ import type {
   Transport,
 } from "viem";
 import { simulateContract } from "viem/contract";
-import { collateralTrackerABI } from "../../generated.js";
-import type { PanopticCollateral } from "../../types/PanopticCollateral.js";
+import { collateralTrackerABI } from "../generated.js";
+import type { PanopticCollateral } from "../types/PanopticCollateral.js";
 
-export type PanopticCollateralMintParameters<
+export type PanopticCollateralDepositParameters<
   TPanopticCollateral extends PanopticCollateral,
 > = {
-  amount: ERC20Amount<TPanopticCollateral>;
+  collateral: TPanopticCollateral;
+  amount: ERC20Amount<TPanopticCollateral["underlyingToken"]>;
   to: Address;
 };
 
-export type SimulatePanopticCollateralMintParameters<
+export type SimulatePanopticCollateralDepositParameters<
   TPanopticCollateral extends PanopticCollateral,
   TChain extends Chain | undefined = Chain,
   TChainOverride extends Chain | undefined = Chain | undefined,
 > = Omit<
   SimulateContractParameters<
     typeof collateralTrackerABI,
-    "mint",
+    "deposit",
     TChain,
     TChainOverride
   >,
   "args" | "address" | "abi" | "functionName"
-> & { args: PanopticCollateralMintParameters<TPanopticCollateral> };
+> & { args: PanopticCollateralDepositParameters<TPanopticCollateral> };
 
-export type SimulatePanopticCollateralMintReturnType<
+export type SimulatePanopticCollateralDepositReturnType<
   TChain extends Chain | undefined,
   TChainOverride extends Chain | undefined = undefined,
 > = SimulateContractReturnType<
   typeof collateralTrackerABI,
-  "mint",
+  "deposit",
   TChain,
   TChainOverride
 >;
 
-export const simulatePanopticCollateralMint = <
+export const simulatePanopticCollateralDeposit = <
   TPanopticCollateral extends PanopticCollateral,
   TChain extends Chain | undefined,
   TChainOverride extends Chain | undefined,
 >(
   client: Client<Transport, TChain>,
   {
-    args: { amount, to },
+    args: { collateral, amount, to },
     ...request
-  }: SimulatePanopticCollateralMintParameters<
+  }: SimulatePanopticCollateralDepositParameters<
     TPanopticCollateral,
     TChain,
     TChainOverride
   >,
-): Promise<SimulatePanopticCollateralMintReturnType<TChain, TChainOverride>> =>
+): Promise<
+  SimulatePanopticCollateralDepositReturnType<TChain, TChainOverride>
+> =>
   simulateContract(client, {
-    address: amount.token.address,
+    address: collateral.address,
     abi: collateralTrackerABI,
-    functionName: "mint",
+    functionName: "deposit",
     args: [amount.amount, to],
     ...request,
   } as unknown as SimulateContractParameters<
     typeof collateralTrackerABI,
-    "mint",
+    "deposit",
     TChain,
     TChainOverride
   >);

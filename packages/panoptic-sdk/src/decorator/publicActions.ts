@@ -1,21 +1,5 @@
 import type { Chain, Client, Transport } from "viem";
 import {
-  type SimulatePanopticCollateralDepositParameters,
-  simulatePanopticCollateralDeposit,
-} from "../publicActions/collateralTracker/simulatePanopticCollateralDeposit.js";
-import {
-  type SimulatePanopticCollateralMintParameters,
-  simulatePanopticCollateralMint,
-} from "../publicActions/collateralTracker/simulatePanopticCollateralMint.js";
-import {
-  type SimulatePanopticCollateralRedeemParameters,
-  simulatePanopticCollateralRedeem,
-} from "../publicActions/collateralTracker/simulatePanopticCollateralRedeem.js";
-import {
-  type SimulatePanopticCollateralWithdrawParameters,
-  simulatePanopticCollateralWithdraw,
-} from "../publicActions/collateralTracker/simulatePanopticCollateralWithdraw.js";
-import {
   type GetPanopticCollateralDataParameters,
   getPanopticCollateralData,
 } from "../publicActions/getPanopticCollateralData.js";
@@ -35,6 +19,22 @@ import {
   type SimulatePanopticBurnOptionsParameters,
   simulatePanopticBurnOptions,
 } from "../publicActions/simulatePanopticBurnOptions.js";
+import {
+  type SimulatePanopticCollateralDepositParameters,
+  simulatePanopticCollateralDeposit,
+} from "../publicActions/simulatePanopticCollateralDeposit.js";
+import {
+  type SimulatePanopticCollateralMintParameters,
+  simulatePanopticCollateralMint,
+} from "../publicActions/simulatePanopticCollateralMint.js";
+import {
+  type SimulatePanopticCollateralRedeemParameters,
+  simulatePanopticCollateralRedeem,
+} from "../publicActions/simulatePanopticCollateralRedeem.js";
+import {
+  type SimulatePanopticCollateralWithdrawParameters,
+  simulatePanopticCollateralWithdraw,
+} from "../publicActions/simulatePanopticCollateralWithdraw.js";
 import {
   type SimulatePanopticForceExerciseParameters,
   simulatePanopticForceExercise,
