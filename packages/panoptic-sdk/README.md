@@ -37,7 +37,7 @@ Typescript SDK for Panoptic
   - [ ] `calculateSFPMInitializeAMMPool`
   - [ ] `calculateSFPMMintTokenizedPosition`
   - [ ] `calculateSFPMBurnTokenizedPosition`
-  - [ ] `calculateSFPMRollTokenizedPosition`
+  - [ ] `calculateSFPMRollTokenizedPositions`
 
 - Public Actions
 
@@ -59,7 +59,7 @@ Typescript SDK for Panoptic
   - [x] `simulateSFPMInitializeAMMPool`
   - [x] `simulateSFPMMintTokenizedPosition`
   - [x] `simulateSFPMBurnTokenizedPosition`
-  - [ ] `simulateSFPMRollTokenizedPosition`
+  - [x] `simulateSFPMRollTokenizedPositions`
 
 - Chains
 

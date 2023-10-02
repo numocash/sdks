@@ -10,58 +10,59 @@ import { simulateContract } from "viem/contract";
 import { semiFungiblePositionManagerABI } from "../generated.js";
 import type { PanopticPosition } from "../types/PanopticPosition.js";
 
-export type PanopticSFPMBurnTokenizedPositionParameters = {
-  position: PanopticPosition;
+export type PanopticSFPMRollTokenizedPositionsParameters = {
+  oldPosition: PanopticPosition;
+  newPosition: PanopticPosition;
   amount: bigint;
 };
 
-export type SimulatePanopticSFPMBurnTokenizedPositionParameters<
+export type SimulatePanopticSFPMRollTokenizedPositionsParameters<
   TChain extends Chain | undefined = Chain,
   TChainOverride extends Chain | undefined = Chain | undefined,
 > = Omit<
   SimulateContractParameters<
     typeof semiFungiblePositionManagerABI,
-    "burnTokenizedPosition",
+    "rollTokenizedPositions",
     TChain,
     TChainOverride
   >,
   "args" | "address" | "abi" | "functionName"
-> & { args: PanopticSFPMBurnTokenizedPositionParameters };
+> & { args: PanopticSFPMRollTokenizedPositionsParameters };
 
-export type SimulatePanopticSFPMBurnTokenizedPositionReturnType<
+export type SimulatePanopticSFPMRollTokenizedPositionsReturnType<
   TChain extends Chain | undefined,
   TChainOverride extends Chain | undefined = undefined,
 > = SimulateContractReturnType<
   typeof semiFungiblePositionManagerABI,
-  "burnTokenizedPosition",
+  "rollTokenizedPositions",
   TChain,
   TChainOverride
 >;
 
-export const simulatePanopticSFPMBurnTokenizedPosition = <
+export const simulatePanopticSFPMRollTokenizedPositions = <
   TChain extends Chain | undefined,
   TChainOverride extends Chain | undefined,
 >(
   client: Client<Transport, TChain>,
   {
-    args: { position, amount },
+    args: { oldPosition, newPosition, amount },
     ...request
-  }: SimulatePanopticSFPMBurnTokenizedPositionParameters<
+  }: SimulatePanopticSFPMRollTokenizedPositionsParameters<
     TChain,
     TChainOverride
   >,
 ): Promise<
-  SimulatePanopticSFPMBurnTokenizedPositionReturnType<TChain, TChainOverride>
+  SimulatePanopticSFPMRollTokenizedPositionsReturnType<TChain, TChainOverride>
 > =>
   simulateContract(client, {
-    address: position.pool.factory.semiFungiblePositionManager.address,
+    address: newPosition.pool.factory.semiFungiblePositionManager.address,
     abi: semiFungiblePositionManagerABI,
-    functionName: "burnTokenizedPosition",
-    args: [position.id, amount, MIN_TICK, MAX_TICK],
+    functionName: "rollTokenizedPositions",
+    args: [oldPosition.id, newPosition.id, amount, MIN_TICK, MAX_TICK],
     ...request,
   } as unknown as SimulateContractParameters<
     typeof semiFungiblePositionManagerABI,
-    "burnTokenizedPosition",
+    "rollTokenizedPositions",
     TChain,
     TChainOverride
   >);

@@ -57,7 +57,7 @@ export const simulatePanopticSFPMMintTokenizedPosition = <
     address: position.pool.factory.semiFungiblePositionManager.address,
     abi: semiFungiblePositionManagerABI,
     functionName: "mintTokenizedPosition",
-    args: [[position.id], amount, MIN_TICK, MAX_TICK],
+    args: [position.id, amount, MIN_TICK, MAX_TICK],
     ...request,
   } as unknown as SimulateContractParameters<
     typeof semiFungiblePositionManagerABI,
