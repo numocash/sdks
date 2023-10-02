@@ -51,7 +51,7 @@ export const simulatePanopticRollOptions = <
     address: newPosition.pool.address,
     abi: panopticPoolABI,
     functionName: "rollOptions",
-    args: [oldPosition.id, newPosition.id, [oldPosition.id], 0, 0],
+    args: [oldPosition.id, newPosition.id, [oldPosition.id], 0n, 0, 0],
     ...request,
   } as unknown as SimulateContractParameters<
     typeof panopticPoolABI,
