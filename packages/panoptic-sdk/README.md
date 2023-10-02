@@ -45,6 +45,7 @@ Typescript SDK for Panoptic
   - [x] `getPanopticPoolData`
   - [x] `getPanopticCollateralData`
   - [x] `getPanopticCollateralPositionData`
+  - [x] `getPanoptionLegData`
   - [x] `getPanopticPositionData`
   - [x] `simulatePanopticDeployNewPool`
   - [x] `simulatePanopticMintOptions`
