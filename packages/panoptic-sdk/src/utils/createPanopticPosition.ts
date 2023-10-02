@@ -9,15 +9,14 @@ import { calculatePanopticTokenID } from "./calculatePanopticTokenID.js";
 
 export const createPanopticPosition = (
   owner: Address,
-  address: Address,
   pool: PanopticPool,
-  legs: Tuple<PanoptionLeg, 4>,
+  legs: Tuple<PanoptionLeg | undefined, 4>,
   chainID: number,
   blockCreated = 0n,
 ): PanopticPosition => {
   return {
     type: "panopticPosition",
-    address,
+    address: pool.factory.semiFungiblePositionManager.address,
     owner,
     pool,
     legs,

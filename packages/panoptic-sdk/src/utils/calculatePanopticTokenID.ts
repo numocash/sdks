@@ -17,7 +17,7 @@ export const calculateLegID = (leg: PanoptionLeg, tickSpacing: TickSpacing) => {
 
 export const calculatePanopticTokenID = (
   pool: PanopticPool,
-  legs: Tuple<PanoptionLeg, 4>,
+  legs: Tuple<PanoptionLeg | undefined, 4>,
 ) => {
   let id = 0n;
   id |= BigInt(pool.address) & 0xffffffffffffffffn;
