@@ -110,7 +110,7 @@ export const deployPool = async (): Promise<PanopticPool> => {
     abi: mockErc20ABI,
     address: tokenA.address,
     functionName: "mint",
-    args: [ALICE, 10n ** 36n],
+    args: [ALICE, 10n ** 19n],
   });
   const mintHashA = await walletClient.writeContract(mintRequestA);
   await publicClient.waitForTransactionReceipt({
@@ -121,7 +121,7 @@ export const deployPool = async (): Promise<PanopticPool> => {
     abi: mockErc20ABI,
     address: tokenB.address,
     functionName: "mint",
-    args: [ALICE, 10n ** 36n],
+    args: [ALICE, 10n ** 19n],
   });
   const mintHashB = await walletClient.writeContract(mintRequestB);
   await publicClient.waitForTransactionReceipt({
@@ -133,7 +133,7 @@ export const deployPool = async (): Promise<PanopticPool> => {
     abi: mockErc20ABI,
     address: tokenA.address,
     functionName: "approve",
-    args: [sepoliaPanoptic.factory.address, 10n ** 36n],
+    args: [sepoliaPanoptic.factory.address, 10n ** 19n],
     account: ALICE,
   });
   const approveHashA = await walletClient.writeContract(approveRequestA);
@@ -145,7 +145,7 @@ export const deployPool = async (): Promise<PanopticPool> => {
     abi: mockErc20ABI,
     address: tokenB.address,
     functionName: "approve",
-    args: [sepoliaPanoptic.factory.address, 10n ** 36n],
+    args: [sepoliaPanoptic.factory.address, 10n ** 19n],
     account: ALICE,
   });
   const approveHashB = await walletClient.writeContract(approveRequestB);

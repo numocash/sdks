@@ -43,7 +43,7 @@ beforeEach(async () => {
       address: pool.collateralTracker0.underlyingToken.address,
       abi: mockErc20ABI,
       functionName: "approve",
-      args: [pool.factory.semiFungiblePositionManager.address, 10n ** 24n],
+      args: [pool.factory.semiFungiblePositionManager.address, 10n ** 18n],
       account: ALICE,
     });
 
