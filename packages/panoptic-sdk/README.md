@@ -57,10 +57,10 @@ Typescript SDK for Panoptic
   - [x] `simulatePanopticCollateralDeposit`
   - [x] `simulatePanopticCollateralRedeem`
   - [x] `simulatePanopticCollateralWithdraw`
-  - [x] `simulateSFPMInitializeAMMPool`
-  - [x] `simulateSFPMMintTokenizedPosition`
-  - [x] `simulateSFPMBurnTokenizedPosition`
-  - [x] `simulateSFPMRollTokenizedPositions`
+  - [x] `simulatePanopticSFPMInitializeAMMPool`
+  - [x] `simulatePanopticSFPMMintTokenizedPosition`
+  - [x] `simulatePanopticSFPMBurnTokenizedPosition`
+  - [x] `simulatePanopticSFPMRollTokenizedPositions`
 
 - Chains
 

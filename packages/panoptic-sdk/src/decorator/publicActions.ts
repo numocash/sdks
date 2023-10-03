@@ -8,6 +8,10 @@ import {
   getPanopticCollateralPositionData,
 } from "../publicActions/getPanopticCollateralPositionData.js";
 import {
+  type GetPanopticPoolParameters,
+  getPanopticPool,
+} from "../publicActions/getPanopticPool.js";
+import {
   type GetPanopticPoolDataParameters,
   getPanopticPoolData,
 } from "../publicActions/getPanopticPoolData.js";
@@ -15,6 +19,10 @@ import {
   type GetPanopticPositionDataParameters,
   getPanopticPositionData,
 } from "../publicActions/getPanopticPositionData.js";
+import {
+  type GetPanoptionLegDataParameters,
+  getPanoptionLegData,
+} from "../publicActions/getPanoptionLegData.js";
 import {
   type SimulatePanopticBurnOptionsParameters,
   simulatePanopticBurnOptions,
@@ -36,6 +44,10 @@ import {
   simulatePanopticCollateralWithdraw,
 } from "../publicActions/simulatePanopticCollateralWithdraw.js";
 import {
+  type SimulatePanopticDeployNewPoolParameters,
+  simulatePanopticDeployNewPool,
+} from "../publicActions/simulatePanopticDeployNewPool.js";
+import {
   type SimulatePanopticForceExerciseParameters,
   simulatePanopticForceExercise,
 } from "../publicActions/simulatePanopticForceExercise.js";
@@ -51,6 +63,22 @@ import {
   type SimulatePanopticRollOptionsParameters,
   simulatePanopticRollOptions,
 } from "../publicActions/simulatePanopticRollOptions.js";
+import {
+  type SimulatePanopticSFPMBurnTokenizedPositionParameters,
+  simulatePanopticSFPMBurnTokenizedPosition,
+} from "../publicActions/simulatePanopticSFPMBurnTokenizedPosition.js";
+import {
+  type SimulatePanopticSFPMInitializeAMMPoolParameters,
+  simulatePanopticSFPMInitializeAMMPool,
+} from "../publicActions/simulatePanopticSFPMInitializeAMMPool.js";
+import {
+  type SimulatePanopticSFPMMintTokenizedPositionParameters,
+  simulatePanopticSFPMMintTokenizedPosition,
+} from "../publicActions/simulatePanopticSFPMMintTokenizedPosition.js";
+import {
+  type SimulatePanopticSFPMRollTokenizedPositionsParameters,
+  simulatePanopticSFPMRollTokenizedPositions,
+} from "../publicActions/simulatePanopticSFPMRollTokenizedPositions.js";
 import type { PanopticCollateral } from "../types/PanopticCollateral.js";
 
 export const publicActionPanoptic = <
@@ -58,18 +86,20 @@ export const publicActionPanoptic = <
 >(
   client: Client<Transport, TChain>,
 ) => ({
+  getPanopticPool: (args: GetPanopticPoolParameters) =>
+    getPanopticPool(client, args),
+  getPanopticPoolData: (args: GetPanopticPoolDataParameters) =>
+    getPanopticPoolData(client, args),
   getPanopticCollateralData: (args: GetPanopticCollateralDataParameters) =>
     getPanopticCollateralData(client, args),
-
   getPanopticCollateralPositionData: (
     args: GetPanopticCollateralPositionDataParameters,
   ) => getPanopticCollateralPositionData(client, args),
-
-  getPanopticPoolData: (args: GetPanopticPoolDataParameters) =>
-    getPanopticPoolData(client, args),
-
+  getPanoptionLegData: (args: GetPanoptionLegDataParameters) =>
+    getPanoptionLegData(client, args),
   getPanopticPositionData: (args: GetPanopticPositionDataParameters) =>
     getPanopticPositionData(client, args),
+
   simulatePanopticCollateralDeposit: <
     TPanopticCollateral extends PanopticCollateral,
   >(
@@ -100,6 +130,9 @@ export const publicActionPanoptic = <
     >,
   ) => simulatePanopticCollateralRedeem(client, args),
 
+  simulatePanopticDeployNewPool: (
+    args: SimulatePanopticDeployNewPoolParameters<TChain>,
+  ) => simulatePanopticDeployNewPool(client, args),
   simulatePanopticMintOptions: (
     args: SimulatePanopticMintOptionsParameters<TChain>,
   ) => simulatePanopticMintOptions(client, args),
@@ -115,4 +148,17 @@ export const publicActionPanoptic = <
   simulatePanopticLiquidateAccount: (
     args: SimulatePanopticLiquidateAccountParameters<TChain>,
   ) => simulatePanopticLiquidateAccount(client, args),
+
+  simulatePanopticSFPMInitializeAMMPool: (
+    args: SimulatePanopticSFPMInitializeAMMPoolParameters<TChain>,
+  ) => simulatePanopticSFPMInitializeAMMPool(client, args),
+  simulatePanopticSFPMMintTokenizedPosition: (
+    args: SimulatePanopticSFPMMintTokenizedPositionParameters<TChain>,
+  ) => simulatePanopticSFPMMintTokenizedPosition(client, args),
+  simulatePanopticSFPMBurnTokenizedPosition: (
+    args: SimulatePanopticSFPMBurnTokenizedPositionParameters<TChain>,
+  ) => simulatePanopticSFPMBurnTokenizedPosition(client, args),
+  simulatePanopticRollTokenizedPositions: (
+    args: SimulatePanopticSFPMRollTokenizedPositionsParameters<TChain>,
+  ) => simulatePanopticSFPMRollTokenizedPositions(client, args),
 });
