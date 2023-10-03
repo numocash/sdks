@@ -13,8 +13,8 @@ import {
 } from "../_test/utils.js";
 import { mockErc20ABI } from "../generated.js";
 import type { PanopticPool } from "../types/PanopticPool.js";
-import type { PanopticPosition } from "../types/PanopticPosition.js";
-import { createPanopticPosition } from "../utils/createPanopticPosition.js";
+import type { PanopticSemiFungiblePosition } from "../types/PanopticSemiFungiblePositionManager.js";
+import { createPanopticSemiFungiblePosition } from "../utils/createPanopticSemiFungiblePosition.js";
 import { simulatePanopticSFPMBurnTokenizedPosition } from "./simulatePanopticSFPMBurnTokenizedPosition.js";
 import { simulatePanopticSFPMInitializeAMMPool } from "./simulatePanopticSFPMInitializeAMMPool.js";
 import { simulatePanopticSFPMMintTokenizedPosition } from "./simulatePanopticSFPMMintTokenizedPosition.js";
@@ -23,7 +23,7 @@ let id: Hex | undefined = undefined;
 
 let pool: PanopticPool;
 
-let position: PanopticPosition;
+let position: PanopticSemiFungiblePosition;
 
 beforeEach(async () => {
   if (id === undefined) {
@@ -50,9 +50,9 @@ beforeEach(async () => {
     const approveHash = await writeContract(walletClient, approveRequest);
     await publicClient.waitForTransactionReceipt({ hash: approveHash });
 
-    position = createPanopticPosition(
+    position = createPanopticSemiFungiblePosition(
       ALICE,
-      pool,
+      pool.factory.semiFungiblePositionManager,
       [
         {
           asset: "token0",
@@ -67,6 +67,7 @@ beforeEach(async () => {
         undefined,
         undefined,
       ],
+      pool.uniswapPool,
       sepolia.id,
     );
 

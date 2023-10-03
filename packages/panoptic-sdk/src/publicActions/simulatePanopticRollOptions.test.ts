@@ -2,7 +2,6 @@ import { createAmountFromString } from "reverse-mirage";
 import { createUniswapV3Tick } from "uniswap-v3-sdk";
 import { type Hex } from "viem";
 import { simulateContract, writeContract } from "viem/actions";
-import { sepolia } from "viem/chains";
 import { beforeEach, test } from "vitest";
 import { ALICE } from "../_test/constants.js";
 import {
@@ -68,25 +67,20 @@ beforeEach(async () => {
     const depositHash = await writeContract(walletClient, depositRequest);
     await publicClient.waitForTransactionReceipt({ hash: depositHash });
 
-    position = createPanopticPosition(
-      ALICE,
-      pool,
-      [
-        {
-          asset: "token0",
-          optionRatio: 1,
-          position: "short",
-          tokenType: "token0",
-          riskPartnerIndex: 0,
-          tickLower: createUniswapV3Tick(0),
-          tickUpper: createUniswapV3Tick(10),
-        },
-        undefined,
-        undefined,
-        undefined,
-      ],
-      sepolia.id,
-    );
+    position = createPanopticPosition(ALICE, pool, [
+      {
+        asset: "token0",
+        optionRatio: 1,
+        position: "short",
+        tokenType: "token0",
+        riskPartnerIndex: 0,
+        tickLower: createUniswapV3Tick(0),
+        tickUpper: createUniswapV3Tick(10),
+      },
+      undefined,
+      undefined,
+      undefined,
+    ]);
 
     const { request } = await simulatePanopticMintOptions(publicClient, {
       args: {
@@ -104,25 +98,20 @@ beforeEach(async () => {
 }, 100_000);
 
 test("burn options", async () => {
-  const newPosition = createPanopticPosition(
-    ALICE,
-    pool,
-    [
-      {
-        asset: "token0",
-        optionRatio: 1,
-        position: "short",
-        tokenType: "token0",
-        riskPartnerIndex: 0,
-        tickLower: createUniswapV3Tick(10),
-        tickUpper: createUniswapV3Tick(20),
-      },
-      undefined,
-      undefined,
-      undefined,
-    ],
-    sepolia.id,
-  );
+  const newPosition = createPanopticPosition(ALICE, pool, [
+    {
+      asset: "token0",
+      optionRatio: 1,
+      position: "short",
+      tokenType: "token0",
+      riskPartnerIndex: 0,
+      tickLower: createUniswapV3Tick(10),
+      tickUpper: createUniswapV3Tick(20),
+    },
+    undefined,
+    undefined,
+    undefined,
+  ]);
 
   const { request } = await simulatePanopticRollOptions(publicClient, {
     args: {

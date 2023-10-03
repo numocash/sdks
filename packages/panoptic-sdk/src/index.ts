@@ -17,6 +17,7 @@ export { getPanopticCollateralData } from "./publicActions/getPanopticCollateral
 export { getPanopticCollateralPositionData } from "./publicActions/getPanopticCollateralPositionData.js";
 export { getPanoptionLegData } from "./publicActions/getPanoptionLegData.js";
 export { getPanopticPositionData } from "./publicActions/getPanopticPositionData.js";
+export { getPanopticSemiFungiblePositionData } from "./publicActions/getPanopticSemiFungiblePositionData.js";
 
 export { simulatePanopticCollateralDeposit } from "./publicActions/simulatePanopticCollateralDeposit.js";
 export { simulatePanopticCollateralWithdraw } from "./publicActions/simulatePanopticCollateralWithdraw.js";

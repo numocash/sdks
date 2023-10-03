@@ -1,4 +1,4 @@
-import type { UniswapV3Tick } from "uniswap-v3-sdk";
+import type { UniswapV3Pool, UniswapV3Tick } from "uniswap-v3-sdk";
 import type {
   Address,
   Chain,
@@ -9,7 +9,6 @@ import type {
 import { readContract } from "viem/actions";
 import { panopticPoolABI } from "../generated.js";
 import { semiFungiblePositionManagerABI } from "../generated.js";
-import type { PanopticPool } from "../types/PanopticPool.js";
 import type {
   PanoptionLeg,
   PanoptionLegData,
@@ -20,9 +19,10 @@ export type GetPanoptionLegDataParameters = Omit<
   ReadContractParameters<typeof panopticPoolABI, "totalSupply">,
   "address" | "abi" | "functionName" | "args"
 > & {
-  leg: PanoptionLeg;
   address: Address;
-  pool: PanopticPool;
+  owner: Address;
+  leg: PanoptionLeg;
+  uniswapPool: UniswapV3Pool;
   tick: UniswapV3Tick;
 };
 
@@ -30,16 +30,23 @@ export type GetPanoptionLegDataReturnType = PanoptionLegData;
 
 export const getPanoptionLegData = <TChain extends Chain | undefined>(
   client: Client<Transport, TChain>,
-  { leg, pool, address, tick, ...request }: GetPanoptionLegDataParameters,
+  {
+    address,
+    owner,
+    leg,
+    uniswapPool,
+    tick,
+    ...request
+  }: GetPanoptionLegDataParameters,
 ): Promise<GetPanoptionLegDataReturnType> =>
   Promise.all([
     readContract(client, {
       abi: semiFungiblePositionManagerABI,
       functionName: "getAccountLiquidity",
-      address: pool.factory.semiFungiblePositionManager.address,
+      address,
       args: [
-        pool.uniswapPool.address,
-        address,
+        uniswapPool.address,
+        owner,
         leg.tokenType === "token0" ? 0n : 1n,
         leg.tickLower.tick,
         leg.tickUpper.tick,
@@ -49,10 +56,10 @@ export const getPanoptionLegData = <TChain extends Chain | undefined>(
     readContract(client, {
       abi: semiFungiblePositionManagerABI,
       functionName: "getAccountPremium",
-      address: pool.factory.semiFungiblePositionManager.address,
+      address,
       args: [
-        pool.uniswapPool.address,
-        address,
+        uniswapPool.address,
+        owner,
         leg.tokenType === "token0" ? 0n : 1n,
         leg.tickLower.tick,
         leg.tickUpper.tick,
@@ -64,10 +71,10 @@ export const getPanoptionLegData = <TChain extends Chain | undefined>(
     readContract(client, {
       abi: semiFungiblePositionManagerABI,
       functionName: "getAccountFeesBase",
-      address: pool.factory.semiFungiblePositionManager.address,
+      address,
       args: [
-        pool.uniswapPool.address,
-        address,
+        uniswapPool.address,
+        owner,
         leg.tokenType === "token0" ? 0n : 1n,
         leg.tickLower.tick,
         leg.tickUpper.tick,

@@ -13,7 +13,7 @@ import {
 } from "../_test/utils.js";
 import { mockErc20ABI } from "../generated.js";
 import type { PanopticPool } from "../types/PanopticPool.js";
-import { createPanopticPosition } from "../utils/createPanopticPosition.js";
+import { createPanopticSemiFungiblePosition } from "../utils/createPanopticSemiFungiblePosition.js";
 import { simulatePanopticSFPMInitializeAMMPool } from "./simulatePanopticSFPMInitializeAMMPool.js";
 import { simulatePanopticSFPMMintTokenizedPosition } from "./simulatePanopticSFPMMintTokenizedPosition.js";
 
@@ -52,9 +52,9 @@ beforeEach(async () => {
 }, 100_000);
 
 test("mint tokenized position", async () => {
-  const position = createPanopticPosition(
+  const position = createPanopticSemiFungiblePosition(
     ALICE,
-    pool,
+    pool.factory.semiFungiblePositionManager,
     [
       {
         asset: "token0",
@@ -69,6 +69,7 @@ test("mint tokenized position", async () => {
       undefined,
       undefined,
     ],
+    pool.uniswapPool,
     sepolia.id,
   );
 

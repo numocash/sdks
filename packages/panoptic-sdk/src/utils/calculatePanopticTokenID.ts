@@ -1,6 +1,5 @@
 import type { Tuple } from "reverse-mirage";
-import type { TickSpacing } from "uniswap-v3-sdk";
-import type { PanopticPool } from "../types/PanopticPool.js";
+import type { TickSpacing, UniswapV3Pool } from "uniswap-v3-sdk";
 import type { PanoptionLeg } from "../types/PanopticPosition.js";
 
 export const calculateLegID = (leg: PanoptionLeg, tickSpacing: TickSpacing) => {
@@ -16,22 +15,20 @@ export const calculateLegID = (leg: PanoptionLeg, tickSpacing: TickSpacing) => {
 };
 
 export const calculatePanopticTokenID = (
-  pool: PanopticPool,
+  uniswapPool: UniswapV3Pool,
   legs: Tuple<PanoptionLeg | undefined, 4>,
 ) => {
   let id = 0n;
-  id |= (BigInt(pool.uniswapPool.address) >> 96n) & 0xffffffffffffffffn;
-  id |= legs[0]
-    ? calculateLegID(legs[0], pool.uniswapPool.tickSpacing) << 64n
-    : 0n;
+  id |= (BigInt(uniswapPool.address) >> 96n) & 0xffffffffffffffffn;
+  id |= legs[0] ? calculateLegID(legs[0], uniswapPool.tickSpacing) << 64n : 0n;
   id |= legs[1]
-    ? calculateLegID(legs[1], pool.uniswapPool.tickSpacing) << (64n + 48n)
+    ? calculateLegID(legs[1], uniswapPool.tickSpacing) << (64n + 48n)
     : 0n;
   id |= legs[2]
-    ? calculateLegID(legs[2], pool.uniswapPool.tickSpacing) << (64n + 48n + 48n)
+    ? calculateLegID(legs[2], uniswapPool.tickSpacing) << (64n + 48n + 48n)
     : 0n;
   id |= legs[3]
-    ? calculateLegID(legs[3], pool.uniswapPool.tickSpacing) <<
+    ? calculateLegID(legs[3], uniswapPool.tickSpacing) <<
       (64n + 48n + 48n + 48n)
     : 0n;
 

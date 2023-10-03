@@ -8,10 +8,10 @@ import type {
 } from "viem";
 import { simulateContract } from "viem/contract";
 import { semiFungiblePositionManagerABI } from "../generated.js";
-import type { PanopticPosition } from "../types/PanopticPosition.js";
+import type { PanopticSemiFungiblePosition } from "../types/PanopticSemiFungiblePositionManager.js";
 
 export type PanopticSFPMMintTokenizedPositionParameters = {
-  position: PanopticPosition;
+  position: PanopticSemiFungiblePosition;
   amount: bigint;
 };
 
@@ -54,7 +54,7 @@ export const simulatePanopticSFPMMintTokenizedPosition = <
   SimulatePanopticSFPMMintTokenizedPositionReturnType<TChain, TChainOverride>
 > =>
   simulateContract(client, {
-    address: position.pool.factory.semiFungiblePositionManager.address,
+    address: position.address,
     abi: semiFungiblePositionManagerABI,
     functionName: "mintTokenizedPosition",
     args: [position.id, amount, MIN_TICK, MAX_TICK],
