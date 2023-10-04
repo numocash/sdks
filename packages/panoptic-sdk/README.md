@@ -25,20 +25,6 @@ Typescript SDK for Panoptic
   - [x] `createPanopticSemiFungiblePosition`
   - [x] `calculatePanopticTokenID`
   - [x] `calculatePanopticPositionKey`
-  - [ ] `calculatePanopticDeployNewPool`
-  - [ ] `calculatePanopticMintOptions`
-  - [ ] `calculatePanopticBurnOptions`
-  - [ ] `calculatePanopticRollOptions`
-  - [ ] `calculatePanopticForceExercise`
-  - [ ] `calcuatePanopticLiquidateAccount`
-  - [x] `calculatePanopticCollateralMint`
-  - [x] `calculatePanopticCollateralDeposit`
-  - [x] `calculatePanopticCollateralRedeem`
-  - [x] `calculatePanopticCollateralWithdraw`
-  - [ ] `calculateSFPMInitializeAMMPool`
-  - [ ] `calculateSFPMMintTokenizedPosition`
-  - [ ] `calculateSFPMBurnTokenizedPosition`
-  - [ ] `calculateSFPMRollTokenizedPositions`
 
 - Public Actions
 
