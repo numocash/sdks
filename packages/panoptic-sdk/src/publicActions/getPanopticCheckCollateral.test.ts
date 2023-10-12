@@ -106,8 +106,6 @@ test("get check collateral", async () => {
     helper: sepoliaPanoptic.helper,
     tokenType: pool.uniswapPool.token0,
   });
-  console.log(amountToNumber(collateralCheck.collateralBalance));
-  console.log(amountToNumber(collateralCheck.requiredCollateral));
 
   expect(collateralCheck.collateralBalance.amount).toBeGreaterThan(0n);
   expect(collateralCheck.requiredCollateral.amount).toBeGreaterThan(0n);
