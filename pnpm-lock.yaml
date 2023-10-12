@@ -102,15 +102,15 @@ importers:
 
   packages/panoptic-sdk:
     dependencies:
+      '@panoptic-xyz/uniswap-v3-sdk':
+        specifier: workspace:*
+        version: link:../uniswap-v3-sdk
       reverse-mirage:
         specifier: 1.0.2
         version: 1.0.2(viem@1.15.0)
       tiny-invariant:
         specifier: ^1.3.1
         version: 1.3.1
-      uniswap-v3-sdk:
-        specifier: workspace:*
-        version: link:../uniswap-v3-sdk
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.2.2

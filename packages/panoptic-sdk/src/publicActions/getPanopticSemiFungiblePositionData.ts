@@ -1,4 +1,4 @@
-import type { UniswapV3Tick } from "uniswap-v3-sdk";
+import type { UniswapV3Tick } from "@panoptic-xyz/uniswap-v3-sdk";
 import type { Chain, Client, ReadContractParameters, Transport } from "viem";
 import { readContract } from "viem/actions";
 import {

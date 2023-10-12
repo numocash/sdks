@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  name: "uniswap-v3-sdk",
+  name: "@panoptic-xyz/uniswap-v3-sdk",
   entry: ["src/index.ts"],
   outDir: "dist",
   format: ["esm", "cjs"],

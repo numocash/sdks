@@ -1,4 +1,7 @@
-import type { UniswapV3Pool, UniswapV3PoolData } from "uniswap-v3-sdk";
+import type {
+  UniswapV3Pool,
+  UniswapV3PoolData,
+} from "@panoptic-xyz/uniswap-v3-sdk";
 import type { Address } from "viem/accounts";
 import type {
   PanopticCollateral,

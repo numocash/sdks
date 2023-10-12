@@ -1,4 +1,4 @@
-import { createUniswapV3Tick } from "uniswap-v3-sdk";
+import { createUniswapV3Tick } from "@panoptic-xyz/uniswap-v3-sdk";
 import { type Hex } from "viem";
 import { simulateContract, writeContract } from "viem/actions";
 import { sepolia } from "viem/chains";
