@@ -1,5 +1,5 @@
 import { createUniswapV3Tick } from "@panoptic-xyz/uniswap-v3-sdk";
-import { amountToNumber, createAmountFromString } from "reverse-mirage";
+import { createAmountFromString } from "reverse-mirage";
 import { type Hex } from "viem";
 import { simulateContract, writeContract } from "viem/actions";
 import { beforeEach, expect, test } from "vitest";
