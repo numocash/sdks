@@ -1,6 +1,7 @@
 import { sepoliaUniswapV3 } from "@panoptic-xyz/uniswap-v3-sdk";
 import { sepoliaTokens } from "reverse-mirage";
 import type { PanopticFactory } from "../types/PanopticFactory.js";
+import type { PanopticHelper } from "../types/PanopticHelper.js";
 
 export const sepoliaPanoptic = {
   factory: {
@@ -18,4 +19,14 @@ export const sepoliaPanoptic = {
     uniswapFactory: sepoliaUniswapV3.factory,
     blockCreated: 4199935n,
   },
-} as const satisfies { factory: PanopticFactory };
+  helper: {
+    type: "panopticHelper",
+    address: "0x7e26c7b22f116eec0fd0d99e976499b303a92b94",
+    blockCreated: 4199989n,
+    semiFungiblePositionManager: {
+      type: "panopticSemiFungiblePositionManager",
+      address: "0x928eCD2e55E7042B5b920B352A84f156AdeDB037",
+      blockCreated: 4199935n,
+    },
+  },
+} as const satisfies { factory: PanopticFactory; helper: PanopticHelper };

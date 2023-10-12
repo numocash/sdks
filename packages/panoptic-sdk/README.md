@@ -92,6 +92,7 @@ const { result } = await publicClient.simulatePanopticMintOptions({
   - [x] `getPanoptionLegData`
   - [x] `getPanopticPositionData`
   - [x] `getPanopticSemiFungiblePositionData`
+  - [x] `getPanopticCheckCollateral`
   - [x] `simulatePanopticDeployNewPool`
   - [x] `simulatePanopticMintOptions`
   - [x] `simulatePanopticBurnOptions`
