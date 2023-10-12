@@ -1,5 +1,5 @@
+import type { TickSpacing, UniswapV3Pool } from "@panoptic-xyz/uniswap-v3-sdk";
 import type { Tuple } from "reverse-mirage";
-import type { TickSpacing, UniswapV3Pool } from "uniswap-v3-sdk";
 import type { PanoptionLeg } from "../types/PanopticPosition.js";
 
 export const calculateLegID = (leg: PanoptionLeg, tickSpacing: TickSpacing) => {

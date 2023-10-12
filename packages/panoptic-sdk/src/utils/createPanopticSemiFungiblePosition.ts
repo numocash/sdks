@@ -1,5 +1,5 @@
+import type { UniswapV3Pool } from "@panoptic-xyz/uniswap-v3-sdk";
 import type { Tuple } from "reverse-mirage";
-import type { UniswapV3Pool } from "uniswap-v3-sdk";
 import type { Address } from "viem/accounts";
 import type { PanoptionLeg } from "../types/PanopticPosition.js";
 import type {

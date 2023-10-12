@@ -1,11 +1,11 @@
-import { createERC20 } from "reverse-mirage";
-import invariant from "tiny-invariant";
 import {
   type UniswapV3Pool,
   createUniswapV3Pool,
   uniswapV3FactoryABI,
   uniswapV3PoolABI,
-} from "uniswap-v3-sdk";
+} from "@panoptic-xyz/uniswap-v3-sdk";
+import { createERC20 } from "reverse-mirage";
+import invariant from "tiny-invariant";
 import { type Hex } from "viem";
 import { sepolia } from "viem/chains";
 import { beforeEach, expect, test } from "vitest";

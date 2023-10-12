@@ -1,10 +1,10 @@
-import { createERC20, createFraction } from "reverse-mirage";
-import invariant from "tiny-invariant";
 import {
   createUniswapV3Pool,
   uniswapV3FactoryABI,
   uniswapV3PoolABI,
-} from "uniswap-v3-sdk";
+} from "@panoptic-xyz/uniswap-v3-sdk";
+import { createERC20, createFraction } from "reverse-mirage";
+import invariant from "tiny-invariant";
 import {
   http,
   type Hex,

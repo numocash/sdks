@@ -1,5 +1,5 @@
+import { sepoliaUniswapV3 } from "@panoptic-xyz/uniswap-v3-sdk";
 import { sepoliaTokens } from "reverse-mirage";
-import { sepoliaUniswapV3 } from "uniswap-v3-sdk";
 import type { PanopticFactory } from "../types/PanopticFactory.js";
 
 export const sepoliaPanoptic = {

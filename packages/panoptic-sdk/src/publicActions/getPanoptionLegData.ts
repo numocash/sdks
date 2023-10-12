@@ -1,4 +1,7 @@
-import type { UniswapV3Pool, UniswapV3Tick } from "uniswap-v3-sdk";
+import type {
+  UniswapV3Pool,
+  UniswapV3Tick,
+} from "@panoptic-xyz/uniswap-v3-sdk";
 import type {
   Address,
   Chain,

@@ -1,5 +1,5 @@
+import type { UniswapV3Tick } from "@panoptic-xyz/uniswap-v3-sdk";
 import type { Fraction, Tuple } from "reverse-mirage";
-import type { UniswapV3Tick } from "uniswap-v3-sdk";
 import type { Address } from "viem/accounts";
 import type { PanopticPool } from "./PanopticPool.js";
 

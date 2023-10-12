@@ -41,7 +41,7 @@
       "limit": "11 kB"
     },
     {
-      "name": "uniswap-v3-sdk",
+      "name": "@panoptic-xyz/uniswap-v3-sdk",
       "path": "./dist/index.js",
       "limit": "7 kB",
       "import": "*"

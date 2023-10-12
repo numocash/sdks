@@ -1,5 +1,5 @@
+import type { UniswapV3Factory } from "@panoptic-xyz/uniswap-v3-sdk";
 import type { WETH } from "reverse-mirage";
-import type { UniswapV3Factory } from "uniswap-v3-sdk";
 import type { Address } from "viem/accounts";
 import type { PanopticSemiFungiblePositionManager } from "./PanopticSemiFungiblePositionManager.js";
 

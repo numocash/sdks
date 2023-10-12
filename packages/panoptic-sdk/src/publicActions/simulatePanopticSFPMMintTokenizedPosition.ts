@@ -1,4 +1,4 @@
-import { MAX_TICK, MIN_TICK } from "uniswap-v3-sdk";
+import { MAX_TICK, MIN_TICK } from "@panoptic-xyz/uniswap-v3-sdk";
 import type {
   Chain,
   Client,
