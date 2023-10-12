@@ -17,6 +17,7 @@
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^1.2.2",
+    "@changesets/cli": "^2.26.2",
     "@wagmi/cli": "^1.5.2",
     "husky": "^8.0.3",
     "typescript": "^5.2.2"
