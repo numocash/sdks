@@ -6,5 +6,9 @@
     "@panoptic-xyz/sdk": "0.0.0",
     "@panoptic-xyz/uniswap-v3-sdk": "0.0.0"
   },
-  "changesets": ["lucky-vans-behave"]
+  "changesets": [
+    "clean-news-hunt",
+    "lucky-vans-behave",
+    "ninety-moons-hope"
+  ]
 }
