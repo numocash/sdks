@@ -1,5 +1,5 @@
 {
-  "name": "panoptic-sdk",
+  "name": "@panoptic-xyz/sdk",
   "version": "1.0.0",
   "type": "module",
   "description": "",
