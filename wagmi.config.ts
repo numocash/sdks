@@ -14,6 +14,7 @@ export default defineConfig([
           "SemiFungiblePositionManager.sol/**",
           "CollateralTracker.sol/**",
           "MockERC20.sol/**",
+          "PanopticHelper.sol/**",
         ],
       }),
     ],

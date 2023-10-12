@@ -11,3 +11,4 @@ export type {
   PanopticPositionData,
 } from "./PanopticPosition.js";
 export type { PanopticSemiFungiblePositionManager } from "./PanopticSemiFungiblePositionManager.js";
+export type { PanopticHelper } from "./PanopticHelper.js";
