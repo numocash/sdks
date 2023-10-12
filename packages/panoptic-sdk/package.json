@@ -1,6 +1,6 @@
 {
-  "name": "panoptic-sdk",
-  "version": "1.0.0",
+  "name": "@panoptic-xyz/sdk",
+  "version": "0.0.1-alpha.0",
   "type": "module",
   "description": "",
   "keywords": [],
@@ -17,6 +17,9 @@
       "import": "./dist/index.js",
       "default": "./dist/index.cjs"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsup",
