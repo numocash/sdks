@@ -1,6 +1,63 @@
 # Panoptic SDK
 
-Typescript SDK for Panoptic
+Typescript SDK for Panoptic.
+
+## Overview
+
+This SDK aims to provide a developer friendly, performant, and robust way to access the Panoptic protocol. An extension is used to provide a seamless extension to Viem. The main entities of the SDK are:
+
+- **get functions**: Gather data by reading from the blockchain
+- **utility functions**: Perform off-chain calculations
+- **simulate functions**: Estimate gas and return a formatted transaction for a specific action
+
+## Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { sepolia } from 'viem/chains'
+import {
+  publicActionsPanoptic,
+  sepoliaPanoptic,
+  createPanopticPosition
+} from '@panoptic-xyz/sdk'
+
+export const publicClient = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+}).extend(publicActionsReverseMirage)
+
+// Pass in or read a uniswap pool
+const uniswapPool = ...
+
+// Read the data from the corresponding panoptic pool
+const panopticPool = await publicClient.getPanopticPool({
+  uniswapPool,
+  factory: sepoliaPanoptic.factory,
+})
+
+// Create a new position, specifying legs
+const newPosition = createPanopticPosition(panopticPool, [
+  {
+    asset: "token0",
+    optionRatio: 1,
+    position: "long",
+    tokenType: "token0",
+    riskPartnerIndex: 0,
+    tickLower: 0,
+    tickUpper: 300
+  },
+  undefined,
+  undefined,
+  undefined,
+])
+
+// Mint the new position from the panoptic pool
+const { result } = await publicClient.simulatePanopticMintOptions({
+  position: newPosition,
+  amount: 10n ** 18n
+});
+
+```
 
 ## API
 
