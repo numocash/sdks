@@ -10,7 +10,7 @@ import { panopticPoolABI } from "../generated.js";
 import type { PanopticPosition } from "../types/PanopticPosition.js";
 
 export type PanopticRollOptionsParameters = {
-  oldPosition: PanopticPosition;
+  oldPositions: PanopticPosition[];
   newPosition: PanopticPosition;
 };
 
@@ -43,7 +43,7 @@ export const simulatePanopticRollOptions = <
 >(
   client: Client<Transport, TChain>,
   {
-    args: { oldPosition, newPosition },
+    args: { oldPositions, newPosition },
     ...request
   }: SimulatePanopticRollOptionsParameters<TChain, TChainOverride>,
 ): Promise<SimulatePanopticRollOptionsReturnType<TChain, TChainOverride>> =>
@@ -51,7 +51,14 @@ export const simulatePanopticRollOptions = <
     address: newPosition.pool.address,
     abi: panopticPoolABI,
     functionName: "rollOptions",
-    args: [oldPosition.id, newPosition.id, [oldPosition.id], 0n, 0, 0],
+    args: [
+      oldPositions[oldPositions.length - 1]!.id,
+      newPosition.id,
+      oldPositions.map((p) => p.id),
+      0n,
+      0,
+      0,
+    ],
     ...request,
   } as unknown as SimulateContractParameters<
     typeof panopticPoolABI,

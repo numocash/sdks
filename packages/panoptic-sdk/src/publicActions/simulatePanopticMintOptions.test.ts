@@ -87,7 +87,7 @@ test("mint options", async () => {
 
   const { request } = await simulatePanopticMintOptions(publicClient, {
     args: {
-      position,
+      positions: [position],
       amount: 5n * 10n ** 17n,
     },
     account: ALICE,

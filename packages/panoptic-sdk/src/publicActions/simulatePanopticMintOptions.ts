@@ -10,7 +10,7 @@ import { panopticPoolABI } from "../generated.js";
 import type { PanopticPosition } from "../types/PanopticPosition.js";
 
 export type PanopticMintOptionsParameters = {
-  position: PanopticPosition;
+  positions: PanopticPosition[];
   amount: bigint;
 };
 
@@ -43,15 +43,15 @@ export const simulatePanopticMintOptions = <
 >(
   client: Client<Transport, TChain>,
   {
-    args: { position, amount },
+    args: { positions, amount },
     ...request
   }: SimulatePanopticMintOptionsParameters<TChain, TChainOverride>,
 ): Promise<SimulatePanopticMintOptionsReturnType<TChain, TChainOverride>> =>
   simulateContract(client, {
-    address: position.pool.address,
+    address: positions[0]!.pool.address,
     abi: panopticPoolABI,
     functionName: "mintOptions",
-    args: [[position.id], amount, 0n, 0, 0],
+    args: [positions.map((p) => p.id), amount, 0n, 0, 0],
     ...request,
   } as unknown as SimulateContractParameters<
     typeof panopticPoolABI,
