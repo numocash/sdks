@@ -8,7 +8,9 @@
   },
   "changesets": [
     "clean-news-hunt",
+    "gentle-kangaroos-tie",
     "lucky-vans-behave",
-    "ninety-moons-hope"
+    "ninety-moons-hope",
+    "sour-crabs-accept"
   ]
 }
