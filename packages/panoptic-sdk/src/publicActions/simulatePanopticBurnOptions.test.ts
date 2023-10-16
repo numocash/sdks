@@ -84,7 +84,7 @@ beforeEach(async () => {
 
     const { request } = await simulatePanopticMintOptions(publicClient, {
       args: {
-        position,
+        positions: [position],
         amount: 5n * 10n ** 17n,
       },
       account: ALICE,
@@ -100,7 +100,7 @@ beforeEach(async () => {
 test("burn options", async () => {
   const { request } = await simulatePanopticBurnOptions(publicClient, {
     args: {
-      position,
+      positions: [position],
     },
     account: ALICE,
   });

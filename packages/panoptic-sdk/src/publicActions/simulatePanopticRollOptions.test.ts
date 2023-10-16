@@ -84,7 +84,7 @@ beforeEach(async () => {
 
     const { request } = await simulatePanopticMintOptions(publicClient, {
       args: {
-        position,
+        positions: [position],
         amount: 5n * 10n ** 17n,
       },
       account: ALICE,
@@ -115,7 +115,7 @@ test("burn options", async () => {
 
   const { request } = await simulatePanopticRollOptions(publicClient, {
     args: {
-      oldPosition: position,
+      oldPositions: [position],
       newPosition,
     },
     account: ALICE,

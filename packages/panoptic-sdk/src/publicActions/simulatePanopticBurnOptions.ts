@@ -10,7 +10,7 @@ import { panopticPoolABI } from "../generated.js";
 import type { PanopticPosition } from "../types/PanopticPosition.js";
 
 export type PanopticBurnOptionsParameters = {
-  position: PanopticPosition;
+  positions: PanopticPosition[];
 };
 
 export type SimulatePanopticBurnOptionsParameters<
@@ -42,15 +42,15 @@ export const simulatePanopticBurnOptions = <
 >(
   client: Client<Transport, TChain>,
   {
-    args: { position },
+    args: { positions },
     ...request
   }: SimulatePanopticBurnOptionsParameters<TChain, TChainOverride>,
 ): Promise<SimulatePanopticBurnOptionsReturnType<TChain, TChainOverride>> =>
   simulateContract(client, {
-    address: position.pool.address,
+    address: positions[0]!.pool.address,
     abi: panopticPoolABI,
     functionName: "burnOptions",
-    args: [position.id, 0, 0],
+    args: [positions.map((p) => p.id), 0, 0],
     ...request,
   } as unknown as SimulateContractParameters<
     typeof panopticPoolABI,
