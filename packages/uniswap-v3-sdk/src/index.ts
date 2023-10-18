@@ -26,10 +26,6 @@ export {
   createUniswapV3Pool,
   createUniswapV3Position,
   createUniswapV3Tick,
-  q128ToFraction,
-  fractionToQ128,
-  q96ToFraction,
-  fractionToQ96,
 } from "./utils/index.js";
 
 export {

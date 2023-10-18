@@ -45,4 +45,5 @@ export {
   semiFungiblePositionManagerABI,
   panopticFactoryABI,
   panopticPoolABI,
+  panopticHelperABI,
 } from "./generated.js";
