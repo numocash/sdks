@@ -23,10 +23,6 @@ Typescript SDK for Uniswap V3
   - [x] `calculateUniswapV3PoolMint`
   - [x] `calculateUniswapV3PoolBurn`
   - [x] `calculateUniswapV3PoolSwap`
-  - [x] `q128ToFraction`
-  - [x] `fractionToQ128`
-  - [x] `q96ToFraction`
-  - [x] `fractionToQ96`
 
 - Public Actions
 
@@ -45,7 +41,7 @@ Typescript SDK for Uniswap V3
 
 ## Comparisons
 
-Compared to the established `@uniswap/v3-sdk`, this package has some speed and size savings by using more modern typescript.
+Compared to the established `@uniswap/v3-sdk`, this package has some speed and size savings by using more modern TypeScript.
 
 ### Bundle size
 
