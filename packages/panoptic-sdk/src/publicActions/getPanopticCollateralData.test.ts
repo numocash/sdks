@@ -57,7 +57,7 @@ beforeEach(async () => {
 
 test("get collateral data", async () => {
   const collateralData = await getPanopticCollateralData(publicClient, {
-    panopticCollateral: pool.collateralTracker0,
+    collateral: pool.collateralTracker0,
   });
 
   expect(collateralData.collateral).toStrictEqual(pool.collateralTracker0);

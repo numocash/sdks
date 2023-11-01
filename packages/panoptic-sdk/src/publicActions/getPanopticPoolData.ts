@@ -8,31 +8,31 @@ export type GetPanopticPoolDataParameters = Omit<
   ReadContractParameters<typeof collateralTrackerABI, "totalSupply">,
   "address" | "abi" | "functionName" | "args"
 > & {
-  panopticPool: PanopticPool;
+  pool: PanopticPool;
 };
 
 export type GetPanopticPoolDataReturnType = PanopticPoolData;
 
 export const getPanopticPoolData = <TChain extends Chain | undefined,>(
   client: Client<Transport, TChain>,
-  { panopticPool, ...request }: GetPanopticPoolDataParameters,
+  { pool, ...request }: GetPanopticPoolDataParameters,
 ): Promise<GetPanopticPoolDataReturnType> =>
   Promise.all([
     getUniswapV3PoolData(client, {
-      pool: panopticPool.uniswapPool,
+      pool: pool.uniswapPool,
       ...request,
     }),
     getPanopticCollateralData(client, {
-      panopticCollateral: panopticPool.collateralTracker0,
+      collateral: pool.collateralTracker0,
       ...request,
     }),
     getPanopticCollateralData(client, {
-      panopticCollateral: panopticPool.collateralTracker1,
+      collateral: pool.collateralTracker1,
       ...request,
     }),
   ]).then(([poolData, collateral0Data, collateral1Data]) => ({
     type: "panopticPoolData",
-    panopticPool,
+    panopticPool: pool,
     collateralTracker0Data: collateral0Data,
     collateralTracker1Data: collateral1Data,
     uniswapPoolData: poolData,

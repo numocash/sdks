@@ -59,7 +59,7 @@ test("get collateral data", async () => {
   const collateralPosition = await getPanopticCollateralPositionData(
     publicClient,
     {
-      panopticCollateral: pool.collateralTracker0,
+      collateral: pool.collateralTracker0,
       address: ALICE,
     },
   );

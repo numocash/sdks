@@ -11,35 +11,32 @@ export type GetPanopticCollateralDataParameters = Omit<
   ReadContractParameters<typeof collateralTrackerABI, "totalSupply">,
   "address" | "abi" | "functionName" | "args"
 > & {
-  panopticCollateral: PanopticCollateral;
+  collateral: PanopticCollateral;
 };
 
 export type GetPanopticCollateralDataReturnType = PanopticCollateralData;
 
 export const getPanopticCollateralData = <TChain extends Chain | undefined,>(
   client: Client<Transport, TChain>,
-  { panopticCollateral, ...request }: GetPanopticCollateralDataParameters,
+  { collateral, ...request }: GetPanopticCollateralDataParameters,
 ): Promise<GetPanopticCollateralDataReturnType> =>
   Promise.all([
     readContract(client, {
       abi: collateralTrackerABI,
       functionName: "totalSupply",
-      address: panopticCollateral.address,
+      address: collateral.address,
       ...request,
     }),
     readContract(client, {
       abi: collateralTrackerABI,
       functionName: "getPoolData",
-      address: panopticCollateral.address,
+      address: collateral.address,
       ...request,
     }),
   ]).then(([totalSupply, poolData]) => ({
     type: "panopticCollateralData",
-    collateral: panopticCollateral,
-    totalSupply: createAmountFromRaw(panopticCollateral, totalSupply),
-    poolAssets: createAmountFromRaw(
-      panopticCollateral.underlyingToken,
-      poolData[0],
-    ),
-    inAmm: createAmountFromRaw(panopticCollateral.underlyingToken, poolData[1]),
+    collateral: collateral,
+    totalSupply: createAmountFromRaw(collateral, totalSupply),
+    poolAssets: createAmountFromRaw(collateral.underlyingToken, poolData[0]),
+    inAmm: createAmountFromRaw(collateral.underlyingToken, poolData[1]),
   }));

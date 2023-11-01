@@ -1,5 +1,13 @@
 # @panoptic-xyz/sdk
 
+## 0.0.1-alpha.5
+
+### Patch Changes
+
+- 6f5a9a3: Add new functions
+- Updated dependencies [6f5a9a3]
+  - @panoptic-xyz/uniswap-v3-sdk@0.0.1-alpha.4
+
 ## 0.0.1-alpha.4
 
 ### Patch Changes

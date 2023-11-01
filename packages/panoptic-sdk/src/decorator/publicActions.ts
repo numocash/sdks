@@ -1,5 +1,9 @@
 import type { Chain, Client, Transport } from "viem";
 import {
+  type GetPanopticCheckCollateralParameters,
+  getPanopticCheckCollateral,
+} from "../publicActions/getPanopticCheckCollateral.js";
+import {
   type GetPanopticCollateralDataParameters,
   getPanopticCollateralData,
 } from "../publicActions/getPanopticCollateralData.js";
@@ -7,6 +11,14 @@ import {
   type GetPanopticCollateralPositionDataParameters,
   getPanopticCollateralPositionData,
 } from "../publicActions/getPanopticCollateralPositionData.js";
+import {
+  type GetPanopticFindLiquidationPriceDownParameters,
+  getPanopticFindLiquidationPriceDown,
+} from "../publicActions/getPanopticFindLiquidationPriceDown.js";
+import {
+  type GetPanopticFindLiquidationPriceUpParameters,
+  getPanopticFindLiquidationPriceUp,
+} from "../publicActions/getPanopticFindLiquidationPriceUp.js";
 import {
   type GetPanopticPoolParameters,
   getPanopticPool,
@@ -80,6 +92,7 @@ import {
   simulatePanopticSFPMRollTokenizedPositions,
 } from "../publicActions/simulatePanopticSFPMRollTokenizedPositions.js";
 import type { PanopticCollateral } from "../types/PanopticCollateral.js";
+import type { PanopticPosition } from "../types/index.js";
 
 export const publicActionPanoptic = <
   TChain extends Chain | undefined = Chain | undefined,
@@ -99,6 +112,20 @@ export const publicActionPanoptic = <
     getPanoptionLegData(client, args),
   getPanopticPositionData: (args: GetPanopticPositionDataParameters) =>
     getPanopticPositionData(client, args),
+
+  getPanopticCheckCollateral: <TPanopticPosition extends PanopticPosition>(
+    args: GetPanopticCheckCollateralParameters<TPanopticPosition>,
+  ) => getPanopticCheckCollateral(client, args),
+  getPanopticFindLiquidationPriceUp: <
+    TPanopticPosition extends PanopticPosition,
+  >(
+    args: GetPanopticFindLiquidationPriceUpParameters<TPanopticPosition>,
+  ) => getPanopticFindLiquidationPriceUp(client, args),
+  getPanopticFindLiquidationPriceDown: <
+    TPanopticPosition extends PanopticPosition,
+  >(
+    args: GetPanopticFindLiquidationPriceDownParameters<TPanopticPosition>,
+  ) => getPanopticFindLiquidationPriceDown(client, args),
 
   simulatePanopticCollateralDeposit: <
     TPanopticCollateral extends PanopticCollateral,
