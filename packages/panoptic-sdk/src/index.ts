@@ -20,6 +20,8 @@ export { getPanoptionLegData } from "./publicActions/getPanoptionLegData.js";
 export { getPanopticPositionData } from "./publicActions/getPanopticPositionData.js";
 export { getPanopticSemiFungiblePositionData } from "./publicActions/getPanopticSemiFungiblePositionData.js";
 export { getPanopticCheckCollateral } from "./publicActions/getPanopticCheckCollateral.js";
+export { getPanopticFindLiquidationPriceUp } from "./publicActions/getPanopticFindLiquidationPriceUp.js";
+export { getPanopticFindLiquidationPriceDown } from "./publicActions/getPanopticFindLiquidationPriceDown.js";
 
 export { simulatePanopticCollateralDeposit } from "./publicActions/simulatePanopticCollateralDeposit.js";
 export { simulatePanopticCollateralWithdraw } from "./publicActions/simulatePanopticCollateralWithdraw.js";
