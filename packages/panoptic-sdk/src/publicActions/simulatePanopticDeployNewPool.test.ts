@@ -136,7 +136,7 @@ beforeEach(async () => {
 test("simulate deploy pool", async () => {
   const { request } = await simulatePanopticDeployNewPool(publicClient, {
     args: {
-      uniswapPool,
+      pool: uniswapPool,
       factory: sepoliaPanoptic.factory,
       salt: 0n,
     },

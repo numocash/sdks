@@ -12,7 +12,7 @@ import type { PanopticFactory } from "../types/PanopticFactory.js";
 
 export type PanopticDeployNewPoolParameters = {
   factory: PanopticFactory;
-  uniswapPool: UniswapV3Pool;
+  pool: UniswapV3Pool;
   salt: bigint;
 };
 
@@ -46,7 +46,7 @@ export const simulatePanopticDeployNewPool = <
 >(
   client: Client<Transport, TChain>,
   {
-    args: { factory, uniswapPool, salt },
+    args: { factory, pool, salt },
     ...request
   }: SimulatePanopticDeployNewPoolParameters<TChain, TChainOverride>,
 ): Promise<SimulatePanopticDeployNewPoolReturnType<TChain, TChainOverride>> =>
@@ -54,12 +54,7 @@ export const simulatePanopticDeployNewPool = <
     address: factory.address,
     abi: panopticFactoryABI,
     functionName: "deployNewPool",
-    args: [
-      uniswapPool.token0.address,
-      uniswapPool.token1.address,
-      uniswapPool.feeTier,
-      salt,
-    ],
+    args: [pool.token0.address, pool.token1.address, pool.feeTier, salt],
     ...request,
   } as unknown as SimulateContractParameters<
     typeof panopticFactoryABI,

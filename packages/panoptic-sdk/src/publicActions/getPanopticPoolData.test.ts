@@ -19,7 +19,7 @@ beforeEach(async () => {
 
 test("get pool data", async () => {
   const poolData = await getPanopticPoolData(publicClient, {
-    panopticPool: pool,
+    pool: pool,
   });
   expect(poolData.panopticPool).toStrictEqual(pool);
 

@@ -16,7 +16,7 @@ export type GetPanopticCollateralPositionDataParameters = Omit<
   ReadContractParameters<typeof collateralTrackerABI, "balanceOf">,
   "address" | "abi" | "functionName" | "args"
 > & {
-  panopticCollateral: PanopticCollateral;
+  collateral: PanopticCollateral;
   address: Address;
 };
 
@@ -28,13 +28,13 @@ export const getPanopticCollateralPositionData = <
 >(
   client: Client<Transport, TChain>,
   {
-    panopticCollateral,
+    collateral,
     address,
     ...request
   }: GetPanopticCollateralPositionDataParameters,
 ): Promise<GetPanopticCollateralPositionDataReturnType> =>
   getERC20BalanceOf(client, {
-    erc20: panopticCollateral,
+    erc20: collateral,
     address,
     ...request,
   });
